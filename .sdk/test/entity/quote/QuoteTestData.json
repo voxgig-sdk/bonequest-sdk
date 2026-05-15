@@ -1,0 +1,78 @@
+{
+  "existing": {
+    "quote": {
+      "QUOTE00": {
+        "day": "s96",
+        "dialog": [],
+        "episode": "s98",
+        "hd": [],
+        "height": "s9a",
+        "hifi": {},
+        "image": "s9c",
+        "month": "s9d",
+        "navigation": {},
+        "player": [],
+        "tag": [],
+        "thumb": "sa1",
+        "title": "sa2",
+        "width": "sa3",
+        "year": "sa4"
+      },
+      "QUOTE01": {
+        "day": "s12c",
+        "dialog": [],
+        "episode": "s12e",
+        "hd": [],
+        "height": "s130",
+        "hifi": {},
+        "image": "s132",
+        "month": "s133",
+        "navigation": {},
+        "player": [],
+        "tag": [],
+        "thumb": "s137",
+        "title": "s138",
+        "width": "s139",
+        "year": "s13a"
+      },
+      "QUOTE02": {
+        "day": "s1c2",
+        "dialog": [],
+        "episode": "s1c4",
+        "hd": [],
+        "height": "s1c6",
+        "hifi": {},
+        "image": "s1c8",
+        "month": "s1c9",
+        "navigation": {},
+        "player": [],
+        "tag": [],
+        "thumb": "s1cd",
+        "title": "s1ce",
+        "width": "s1cf",
+        "year": "s1d0"
+      }
+    }
+  },
+  "new": {
+    "quote": {
+      "quote_ref01": {
+        "day": "s258",
+        "dialog": [],
+        "episode": "s25a",
+        "hd": [],
+        "height": "s25c",
+        "hifi": {},
+        "image": "s25e",
+        "month": "s25f",
+        "navigation": {},
+        "player": [],
+        "tag": [],
+        "thumb": "s263",
+        "title": "s264",
+        "width": "s265",
+        "year": "s266"
+      }
+    }
+  }
+}

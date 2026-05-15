@@ -1,0 +1,137 @@
+# Entity: episode
+
+main: kit: entity: episode: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "episode"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "meta"
+      req: false
+      type: "`$OBJECT`"
+    }
+  ]
+
+  name: "episode"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: 1
+                kind: "param"
+                name: "count"
+                orig: "count"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/episodes/random/{count}"
+          parts: [
+            "episodes"
+            "random"
+            "{count}"
+          ]
+          select: {
+            exist: [
+              "count"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                example: 420
+                kind: "param"
+                name: "id"
+                orig: "episode_number"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/episode/{episodeNumber}"
+          parts: [
+            "episode"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              episodeNumber: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                example: "666,667"
+                kind: "param"
+                name: "id"
+                orig: "episode_number"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/episodes/{episodeNumbers}"
+          parts: [
+            "episodes"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              episodeNumbers: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "random"
+      ]
+    ]
+  }
+
+
+
+}

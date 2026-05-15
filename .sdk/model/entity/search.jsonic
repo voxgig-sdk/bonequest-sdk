@@ -1,0 +1,124 @@
+# Entity: search
+
+main: kit: entity: search: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "day"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "dialog"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "episode"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "hd"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "height"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "hifi"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "image"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "month"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "navigation"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "player"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "tag"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "thumb"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "title"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "width"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "year"
+      req: false
+      type: "`$INTEGER`"
+    }
+  ]
+
+  name: "search"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: "\"what about nuts\""
+                kind: "query"
+                name: "q"
+                orig: "q"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/search/"
+          parts: [
+            "search"
+          ]
+          select: {
+            exist: [
+              "q"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

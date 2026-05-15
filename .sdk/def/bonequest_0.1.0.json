@@ -1,0 +1,586 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "BoneQuest API",
+    "description": "The BoneQuest API provides access to episode data, allowing users to fetch details about episodes, including dialogue and metadata. It returns structured JSON responses for easy integration and use by developers.",
+    "version": "2.0.0",
+    "contact": {
+      "email": "root@bonequest.com"
+    },
+    "externalDocs": {
+      "description": "API Documentation",
+      "url": "https://github.com/bonequest/api"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://www.bonequest.com/api/v2",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/episode/{episodeNumber}": {
+      "get": {
+        "summary": "Fetch a single episode",
+        "description": "Retrieve detailed information about a specific episode by its episode number.",
+        "operationId": "getEpisode",
+        "tags": [
+          "Episodes"
+        ],
+        "parameters": [
+          {
+            "name": "episodeNumber",
+            "in": "path",
+            "required": true,
+            "description": "The episode number to retrieve",
+            "schema": {
+              "type": "integer",
+              "example": 420
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EpisodeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/episodes/{episodeNumbers}": {
+      "get": {
+        "summary": "Fetch multiple episodes",
+        "description": "Retrieve detailed information about multiple episodes by providing a comma-separated list of episode numbers.",
+        "operationId": "getEpisodes",
+        "tags": [
+          "Episodes"
+        ],
+        "parameters": [
+          {
+            "name": "episodeNumbers",
+            "in": "path",
+            "required": true,
+            "description": "Comma-separated list of episode numbers to retrieve",
+            "schema": {
+              "type": "string",
+              "example": "666,667"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EpisodeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/episodes/random/{count}": {
+      "get": {
+        "summary": "Fetch random episodes",
+        "description": "Retrieve a specified number of random episodes.",
+        "operationId": "getRandomEpisodes",
+        "tags": [
+          "Episodes"
+        ],
+        "parameters": [
+          {
+            "name": "count",
+            "in": "path",
+            "required": true,
+            "description": "The number of random episodes to retrieve",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EpisodeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/quote/random": {
+      "get": {
+        "summary": "Fetch a random quote",
+        "description": "Retrieve a random quote from an episode. Similar to the episode endpoint but includes a separate quote key.",
+        "operationId": "getRandomQuote",
+        "tags": [
+          "Quotes"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/": {
+      "get": {
+        "summary": "Search episodes",
+        "description": "Search for episodes using various query features including boolean operators, tags, dates, episode numbers, and verbatim text.",
+        "operationId": "searchEpisodes",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "Search query. Supports Boolean (+PERL -PISS), Tags (#PAM-GRIER), Dates (8/17), Episode # (666), and Verbatim (\"MURMPH BURMPH\")",
+            "schema": {
+              "type": "string",
+              "example": "\"what about nuts\""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EpisodeResponse": {
+        "type": "object",
+        "properties": {
+          "episodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Episode"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "QuoteResponse": {
+        "type": "object",
+        "properties": {
+          "episodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Episode"
+            }
+          },
+          "quote": {
+            "type": "object",
+            "description": "Quote information"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "SearchResponse": {
+        "type": "object",
+        "properties": {
+          "episodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Episode"
+            }
+          },
+          "search": {
+            "$ref": "#/components/schemas/SearchMeta"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "Episode": {
+        "type": "object",
+        "properties": {
+          "episode": {
+            "type": "integer",
+            "description": "Episode number",
+            "example": 6969
+          },
+          "day": {
+            "type": "integer",
+            "description": "Day of month published",
+            "minimum": 1,
+            "maximum": 31,
+            "example": 20
+          },
+          "month": {
+            "type": "integer",
+            "description": "Month published, number between 1-12",
+            "minimum": 1,
+            "maximum": 12,
+            "example": 4
+          },
+          "year": {
+            "type": "integer",
+            "description": "Year published",
+            "example": 2018
+          },
+          "title": {
+            "type": "string",
+            "description": "Episode title",
+            "example": "sex change"
+          },
+          "dialog": {
+            "type": "array",
+            "description": "Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "example": [
+              [
+                "deuce",
+                "I WANT A SEX CHANGE"
+              ],
+              [
+                "pants",
+                "WHICH DIRECTION"
+              ],
+              [
+                "deuce",
+                "SURPRISE ME"
+              ]
+            ]
+          },
+          "players": {
+            "type": "array",
+            "description": "Array of player names",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "deuce",
+              "pants"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "Array of tags applied",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "bonequest-hi-fi",
+              "deuce-pants",
+              "sex-change"
+            ]
+          },
+          "image": {
+            "type": "string",
+            "description": "Partial URL to episode image",
+            "example": "/6969.gif"
+          },
+          "thumb": {
+            "type": "string",
+            "description": "Partial URL to thumbnail of episode image",
+            "example": "/thumb/6969.gif"
+          },
+          "width": {
+            "type": "integer",
+            "description": "Image width",
+            "example": 575
+          },
+          "height": {
+            "type": "integer",
+            "description": "Image height",
+            "example": 574
+          },
+          "hd": {
+            "type": "array",
+            "description": "Optional array containing details about associated BoneQuest HD images",
+            "items": {
+              "$ref": "#/components/schemas/HDImage"
+            }
+          },
+          "hifi": {
+            "$ref": "#/components/schemas/HiFi"
+          },
+          "navigation": {
+            "type": "object",
+            "description": "Back and next keys contain fully-formed episode for surrounding episodes",
+            "properties": {
+              "back": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Episode"
+                }
+              },
+              "next": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Episode"
+                }
+              }
+            }
+          }
+        }
+      },
+      "HDImage": {
+        "type": "object",
+        "description": "Details about an associated BoneQuest HD image",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Episode number",
+            "example": 2787
+          },
+          "author": {
+            "type": "string",
+            "description": "Original author, typically a Tumblr username",
+            "example": "eyetooth"
+          },
+          "image": {
+            "type": "string",
+            "description": "URL to full-size image",
+            "example": "http://31.media.tumblr.com/389cf0c4c9d36943f0a9aa7007e70bbf/tumblr_mlkg3kfWHP1snfhwio1_1280.png"
+          },
+          "url": {
+            "type": "string",
+            "description": "Fully-qualified URL to HD page",
+            "example": "http://jerkcityhd.tumblr.com/post/48734349486/up-late"
+          },
+          "mirror_url": {
+            "type": "string",
+            "description": "Partial URL to image if link_status is bad",
+            "example": "/hd/1.2787.jpg"
+          },
+          "thumb_url": {
+            "type": "string",
+            "description": "Partial URL to thumbnail image",
+            "example": "/hd/t/1.2787.jpg"
+          },
+          "width": {
+            "type": "integer",
+            "description": "Image width",
+            "example": 144
+          },
+          "height": {
+            "type": "integer",
+            "description": "Image height",
+            "example": 200
+          },
+          "link_status": {
+            "type": "string",
+            "description": "Empty string if URL is valid",
+            "example": ""
+          }
+        }
+      },
+      "HiFi": {
+        "type": "object",
+        "description": "Optional details about an associated BoneQuest HiFi episode",
+        "properties": {
+          "hifi_id": {
+            "type": "integer",
+            "description": "Unique HiFi ID number",
+            "example": 501
+          },
+          "audio_url": {
+            "type": "string",
+            "description": "URL to mp3 file",
+            "example": "http://bonequesthifi.com/6969.mp3"
+          },
+          "page_url": {
+            "type": "string",
+            "description": "URL to bonequesthifi.com page",
+            "example": "https://bonequesthifi.com/6969"
+          },
+          "author": {
+            "type": "string",
+            "description": "Who made the HiFi episode",
+            "example": "BoneQuest Hi-Fi"
+          },
+          "description": {
+            "type": "string",
+            "description": "Details about the episode in plain text",
+            "example": "an audio production of BoneQuest #6969, featuring: @hydra2134, bonus suspended @IHaveShitMyself.\nit's time.\n~BoneQuest Hi-Fi"
+          },
+          "duration": {
+            "type": "string",
+            "description": "Duration in HH:MM:SS format",
+            "example": "0:30"
+          },
+          "create_date": {
+            "type": "integer",
+            "description": "Date of creation in seconds since UNIX epoch",
+            "example": 1550592000
+          }
+        }
+      },
+      "Meta": {
+        "type": "object",
+        "description": "API metadata wrapper",
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "API version",
+            "example": "bq/4.0.0"
+          },
+          "contact": {
+            "type": "string",
+            "description": "Preferred email address",
+            "example": "root@bonequest.com"
+          },
+          "url": {
+            "type": "string",
+            "description": "Base URL to website, use this to construct a fully-qualified URL for loading images and thumbnails",
+            "example": "https://www.bonequest.com"
+          },
+          "repo": {
+            "type": "string",
+            "description": "URL to repository",
+            "example": "https://github.com/bonequest"
+          },
+          "high": {
+            "type": "integer",
+            "description": "Highest episode number published so far",
+            "example": 8340
+          },
+          "queue": {
+            "type": "object",
+            "description": "Information about episode queue",
+            "properties": {
+              "empty": {
+                "type": "object",
+                "description": "Date when we run out of episodes queued for publication",
+                "properties": {
+                  "day": {
+                    "type": "integer"
+                  },
+                  "month": {
+                    "type": "integer"
+                  },
+                  "year": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "episodes": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "size": {
+                "type": "integer"
+              }
+            }
+          },
+          "gay": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "SearchMeta": {
+        "type": "object",
+        "description": "Search metadata",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The search query that was executed",
+            "example": "\"what about nuts\""
+          },
+          "runtime": {
+            "type": "number",
+            "description": "Time to perform query in seconds",
+            "example": 0.0002644062042236328
+          },
+          "version": {
+            "type": "string",
+            "description": "Search engine version number",
+            "example": "4"
+          },
+          "sums": {
+            "type": "object",
+            "description": "Counts of classification of results",
+            "properties": {
+              "dates": {
+                "type": "integer",
+                "example": 0
+              },
+              "episodes": {
+                "type": "integer",
+                "example": 0
+              },
+              "tags": {
+                "type": "integer",
+                "example": 0
+              },
+              "titles": {
+                "type": "integer",
+                "example": 0
+              },
+              "words": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Episodes",
+      "description": "Operations related to fetching episode data"
+    },
+    {
+      "name": "Quotes",
+      "description": "Operations related to fetching random quotes"
+    },
+    {
+      "name": "Search",
+      "description": "Search operations for finding episodes"
+    }
+  ],
+  "externalDocs": {
+    "description": "Find more info here",
+    "url": "https://github.com/bonequest/api"
+  }
+}

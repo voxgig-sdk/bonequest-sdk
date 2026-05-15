@@ -1,0 +1,29 @@
+{
+  "existing": {
+    "episode": {
+      "EPISODE00": {
+        "episode": [],
+        "meta": {},
+        "count": "COUNT01"
+      },
+      "EPISODE01": {
+        "episode": [],
+        "meta": {},
+        "count": "COUNT01"
+      },
+      "EPISODE02": {
+        "episode": [],
+        "meta": {},
+        "count": "COUNT01"
+      }
+    }
+  },
+  "new": {
+    "episode": {
+      "episode_ref01": {
+        "episode": [],
+        "meta": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+# Entity: quote
+
+main: kit: entity: quote: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "day"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "dialog"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "episode"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "hd"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "height"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "hifi"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "image"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "month"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "navigation"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "player"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "tag"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "thumb"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "title"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "width"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "year"
+      req: false
+      type: "`$INTEGER`"
+    }
+  ]
+
+  name: "quote"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/quote/random"
+          parts: [
+            "quote"
+            "random"
+          ]
+          select: {
+            "$action": "random"
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

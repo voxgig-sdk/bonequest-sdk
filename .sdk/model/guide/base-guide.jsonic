@@ -1,0 +1,37 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 3
+  metrics: count: path: 5
+  metrics: count: method: 5
+
+  entity: episode: {
+    path: "/episode/{episodeNumber}": {
+      rename: param: "episodeNumber": *"id"
+      op: load: method: *GET
+    }
+    path: "/episodes/random/{count}": {
+      op: load: method: *GET
+    }
+    path: "/episodes/{episodeNumbers}": {
+      rename: param: "episodeNumbers": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: quote: {
+    path: "/quote/random": {
+      action: "random": {}
+      op: list: method: *GET
+      op: list: transform: res: *("`body.quote`")|top
+    }
+  }
+
+  entity: search: {
+    path: "/search/": {
+      op: list: method: *GET
+      op: list: transform: res: *("`body.search`")|top
+    }
+  }
+
+}
