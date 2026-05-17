@@ -1,10 +1,10 @@
 package voxgigbonequestsdk
 
 import (
-	"github.com/voxgig-sdk/bonequest-sdk/core"
-	"github.com/voxgig-sdk/bonequest-sdk/entity"
-	"github.com/voxgig-sdk/bonequest-sdk/feature"
-	_ "github.com/voxgig-sdk/bonequest-sdk/utility"
+	"github.com/voxgig-sdk/bonequest-sdk/go/core"
+	"github.com/voxgig-sdk/bonequest-sdk/go/entity"
+	"github.com/voxgig-sdk/bonequest-sdk/go/feature"
+	_ "github.com/voxgig-sdk/bonequest-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

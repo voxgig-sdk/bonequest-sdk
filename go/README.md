@@ -5,14 +5,14 @@ The Golang SDK for the Bonequest API. Provides an entity-oriented interface usin
 
 ## Install
 ```bash
-go get github.com/voxgig-sdk/bonequest-sdk
+go get github.com/voxgig-sdk/bonequest-sdk/go
 ```
 
 If the module is not yet published to a registry, use a `replace` directive
 in your `go.mod` to point to a local checkout:
 
 ```bash
-go mod edit -replace github.com/voxgig-sdk/bonequest-sdk=../path/to/github.com/voxgig-sdk/bonequest-sdk
+go mod edit -replace github.com/voxgig-sdk/bonequest-sdk/go=../path/to/github.com/voxgig-sdk/bonequest-sdk/go
 ```
 
 
@@ -30,8 +30,8 @@ import (
     "fmt"
     "os"
 
-    sdk "github.com/voxgig-sdk/bonequest-sdk"
-    "github.com/voxgig-sdk/bonequest-sdk/core"
+    sdk "github.com/voxgig-sdk/bonequest-sdk/go"
+    "github.com/voxgig-sdk/bonequest-sdk/go/core"
 )
 
 func main() {
@@ -434,7 +434,7 @@ Use `core.ToMapAny()` to safely cast results and nested data.
 ### Package structure
 
 ```
-github.com/voxgig-sdk/bonequest-sdk/
+github.com/voxgig-sdk/bonequest-sdk/go/
 ├── bonequest.go        # Root package — type aliases and constructors
 ├── core/               # SDK core — client, types, pipeline
 ├── entity/             # Entity implementations
@@ -443,7 +443,7 @@ github.com/voxgig-sdk/bonequest-sdk/
 └── test/               # Test suites
 ```
 
-The root package (`github.com/voxgig-sdk/bonequest-sdk`) re-exports everything needed
+The root package (`github.com/voxgig-sdk/bonequest-sdk/go`) re-exports everything needed
 for normal use. Import sub-packages only when you need specific types
 like `core.ToMapAny`.
 

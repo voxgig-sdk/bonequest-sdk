@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/bonequest-sdk/core"
+	"github.com/voxgig-sdk/bonequest-sdk/go/core"
 )
 
 type BaseFeature struct {

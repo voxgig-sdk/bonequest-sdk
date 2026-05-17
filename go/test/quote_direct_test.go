@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/bonequest-sdk"
-	"github.com/voxgig-sdk/bonequest-sdk/core"
+	sdk "github.com/voxgig-sdk/bonequest-sdk/go"
+	"github.com/voxgig-sdk/bonequest-sdk/go/core"
 )
 
 func TestQuoteDirect(t *testing.T) {

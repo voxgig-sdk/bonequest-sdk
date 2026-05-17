@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/bonequest-sdk"
-	"github.com/voxgig-sdk/bonequest-sdk/core"
+	sdk "github.com/voxgig-sdk/bonequest-sdk/go"
+	"github.com/voxgig-sdk/bonequest-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/bonequest-sdk/go/utility/struct"
 )
 
 func TestSearchEntity(t *testing.T) {
