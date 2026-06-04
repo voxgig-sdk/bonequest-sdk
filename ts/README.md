@@ -17,9 +17,7 @@ loading a specific record.
 ```ts
 import { BonequestSDK } from 'bonequest'
 
-const client = new BonequestSDK({
-  apikey: process.env.BONEQUEST_APIKEY,
-})
+const client = new BonequestSDK({})
 ```
 
 ### 3. Load a episode
@@ -82,7 +80,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new BonequestSDK({ apikey: '...' })
+const client = new BonequestSDK()
 const testClient = client.tester()
 ```
 
@@ -118,7 +116,6 @@ const logger = {
 }
 
 const client = new BonequestSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -129,7 +126,6 @@ Create a `.env.local` file at the project root:
 
 ```
 BONEQUEST_TEST_LIVE=TRUE
-BONEQUEST_APIKEY=<your-key>
 ```
 
 Then run:
@@ -147,7 +143,6 @@ cd ts && npm test
 
 ```ts
 new BonequestSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -158,7 +153,6 @@ new BonequestSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

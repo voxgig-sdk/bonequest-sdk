@@ -83,7 +83,6 @@ def search_basic_setup(extra)
     "BONEQUEST_TEST_SEARCH_ENTID" => idmap,
     "BONEQUEST_TEST_LIVE" => "FALSE",
     "BONEQUEST_TEST_EXPLAIN" => "FALSE",
-    "BONEQUEST_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -95,7 +94,6 @@ def search_basic_setup(extra)
   if env["BONEQUEST_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["BONEQUEST_APIKEY"],
       },
       extra || {},
     ])

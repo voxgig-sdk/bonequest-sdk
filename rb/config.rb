@@ -15,9 +15,6 @@ module BonequestConfig
       },
       "options" => {
         "base" => "https://www.bonequest.com/api/v2",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },

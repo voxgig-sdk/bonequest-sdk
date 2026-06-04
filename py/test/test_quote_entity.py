@@ -92,7 +92,6 @@ def _quote_basic_setup(extra):
         "BONEQUEST_TEST_QUOTE_ENTID": idmap,
         "BONEQUEST_TEST_LIVE": "FALSE",
         "BONEQUEST_TEST_EXPLAIN": "FALSE",
-        "BONEQUEST_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +102,6 @@ def _quote_basic_setup(extra):
     if env.get("BONEQUEST_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("BONEQUEST_APIKEY"),
             },
             extra or {},
         ])

@@ -79,14 +79,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'BONEQUEST_TEST_QUOTE_ENTID': {},
     'BONEQUEST_TEST_LIVE': 'FALSE',
-    'BONEQUEST_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.BONEQUEST_TEST_LIVE
 
   if (live) {
     const client = new BonequestSDK({
-      apikey: env.BONEQUEST_APIKEY,
     })
 
     let idmap: any = env['BONEQUEST_TEST_QUOTE_ENTID']

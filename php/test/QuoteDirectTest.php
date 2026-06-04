@@ -68,14 +68,12 @@ function quote_direct_setup($mockres)
     $env = Runner::env_override([
         "BONEQUEST_TEST_QUOTE_ENTID" => [],
         "BONEQUEST_TEST_LIVE" => "FALSE",
-        "BONEQUEST_APIKEY" => "NONE",
     ]);
 
     $live = $env["BONEQUEST_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["BONEQUEST_APIKEY"],
         ];
         $client = new BonequestSDK($merged_opts);
         return [
