@@ -20,23 +20,7 @@ main: {
       ]
       title: "BoneQuest API"
       version: "2.0.0"
-      tagline: "Fetch episode data, dialogue, and metadata from the BoneQuest webcomic archive"
-      homepage: "https://www.bonequest.com"
-      docs_url: "https://github.com/bonequest/api"
-      about_md: `[BoneQuest](https://www.bonequest.com) is a long-running web archive and community site that has been online since 1998. The site exposes a small public HTTP API (server version \`bq/6.0.0\`) for retrieving episode content, with source and reference material hosted at the [bonequest/api](https://github.com/bonequest/api) GitHub repository.
-
-What you get from the API:
-
-- Episode lookup by number, e.g. \`GET /api/v2/episode/{number}\` returns an episode with its dialogue and metadata.
-- Quote and search groupings, as exposed by this SDK's entity set.
-
-The API is served from \`https://www.bonequest.com/api/v2\`. No authentication scheme, rate limits, or licence terms are documented on the project's public surfaces; CORS is reported as disabled by the community catalogue. For questions the site lists \`root@bonequest.com\` as a contact.`
-      entity_desc: {
-        episode: "A single BoneQuest episode identified by its number, returned with dialogue and metadata; example path `GET /api/v2/episode/{number}`."
-        quote: "Quote-level resources drawn from episode dialogue."
-        search: "Lookup operations for finding episodes or quotes across the archive."
-      }
-      auth: false
     }
   }
 }
+

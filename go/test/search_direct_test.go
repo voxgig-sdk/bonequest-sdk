@@ -93,12 +93,14 @@ func searchDirectSetup(mockres any) *searchDirectSetupResult {
 	env := envOverride(map[string]any{
 		"BONEQUEST_TEST_SEARCH_ENTID": map[string]any{},
 		"BONEQUEST_TEST_LIVE":    "FALSE",
+		"BONEQUEST_APIKEY":       "NONE",
 	})
 
 	live := env["BONEQUEST_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["BONEQUEST_APIKEY"],
 		}
 		client := sdk.NewBonequestSDK(mergedOpts)
 

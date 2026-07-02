@@ -1,19 +1,8 @@
 # Bonequest SDK
 
-Fetch episode data, dialogue, and metadata from the BoneQuest webcomic archive
+BoneQuest API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About BoneQuest API
-
-[BoneQuest](https://www.bonequest.com) is a long-running web archive and community site that has been online since 1998. The site exposes a small public HTTP API (server version `bq/6.0.0`) for retrieving episode content, with source and reference material hosted at the [bonequest/api](https://github.com/bonequest/api) GitHub repository.
-
-What you get from the API:
-
-- Episode lookup by number, e.g. `GET /api/v2/episode/{number}` returns an episode with its dialogue and metadata.
-- Quote and search groupings, as exposed by this SDK's entity set.
-
-The API is served from `https://www.bonequest.com/api/v2`. No authentication scheme, rate limits, or licence terms are documented on the project's public surfaces; CORS is reported as disabled by the community catalogue. For questions the site lists `root@bonequest.com` as a contact.
 
 ## Try it
 
@@ -47,27 +36,31 @@ gem install bonequest-sdk
 luarocks install bonequest-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { BonequestSDK } from 'bonequest'
 
-const client = new BonequestSDK({})
+const client = new BonequestSDK({
+  apikey: process.env.BONEQUEST_APIKEY,
+})
 
+// Load episode data
+const episode = await client.Episode().load({})
+console.log(episode.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -97,9 +90,9 @@ The API exposes 3 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Episode** | A single BoneQuest episode identified by its number, returned with dialogue and metadata; example path `GET /api/v2/episode/{number}`. | `/episodes/random/{count}` |
-| **Quote** | Quote-level resources drawn from episode dialogue. | `/quote/random` |
-| **Search** | Lookup operations for finding episodes or quotes across the archive. | `/search/` |
+| **Episode** |  | `/episodes/random/{count}` |
+| **Quote** |  | `/quote/random` |
+| **Search** |  | `/search/` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -109,15 +102,17 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from bonequest_sdk import BonequestSDK
 
-client = BonequestSDK({})
+client = BonequestSDK({
+    "apikey": os.environ.get("BONEQUEST_APIKEY"),
+})
 
 
 # Load a specific episode
-episode, err = client.Episode(None).load(
-    {"id": "example_id"}, None
-)
+episode, err = client.Episode().load({"id": "example_id"})
+print(episode)
 ```
 
 ### PHP
@@ -126,13 +121,14 @@ episode, err = client.Episode(None).load(
 <?php
 require_once 'bonequest_sdk.php';
 
-$client = new BonequestSDK([]);
+$client = new BonequestSDK([
+    "apikey" => getenv("BONEQUEST_APIKEY"),
+]);
 
 
 // Load a specific episode
-[$episode, $err] = $client->Episode(null)->load(
-    ["id" => "example_id"], null
-);
+[$episode, $err] = $client->Episode()->load(["id" => "example_id"]);
+print_r($episode);
 ```
 
 ### Golang
@@ -140,8 +136,13 @@ $client = new BonequestSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/bonequest-sdk/go"
 
-client := sdk.NewBonequestSDK(map[string]any{})
+client := sdk.NewBonequestSDK(map[string]any{
+    "apikey": os.Getenv("BONEQUEST_APIKEY"),
+})
 
+// Load episode data
+episode, err := client.Episode(nil).Load(map[string]any{}, nil)
+fmt.Println(episode)
 ```
 
 ### Ruby
@@ -149,13 +150,14 @@ client := sdk.NewBonequestSDK(map[string]any{})
 ```ruby
 require_relative "Bonequest_sdk"
 
-client = BonequestSDK.new({})
+client = BonequestSDK.new({
+  "apikey" => ENV["BONEQUEST_APIKEY"],
+})
 
 
 # Load a specific episode
-episode, err = client.Episode(nil).load(
-  { "id" => "example_id" }, nil
-)
+episode, err = client.Episode().load({ "id" => "example_id" })
+puts episode
 ```
 
 ### Lua
@@ -163,13 +165,14 @@ episode, err = client.Episode(nil).load(
 ```lua
 local sdk = require("bonequest_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("BONEQUEST_APIKEY"),
+})
 
 
 -- Load a specific episode
-local episode, err = client:Episode(nil):load(
-  { id = "example_id" }, nil
-)
+local episode, err = client:Episode():load({ id = "example_id" })
+print(episode)
 ```
 
 ## Unit testing in offline mode
@@ -188,25 +191,21 @@ const result = await client.Episode().load({ id: 'test01' })
 ### Python
 
 ```python
-client = BonequestSDK.test(None, None)
-result, err = client.Episode(None).load(
-    {"id": "test01"}, None
-)
+client = BonequestSDK.test()
+result, err = client.Episode().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = BonequestSDK::test(null, null);
-[$result, $err] = $client->Episode(null)->load(
-    ["id" => "test01"], null
-);
+$client = BonequestSDK::test();
+[$result, $err] = $client->Episode()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Episode(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -215,19 +214,15 @@ result, err := client.Episode(nil).Load(
 ### Ruby
 
 ```ruby
-client = BonequestSDK.test(nil, nil)
-result, err = client.Episode(nil).load(
-  { "id" => "test01" }, nil
-)
+client = BonequestSDK.test
+result, err = client.Episode().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Episode(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Episode():load({ id = "test01" })
 ```
 
 ## How it works
@@ -331,11 +326,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the BoneQuest API
-
-- Upstream: [https://www.bonequest.com](https://www.bonequest.com)
-- API docs: [https://github.com/bonequest/api](https://github.com/bonequest/api)
 
 ---
 

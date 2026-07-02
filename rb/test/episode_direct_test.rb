@@ -69,12 +69,14 @@ def episode_direct_setup(mockres)
   env = Runner.env_override({
     "BONEQUEST_TEST_EPISODE_ENTID" => {},
     "BONEQUEST_TEST_LIVE" => "FALSE",
+    "BONEQUEST_APIKEY" => "NONE",
   })
 
   live = env["BONEQUEST_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
+      "apikey" => env["BONEQUEST_APIKEY"],
     }
     client = BonequestSDK.new(merged_opts)
     return {

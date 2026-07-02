@@ -110,12 +110,14 @@ func episodeDirectSetup(mockres any) *episodeDirectSetupResult {
 	env := envOverride(map[string]any{
 		"BONEQUEST_TEST_EPISODE_ENTID": map[string]any{},
 		"BONEQUEST_TEST_LIVE":    "FALSE",
+		"BONEQUEST_APIKEY":       "NONE",
 	})
 
 	live := env["BONEQUEST_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["BONEQUEST_APIKEY"],
 		}
 		client := sdk.NewBonequestSDK(mergedOpts)
 

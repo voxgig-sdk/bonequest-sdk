@@ -70,12 +70,14 @@ function episode_direct_setup(mockres)
   local env = runner.env_override({
     ["BONEQUEST_TEST_EPISODE_ENTID"] = {},
     ["BONEQUEST_TEST_LIVE"] = "FALSE",
+    ["BONEQUEST_APIKEY"] = "NONE",
   })
 
   local live = env["BONEQUEST_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
+      apikey = env["BONEQUEST_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {
