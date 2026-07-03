@@ -10,7 +10,7 @@ The Python SDK for the Bonequest API — an entity-oriented client following Pyt
 
 ## Install
 ```bash
-pip install bonequest-sdk
+pip install voxgig-sdk-bonequest
 ```
 
 Or install from source:

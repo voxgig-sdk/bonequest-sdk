@@ -10,7 +10,7 @@ The TypeScript SDK for the Bonequest API — a type-safe, entity-oriented client
 
 ## Install
 ```bash
-npm install bonequest
+npm install @voxgig-sdk/bonequest
 ```
 ## Tutorial: your first API call
 

@@ -10,7 +10,7 @@ The Lua SDK for the Bonequest API — an entity-oriented client using Lua conven
 
 ## Install
 ```bash
-luarocks install bonequest-sdk
+luarocks install voxgig-sdk-bonequest
 ```
 
 If the module is not yet published, add the source directory to

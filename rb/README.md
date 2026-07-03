@@ -10,13 +10,13 @@ The Ruby SDK for the Bonequest API — an entity-oriented client using idiomatic
 
 ## Install
 ```bash
-gem install bonequest-sdk
+gem install voxgig-sdk-bonequest
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "bonequest-sdk"
+gem "voxgig-sdk-bonequest"
 ```
 
 Then run:

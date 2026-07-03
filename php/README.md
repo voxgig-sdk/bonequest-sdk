@@ -10,7 +10,7 @@ The PHP SDK for the Bonequest API — an entity-oriented client using PHP conven
 
 ## Install
 ```bash
-composer require voxgig/bonequest-sdk
+composer require voxgig-sdk/bonequest
 ```
 
 
