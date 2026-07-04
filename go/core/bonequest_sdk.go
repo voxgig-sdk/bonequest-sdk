@@ -245,16 +245,25 @@ func (sdk *BonequestSDK) Direct(fetchargs map[string]any) (map[string]any, error
 }
 
 
+// Episode returns a Episode entity bound to this client.
+// Idiomatic usage: client.Episode(nil).List(nil, nil) or
+// client.Episode(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *BonequestSDK) Episode(data map[string]any) BonequestEntity {
 	return NewEpisodeEntityFunc(sdk, data)
 }
 
 
+// Quote returns a Quote entity bound to this client.
+// Idiomatic usage: client.Quote(nil).List(nil, nil) or
+// client.Quote(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *BonequestSDK) Quote(data map[string]any) BonequestEntity {
 	return NewQuoteEntityFunc(sdk, data)
 }
 
 
+// Search returns a Search entity bound to this client.
+// Idiomatic usage: client.Search(nil).List(nil, nil) or
+// client.Search(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *BonequestSDK) Search(data map[string]any) BonequestEntity {
 	return NewSearchEntityFunc(sdk, data)
 }

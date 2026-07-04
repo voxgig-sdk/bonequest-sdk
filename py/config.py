@@ -15,9 +15,6 @@ def make_config():
         },
         "options": {
             "base": "https://www.bonequest.com/api/v2",
-            "auth": {
-                "prefix": "Bearer",
-            },
             "headers": {
         "content-type": "application/json",
       },
@@ -63,6 +60,7 @@ def make_config():
                       "orig": "count",
                       "reqd": True,
                       "type": "`$INTEGER`",
+                      "index$": 0,
                     },
                   ],
                 },
@@ -96,6 +94,7 @@ def make_config():
                       "orig": "episode_number",
                       "reqd": True,
                       "type": "`$INTEGER`",
+                      "index$": 0,
                     },
                   ],
                 },
@@ -133,6 +132,7 @@ def make_config():
                       "orig": "episode_number",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                 },

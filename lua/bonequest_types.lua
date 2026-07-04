@@ -1,0 +1,57 @@
+-- Typed models for the Bonequest SDK (LuaLS annotations).
+--
+-- GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
+-- params (op.<name>.points[].args.params[]). Field/param types come from the
+-- canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
+-- @voxgig/apidef VALID_CANON). Annotations only — no runtime effect. Do not
+-- edit by hand.
+
+---@class Episode
+---@field episode? table
+---@field meta? table
+
+---@class EpisodeLoadMatch
+---@field count number
+---@field id number
+
+---@class Quote
+---@field day? number
+---@field dialog? table
+---@field episode? number
+---@field hd? table
+---@field height? number
+---@field hifi? table
+---@field image? string
+---@field month? number
+---@field navigation? table
+---@field player? table
+---@field tag? table
+---@field thumb? string
+---@field title? string
+---@field width? number
+---@field year? number
+
+---@class QuoteListMatch
+
+---@class Search
+---@field day? number
+---@field dialog? table
+---@field episode? number
+---@field hd? table
+---@field height? number
+---@field hifi? table
+---@field image? string
+---@field month? number
+---@field navigation? table
+---@field player? table
+---@field tag? table
+---@field thumb? string
+---@field title? string
+---@field width? number
+---@field year? number
+
+---@class SearchListMatch
+
+local M = {}
+
+return M

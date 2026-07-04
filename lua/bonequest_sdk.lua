@@ -244,18 +244,57 @@ end
 
 
 
+-- Idiomatic facade: client:episode():list() / client:episode():load({ id = ... })
+function BonequestSDK:episode(data)
+  local EntityMod = require("entity.episode_entity")
+  if data == nil then
+    if self._episode == nil then
+      self._episode = EntityMod.new(self, nil)
+    end
+    return self._episode
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:episode() instead.
 function BonequestSDK:Episode(data)
   local EntityMod = require("entity.episode_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:quote():list() / client:quote():load({ id = ... })
+function BonequestSDK:quote(data)
+  local EntityMod = require("entity.quote_entity")
+  if data == nil then
+    if self._quote == nil then
+      self._quote = EntityMod.new(self, nil)
+    end
+    return self._quote
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:quote() instead.
 function BonequestSDK:Quote(data)
   local EntityMod = require("entity.quote_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:search():list() / client:search():load({ id = ... })
+function BonequestSDK:search(data)
+  local EntityMod = require("entity.search_entity")
+  if data == nil then
+    if self._search == nil then
+      self._search = EntityMod.new(self, nil)
+    end
+    return self._search
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:search() instead.
 function BonequestSDK:Search(data)
   local EntityMod = require("entity.search_entity")
   return EntityMod.new(self, data)

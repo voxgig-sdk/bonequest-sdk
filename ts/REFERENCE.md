@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -134,7 +133,7 @@ Alias for `BonequestSDK.test()`.
 ## EpisodeEntity
 
 ```ts
-const episode = client.Episode()
+const episode = client.episode
 ```
 
 ### Fields
@@ -151,7 +150,7 @@ const episode = client.Episode()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Episode().load({ id: 'episode_id' })
+const result = await client.episode.load({ id: 'episode_id' })
 ```
 
 ### Common Methods
@@ -185,7 +184,7 @@ Return a copy of the entity options.
 ## QuoteEntity
 
 ```ts
-const quote = client.Quote()
+const quote = client.quote
 ```
 
 ### Fields
@@ -215,7 +214,7 @@ const quote = client.Quote()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Quote().list()
+const results = await client.quote.list()
 ```
 
 ### Common Methods
@@ -249,7 +248,7 @@ Return a copy of the entity options.
 ## SearchEntity
 
 ```ts
-const search = client.Search()
+const search = client.search
 ```
 
 ### Fields
@@ -279,7 +278,7 @@ const search = client.Search()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Search().list()
+const results = await client.search.list()
 ```
 
 ### Common Methods

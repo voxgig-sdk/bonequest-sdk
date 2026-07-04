@@ -50,8 +50,7 @@ class TestQuoteEntity:
         quote_ref01_ent = client.Quote(None)
         quote_ref01_match = {}
 
-        quote_ref01_list_result, err = quote_ref01_ent.list(quote_ref01_match, None)
-        assert err is None
+        quote_ref01_list_result = quote_ref01_ent.list(quote_ref01_match, None)
         assert isinstance(quote_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _quote_basic_setup(extra):
         "BONEQUEST_TEST_QUOTE_ENTID": idmap,
         "BONEQUEST_TEST_LIVE": "FALSE",
         "BONEQUEST_TEST_EXPLAIN": "FALSE",
-        "BONEQUEST_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _quote_basic_setup(extra):
     if env.get("BONEQUEST_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("BONEQUEST_APIKEY"),
             },
             extra or {},
         ])

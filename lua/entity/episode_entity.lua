@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch EpisodeLoadMatch
+---@param ctrl? table
+---@return Episode
+---@return string? err
 function EpisodeEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

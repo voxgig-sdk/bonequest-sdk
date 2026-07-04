@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Quote,
+  QuoteListMatch,
+} from '../BonequestTypes'
 
 // TODO: needs Entity superclass
-class QuoteEntity extends BonequestEntityBase {
+class QuoteEntity extends BonequestEntityBase<Quote> {
 
   constructor(client: BonequestSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class QuoteEntity extends BonequestEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: QuoteListMatch, ctrl?: Control): Promise<Quote[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class QuoteEntity extends BonequestEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Quote[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

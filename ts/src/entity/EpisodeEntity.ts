@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Episode,
+  EpisodeLoadMatch,
+} from '../BonequestTypes'
 
 // TODO: needs Entity superclass
-class EpisodeEntity extends BonequestEntityBase {
+class EpisodeEntity extends BonequestEntityBase<Episode> {
 
   constructor(client: BonequestSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class EpisodeEntity extends BonequestEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: EpisodeLoadMatch, ctrl?: Control): Promise<Episode> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class EpisodeEntity extends BonequestEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Episode> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

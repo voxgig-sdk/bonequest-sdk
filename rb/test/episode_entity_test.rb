@@ -42,8 +42,7 @@ class EpisodeEntityTest < Minitest::Test
     # LOAD
     episode_ref01_ent = client.Episode(nil)
     episode_ref01_match_dt0 = {}
-    episode_ref01_data_dt0_loaded, err = episode_ref01_ent.load(episode_ref01_match_dt0, nil)
-    assert_nil err
+    episode_ref01_data_dt0_loaded = episode_ref01_ent.load(episode_ref01_match_dt0, nil)
     assert !episode_ref01_data_dt0_loaded.nil?
 
   end
@@ -82,7 +81,6 @@ def episode_basic_setup(extra)
     "BONEQUEST_TEST_EPISODE_ENTID" => idmap,
     "BONEQUEST_TEST_LIVE" => "FALSE",
     "BONEQUEST_TEST_EXPLAIN" => "FALSE",
-    "BONEQUEST_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +92,6 @@ def episode_basic_setup(extra)
   if env["BONEQUEST_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["BONEQUEST_APIKEY"],
       },
       extra || {},
     ])

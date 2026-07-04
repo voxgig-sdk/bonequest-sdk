@@ -111,7 +111,6 @@ function basicSetup(extra?: any) {
     'BONEQUEST_TEST_EPISODE_ENTID': idmap,
     'BONEQUEST_TEST_LIVE': 'FALSE',
     'BONEQUEST_TEST_EXPLAIN': 'FALSE',
-    'BONEQUEST_APIKEY': 'NONE',
   })
 
   idmap = env['BONEQUEST_TEST_EPISODE_ENTID']
@@ -121,7 +120,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new BonequestSDK(merge([
       {
-        apikey: env.BONEQUEST_APIKEY,
       },
       extra
     ]))

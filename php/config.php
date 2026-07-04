@@ -20,9 +20,6 @@ class BonequestConfig
             ],
             "options" => [
                 "base" => "https://www.bonequest.com/api/v2",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -68,6 +65,7 @@ class BonequestConfig
                         'orig' => 'count',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
+                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -101,6 +99,7 @@ class BonequestConfig
                         'orig' => 'episode_number',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
+                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -138,6 +137,7 @@ class BonequestConfig
                         'orig' => 'episode_number',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                   ],

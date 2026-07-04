@@ -49,8 +49,7 @@ class EpisodeEntityTest extends TestCase
         // LOAD
         $episode_ref01_ent = $client->Episode(null);
         $episode_ref01_match_dt0 = [];
-        [$episode_ref01_data_dt0_loaded, $err] = $episode_ref01_ent->load($episode_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $episode_ref01_data_dt0_loaded = $episode_ref01_ent->load($episode_ref01_match_dt0, null);
         $this->assertNotNull($episode_ref01_data_dt0_loaded);
 
     }
@@ -85,7 +84,6 @@ function episode_basic_setup($extra)
         "BONEQUEST_TEST_EPISODE_ENTID" => $idmap,
         "BONEQUEST_TEST_LIVE" => "FALSE",
         "BONEQUEST_TEST_EXPLAIN" => "FALSE",
-        "BONEQUEST_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -97,7 +95,6 @@ function episode_basic_setup($extra)
     if ($env["BONEQUEST_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["BONEQUEST_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -1,0 +1,143 @@
+// Typed models for the Bonequest SDK.
+//
+// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
+// params (op.<name>.points[].args.params[]). Field/param types come from the
+// canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
+// @voxgig/apidef VALID_CANON). Do not edit by hand.
+package entity
+
+import "encoding/json"
+
+// Episode is the typed data model for the episode entity.
+type Episode struct {
+	Episode *[]any `json:"episode,omitempty"`
+	Meta *map[string]any `json:"meta,omitempty"`
+}
+
+// EpisodeLoadMatch is the typed request payload for Episode.LoadTyped.
+type EpisodeLoadMatch struct {
+	Count int `json:"count"`
+	Id int `json:"id"`
+}
+
+// Quote is the typed data model for the quote entity.
+type Quote struct {
+	Day *int `json:"day,omitempty"`
+	Dialog *[]any `json:"dialog,omitempty"`
+	Episode *int `json:"episode,omitempty"`
+	Hd *[]any `json:"hd,omitempty"`
+	Height *int `json:"height,omitempty"`
+	Hifi *map[string]any `json:"hifi,omitempty"`
+	Image *string `json:"image,omitempty"`
+	Month *int `json:"month,omitempty"`
+	Navigation *map[string]any `json:"navigation,omitempty"`
+	Player *[]any `json:"player,omitempty"`
+	Tag *[]any `json:"tag,omitempty"`
+	Thumb *string `json:"thumb,omitempty"`
+	Title *string `json:"title,omitempty"`
+	Width *int `json:"width,omitempty"`
+	Year *int `json:"year,omitempty"`
+}
+
+// QuoteListMatch mirrors the quote fields as an all-optional match
+// filter (Go analog of Partial<Quote>).
+type QuoteListMatch struct {
+	Day *int `json:"day,omitempty"`
+	Dialog *[]any `json:"dialog,omitempty"`
+	Episode *int `json:"episode,omitempty"`
+	Hd *[]any `json:"hd,omitempty"`
+	Height *int `json:"height,omitempty"`
+	Hifi *map[string]any `json:"hifi,omitempty"`
+	Image *string `json:"image,omitempty"`
+	Month *int `json:"month,omitempty"`
+	Navigation *map[string]any `json:"navigation,omitempty"`
+	Player *[]any `json:"player,omitempty"`
+	Tag *[]any `json:"tag,omitempty"`
+	Thumb *string `json:"thumb,omitempty"`
+	Title *string `json:"title,omitempty"`
+	Width *int `json:"width,omitempty"`
+	Year *int `json:"year,omitempty"`
+}
+
+// Search is the typed data model for the search entity.
+type Search struct {
+	Day *int `json:"day,omitempty"`
+	Dialog *[]any `json:"dialog,omitempty"`
+	Episode *int `json:"episode,omitempty"`
+	Hd *[]any `json:"hd,omitempty"`
+	Height *int `json:"height,omitempty"`
+	Hifi *map[string]any `json:"hifi,omitempty"`
+	Image *string `json:"image,omitempty"`
+	Month *int `json:"month,omitempty"`
+	Navigation *map[string]any `json:"navigation,omitempty"`
+	Player *[]any `json:"player,omitempty"`
+	Tag *[]any `json:"tag,omitempty"`
+	Thumb *string `json:"thumb,omitempty"`
+	Title *string `json:"title,omitempty"`
+	Width *int `json:"width,omitempty"`
+	Year *int `json:"year,omitempty"`
+}
+
+// SearchListMatch mirrors the search fields as an all-optional match
+// filter (Go analog of Partial<Search>).
+type SearchListMatch struct {
+	Day *int `json:"day,omitempty"`
+	Dialog *[]any `json:"dialog,omitempty"`
+	Episode *int `json:"episode,omitempty"`
+	Hd *[]any `json:"hd,omitempty"`
+	Height *int `json:"height,omitempty"`
+	Hifi *map[string]any `json:"hifi,omitempty"`
+	Image *string `json:"image,omitempty"`
+	Month *int `json:"month,omitempty"`
+	Navigation *map[string]any `json:"navigation,omitempty"`
+	Player *[]any `json:"player,omitempty"`
+	Tag *[]any `json:"tag,omitempty"`
+	Thumb *string `json:"thumb,omitempty"`
+	Title *string `json:"title,omitempty"`
+	Width *int `json:"width,omitempty"`
+	Year *int `json:"year,omitempty"`
+}
+
+// asMap turns a typed request/data struct into the map[string]any the
+// runtime op pipeline consumes, honouring the json tags above.
+func asMap(v any) map[string]any {
+	out := map[string]any{}
+	b, err := json.Marshal(v)
+	if err != nil {
+		return out
+	}
+	_ = json.Unmarshal(b, &out)
+	return out
+}
+
+// typedFrom decodes a runtime value (a map[string]any produced by the op
+// pipeline) into a typed model T via a JSON round-trip. On any error it
+// returns the zero value of T; the op's own (value, error) tuple carries the
+// real error.
+func typedFrom[T any](v any) T {
+	var out T
+	if v == nil {
+		return out
+	}
+	b, err := json.Marshal(v)
+	if err != nil {
+		return out
+	}
+	_ = json.Unmarshal(b, &out)
+	return out
+}
+
+// typedSliceFrom decodes a runtime list value ([]any of maps) into a typed
+// slice []T via a JSON round-trip, for list ops.
+func typedSliceFrom[T any](v any) []T {
+	var out []T
+	if v == nil {
+		return out
+	}
+	b, err := json.Marshal(v)
+	if err != nil {
+		return out
+	}
+	_ = json.Unmarshal(b, &out)
+	return out
+}

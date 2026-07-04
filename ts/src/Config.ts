@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://www.bonequest.com/api/v2',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },
@@ -96,7 +92,8 @@ class Config {
                     "name": "count",
                     "orig": "count",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 0
                   }
                 ]
               },
@@ -129,7 +126,8 @@ class Config {
                     "name": "id",
                     "orig": "episode_number",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 0
                   }
                 ]
               },
@@ -166,7 +164,8 @@ class Config {
                     "name": "id",
                     "orig": "episode_number",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },

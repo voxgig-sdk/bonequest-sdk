@@ -4,6 +4,8 @@ import { EpisodeEntity } from './entity/EpisodeEntity'
 import { QuoteEntity } from './entity/QuoteEntity'
 import { SearchEntity } from './entity/SearchEntity'
 
+export type * from './BonequestTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -204,18 +206,42 @@ class BonequestSDK {
 
 
 
+  _episode?: EpisodeEntity
+
+  // Idiomatic facade: `client.episode.list()` / `client.episode.load({ id })`.
+  get episode(): EpisodeEntity {
+    return (this._episode ??= new EpisodeEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.episode` instead. */
   Episode(data?: any) {
     const self = this
     return new EpisodeEntity(self,data)
   }
 
 
+  _quote?: QuoteEntity
+
+  // Idiomatic facade: `client.quote.list()` / `client.quote.load({ id })`.
+  get quote(): QuoteEntity {
+    return (this._quote ??= new QuoteEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.quote` instead. */
   Quote(data?: any) {
     const self = this
     return new QuoteEntity(self,data)
   }
 
 
+  _search?: SearchEntity
+
+  // Idiomatic facade: `client.search.list()` / `client.search.load({ id })`.
+  get search(): SearchEntity {
+    return (this._search ??= new SearchEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.search` instead. */
   Search(data?: any) {
     const self = this
     return new SearchEntity(self,data)

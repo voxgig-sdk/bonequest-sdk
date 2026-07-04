@@ -1,0 +1,296 @@
+# frozen_string_literal: true
+
+# Typed models for the Bonequest SDK.
+#
+# GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
+# params (op.<name>.points[].args.params[]). Member types come from the
+# canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
+# @voxgig/apidef VALID_CANON). Ruby types are unenforced; these YARD
+# annotations document the shapes. Do not edit by hand.
+
+# Episode entity data model.
+#
+# @!attribute [rw] episode
+#   @return [Array, nil]
+#
+# @!attribute [rw] meta
+#   @return [Hash, nil]
+Episode = Struct.new(
+  :episode,
+  :meta,
+  keyword_init: true
+)
+
+# Request payload for Episode#load.
+#
+# @!attribute [rw] count
+#   @return [Integer]
+#
+# @!attribute [rw] id
+#   @return [Integer]
+EpisodeLoadMatch = Struct.new(
+  :count,
+  :id,
+  keyword_init: true
+)
+
+# Quote entity data model.
+#
+# @!attribute [rw] day
+#   @return [Integer, nil]
+#
+# @!attribute [rw] dialog
+#   @return [Array, nil]
+#
+# @!attribute [rw] episode
+#   @return [Integer, nil]
+#
+# @!attribute [rw] hd
+#   @return [Array, nil]
+#
+# @!attribute [rw] height
+#   @return [Integer, nil]
+#
+# @!attribute [rw] hifi
+#   @return [Hash, nil]
+#
+# @!attribute [rw] image
+#   @return [String, nil]
+#
+# @!attribute [rw] month
+#   @return [Integer, nil]
+#
+# @!attribute [rw] navigation
+#   @return [Hash, nil]
+#
+# @!attribute [rw] player
+#   @return [Array, nil]
+#
+# @!attribute [rw] tag
+#   @return [Array, nil]
+#
+# @!attribute [rw] thumb
+#   @return [String, nil]
+#
+# @!attribute [rw] title
+#   @return [String, nil]
+#
+# @!attribute [rw] width
+#   @return [Integer, nil]
+#
+# @!attribute [rw] year
+#   @return [Integer, nil]
+Quote = Struct.new(
+  :day,
+  :dialog,
+  :episode,
+  :hd,
+  :height,
+  :hifi,
+  :image,
+  :month,
+  :navigation,
+  :player,
+  :tag,
+  :thumb,
+  :title,
+  :width,
+  :year,
+  keyword_init: true
+)
+
+# Match filter for Quote#list (any subset of Quote fields).
+#
+# @!attribute [rw] day
+#   @return [Integer, nil]
+#
+# @!attribute [rw] dialog
+#   @return [Array, nil]
+#
+# @!attribute [rw] episode
+#   @return [Integer, nil]
+#
+# @!attribute [rw] hd
+#   @return [Array, nil]
+#
+# @!attribute [rw] height
+#   @return [Integer, nil]
+#
+# @!attribute [rw] hifi
+#   @return [Hash, nil]
+#
+# @!attribute [rw] image
+#   @return [String, nil]
+#
+# @!attribute [rw] month
+#   @return [Integer, nil]
+#
+# @!attribute [rw] navigation
+#   @return [Hash, nil]
+#
+# @!attribute [rw] player
+#   @return [Array, nil]
+#
+# @!attribute [rw] tag
+#   @return [Array, nil]
+#
+# @!attribute [rw] thumb
+#   @return [String, nil]
+#
+# @!attribute [rw] title
+#   @return [String, nil]
+#
+# @!attribute [rw] width
+#   @return [Integer, nil]
+#
+# @!attribute [rw] year
+#   @return [Integer, nil]
+QuoteListMatch = Struct.new(
+  :day,
+  :dialog,
+  :episode,
+  :hd,
+  :height,
+  :hifi,
+  :image,
+  :month,
+  :navigation,
+  :player,
+  :tag,
+  :thumb,
+  :title,
+  :width,
+  :year,
+  keyword_init: true
+)
+
+# Search entity data model.
+#
+# @!attribute [rw] day
+#   @return [Integer, nil]
+#
+# @!attribute [rw] dialog
+#   @return [Array, nil]
+#
+# @!attribute [rw] episode
+#   @return [Integer, nil]
+#
+# @!attribute [rw] hd
+#   @return [Array, nil]
+#
+# @!attribute [rw] height
+#   @return [Integer, nil]
+#
+# @!attribute [rw] hifi
+#   @return [Hash, nil]
+#
+# @!attribute [rw] image
+#   @return [String, nil]
+#
+# @!attribute [rw] month
+#   @return [Integer, nil]
+#
+# @!attribute [rw] navigation
+#   @return [Hash, nil]
+#
+# @!attribute [rw] player
+#   @return [Array, nil]
+#
+# @!attribute [rw] tag
+#   @return [Array, nil]
+#
+# @!attribute [rw] thumb
+#   @return [String, nil]
+#
+# @!attribute [rw] title
+#   @return [String, nil]
+#
+# @!attribute [rw] width
+#   @return [Integer, nil]
+#
+# @!attribute [rw] year
+#   @return [Integer, nil]
+Search = Struct.new(
+  :day,
+  :dialog,
+  :episode,
+  :hd,
+  :height,
+  :hifi,
+  :image,
+  :month,
+  :navigation,
+  :player,
+  :tag,
+  :thumb,
+  :title,
+  :width,
+  :year,
+  keyword_init: true
+)
+
+# Match filter for Search#list (any subset of Search fields).
+#
+# @!attribute [rw] day
+#   @return [Integer, nil]
+#
+# @!attribute [rw] dialog
+#   @return [Array, nil]
+#
+# @!attribute [rw] episode
+#   @return [Integer, nil]
+#
+# @!attribute [rw] hd
+#   @return [Array, nil]
+#
+# @!attribute [rw] height
+#   @return [Integer, nil]
+#
+# @!attribute [rw] hifi
+#   @return [Hash, nil]
+#
+# @!attribute [rw] image
+#   @return [String, nil]
+#
+# @!attribute [rw] month
+#   @return [Integer, nil]
+#
+# @!attribute [rw] navigation
+#   @return [Hash, nil]
+#
+# @!attribute [rw] player
+#   @return [Array, nil]
+#
+# @!attribute [rw] tag
+#   @return [Array, nil]
+#
+# @!attribute [rw] thumb
+#   @return [String, nil]
+#
+# @!attribute [rw] title
+#   @return [String, nil]
+#
+# @!attribute [rw] width
+#   @return [Integer, nil]
+#
+# @!attribute [rw] year
+#   @return [Integer, nil]
+SearchListMatch = Struct.new(
+  :day,
+  :dialog,
+  :episode,
+  :hd,
+  :height,
+  :hifi,
+  :image,
+  :month,
+  :navigation,
+  :player,
+  :tag,
+  :thumb,
+  :title,
+  :width,
+  :year,
+  keyword_init: true
+)
+
