@@ -208,39 +208,21 @@ class BonequestSDK
   end
 
 
-  # Idiomatic facade: client.episode.list / client.episode.load({ "id" => ... })
-  def episode
-    require_relative 'entity/episode_entity'
-    @episode ||= EpisodeEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.episode instead.
+  # Canonical facade: client.Episode.list / client.Episode.load({ "id" => ... })
   def Episode(data = nil)
     require_relative 'entity/episode_entity'
     EpisodeEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.quote.list / client.quote.load({ "id" => ... })
-  def quote
-    require_relative 'entity/quote_entity'
-    @quote ||= QuoteEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.quote instead.
+  # Canonical facade: client.Quote.list / client.Quote.load({ "id" => ... })
   def Quote(data = nil)
     require_relative 'entity/quote_entity'
     QuoteEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.search.list / client.search.load({ "id" => ... })
-  def search
-    require_relative 'entity/search_entity'
-    @search ||= SearchEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.search instead.
+  # Canonical facade: client.Search.list / client.Search.load({ "id" => ... })
   def Search(data = nil)
     require_relative 'entity/search_entity'
     SearchEntity.new(self, data)

@@ -233,10 +233,10 @@ class BonequestSDK
 
     private $_episode = null;
 
-    // Idiomatic facade: $client->episode()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Episode() (PHP method
-    // names are case-insensitive).
-    public function episode($data = null)
+    // Canonical facade: $client->Episode()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->episode()
+    // resolves here too.
+    public function Episode($data = null)
     {
         require_once __DIR__ . '/entity/episode_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class BonequestSDK
 
     private $_quote = null;
 
-    // Idiomatic facade: $client->quote()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Quote() (PHP method
-    // names are case-insensitive).
-    public function quote($data = null)
+    // Canonical facade: $client->Quote()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->quote()
+    // resolves here too.
+    public function Quote($data = null)
     {
         require_once __DIR__ . '/entity/quote_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class BonequestSDK
 
     private $_search = null;
 
-    // Idiomatic facade: $client->search()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Search() (PHP method
-    // names are case-insensitive).
-    public function search($data = null)
+    // Canonical facade: $client->Search()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->search()
+    // resolves here too.
+    public function Search($data = null)
     {
         require_once __DIR__ . '/entity/search_entity.php';
         if ($data === null) {

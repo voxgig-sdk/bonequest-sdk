@@ -33,10 +33,12 @@ client = BonequestSDK()
 
 ### 3. Load an episode
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.episode.load({"id": "example_id"})
-    print(result)
+    episode = client.Episode().load({"id": "example_id"})
+    print(episode)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -84,8 +86,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = BonequestSDK.test()
 
-result = client.episode.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+episode = client.Episode().load({"id": "test01"})
+# episode contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -161,7 +164,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
-| `Episode` | `(data) -> EpisodeEntity` | Create a Episode entity instance. |
+| `Episode` | `(data) -> EpisodeEntity` | Create an Episode entity instance. |
 | `Quote` | `(data) -> QuoteEntity` | Create a Quote entity instance. |
 | `Search` | `(data) -> SearchEntity` | Create a Search entity instance. |
 
@@ -269,7 +272,7 @@ API path: `/search/`
 
 ### Episode
 
-Create an instance: `const episode = client.episode`
+Create an instance: `episode = client.Episode()`
 
 #### Operations
 
@@ -286,14 +289,14 @@ Create an instance: `const episode = client.episode`
 
 #### Example: Load
 
-```ts
-const episode = await client.episode.load({ id: 'episode_id' })
+```python
+episode = client.Episode().load({"id": "episode_id"})
 ```
 
 
 ### Quote
 
-Create an instance: `const quote = client.quote`
+Create an instance: `quote = client.Quote()`
 
 #### Operations
 
@@ -323,14 +326,14 @@ Create an instance: `const quote = client.quote`
 
 #### Example: List
 
-```ts
-const quotes = await client.quote.list()
+```python
+quotes = client.Quote().list({})
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `search = client.Search()`
 
 #### Operations
 
@@ -360,8 +363,8 @@ Create an instance: `const search = client.search`
 
 #### Example: List
 
-```ts
-const searchs = await client.search.list()
+```python
+searchs = client.Search().list({})
 ```
 
 
@@ -435,7 +438,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-episode = client.episode
+episode = client.Episode()
 episode.load({"id": "example_id"})
 
 # episode.data_get() now returns the loaded episode data

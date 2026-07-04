@@ -88,7 +88,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## EpisodeEntity
 
 ```python
-episode = client.episode
+episode = client.Episode()
 ```
 
 ### Fields
@@ -105,7 +105,7 @@ episode = client.episode
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.episode.load({"id": "episode_id"})
+result = client.Episode().load({"id": "episode_id"})
 ```
 
 ### Common Methods
@@ -140,7 +140,7 @@ Return the entity name.
 ## QuoteEntity
 
 ```python
-quote = client.quote
+quote = client.Quote()
 ```
 
 ### Fields
@@ -170,7 +170,9 @@ quote = client.quote
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.quote.list({})
+results = client.Quote().list({})
+for quote in results:
+    print(quote)
 ```
 
 ### Common Methods
@@ -205,7 +207,7 @@ Return the entity name.
 ## SearchEntity
 
 ```python
-search = client.search
+search = client.Search()
 ```
 
 ### Fields
@@ -235,7 +237,9 @@ search = client.search
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.search.list({})
+results = client.Search().list({})
+for search in results:
+    print(search)
 ```
 
 ### Common Methods

@@ -93,7 +93,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## EpisodeEntity
 
 ```php
-$episode = $client->episode();
+$episode = $client->Episode();
 ```
 
 ### Fields
@@ -110,7 +110,7 @@ $episode = $client->episode();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->episode()->load(["id" => "episode_id"]);
+$result = $client->Episode()->load(["id" => "episode_id"]);
 ```
 
 ### Common Methods
@@ -146,7 +146,7 @@ Return the entity name.
 ## QuoteEntity
 
 ```php
-$quote = $client->quote();
+$quote = $client->Quote();
 ```
 
 ### Fields
@@ -176,7 +176,7 @@ $quote = $client->quote();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->quote()->list([]);
+$results = $client->Quote()->list([]);
 ```
 
 ### Common Methods
@@ -212,7 +212,7 @@ Return the entity name.
 ## SearchEntity
 
 ```php
-$search = $client->search();
+$search = $client->Search();
 ```
 
 ### Fields
@@ -242,7 +242,7 @@ $search = $client->search();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->search()->list([]);
+$results = $client->Search()->list([]);
 ```
 
 ### Common Methods

@@ -220,57 +220,27 @@ class BonequestSDK:
         }
 
 
-    @property
-    def episode(self):
-        """Idiomatic facade: client.episode.list() / client.episode.load({"id": ...})."""
-        from entity.episode_entity import EpisodeEntity
-        cached = getattr(self, "_episode", None)
-        if cached is None:
-            cached = EpisodeEntity(self, None)
-            self._episode = cached
-        return cached
-
-    def Episode(self, data=None):
-        # Deprecated: use client.episode instead.
+    def Episode(self, data=None) -> "EpisodeEntity":
+        """Entity factory: client.Episode().list({}) / client.Episode().load({"id": ...})."""
         from entity.episode_entity import EpisodeEntity
         return EpisodeEntity(self, data)
 
 
-    @property
-    def quote(self):
-        """Idiomatic facade: client.quote.list() / client.quote.load({"id": ...})."""
-        from entity.quote_entity import QuoteEntity
-        cached = getattr(self, "_quote", None)
-        if cached is None:
-            cached = QuoteEntity(self, None)
-            self._quote = cached
-        return cached
-
-    def Quote(self, data=None):
-        # Deprecated: use client.quote instead.
+    def Quote(self, data=None) -> "QuoteEntity":
+        """Entity factory: client.Quote().list({}) / client.Quote().load({"id": ...})."""
         from entity.quote_entity import QuoteEntity
         return QuoteEntity(self, data)
 
 
-    @property
-    def search(self):
-        """Idiomatic facade: client.search.list() / client.search.load({"id": ...})."""
-        from entity.search_entity import SearchEntity
-        cached = getattr(self, "_search", None)
-        if cached is None:
-            cached = SearchEntity(self, None)
-            self._search = cached
-        return cached
-
-    def Search(self, data=None):
-        # Deprecated: use client.search instead.
+    def Search(self, data=None) -> "SearchEntity":
+        """Entity factory: client.Search().list({}) / client.Search().load({"id": ...})."""
         from entity.search_entity import SearchEntity
         return SearchEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "BonequestSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -290,3 +260,11 @@ class BonequestSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.episode_entity import EpisodeEntity
+    from entity.quote_entity import QuoteEntity
+    from entity.search_entity import SearchEntity

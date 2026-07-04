@@ -32,8 +32,9 @@ client = BonequestSDK.new
 
 ```ruby
 begin
-  result = client.episode.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare Episode record (raises on error).
+  episode = client.Episode.load({ "id" => "example_id" })
+  puts episode
 rescue => err
   warn "load failed: #{err}"
 end
@@ -80,13 +81,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = BonequestSDK.test
+client = BonequestSDK.test({
+  "entity" => { "episode" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.episode.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+episode = client.Episode.load({ "id" => "test01" })
+puts episode
 ```
 
 ### Use a custom fetch function
@@ -162,7 +167,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
-| `Episode` | `(data) -> EpisodeEntity` | Create a Episode entity instance. |
+| `Episode` | `(data) -> EpisodeEntity` | Create an Episode entity instance. |
 | `Quote` | `(data) -> QuoteEntity` | Create a Quote entity instance. |
 | `Search` | `(data) -> SearchEntity` | Create a Search entity instance. |
 
@@ -269,7 +274,7 @@ API path: `/search/`
 
 ### Episode
 
-Create an instance: `const episode = client.episode`
+Create an instance: `episode = client.Episode`
 
 #### Operations
 
@@ -286,14 +291,15 @@ Create an instance: `const episode = client.episode`
 
 #### Example: Load
 
-```ts
-const episode = await client.episode.load({ id: 'episode_id' })
+```ruby
+# load returns the bare Episode record (raises on error).
+episode = client.Episode.load({ "id" => "episode_id" })
 ```
 
 
 ### Quote
 
-Create an instance: `const quote = client.quote`
+Create an instance: `quote = client.Quote`
 
 #### Operations
 
@@ -323,14 +329,15 @@ Create an instance: `const quote = client.quote`
 
 #### Example: List
 
-```ts
-const quotes = await client.quote.list()
+```ruby
+# list returns an Array of Quote records (raises on error).
+quotes = client.Quote.list
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `search = client.Search`
 
 #### Operations
 
@@ -360,8 +367,9 @@ Create an instance: `const search = client.search`
 
 #### Example: List
 
-```ts
-const searchs = await client.search.list()
+```ruby
+# list returns an Array of Search records (raises on error).
+searchs = client.Search.list
 ```
 
 
@@ -436,7 +444,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-episode = client.episode
+episode = client.Episode
 episode.load({ "id" => "example_id" })
 
 # episode.data_get now returns the loaded episode data

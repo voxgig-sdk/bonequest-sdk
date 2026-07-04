@@ -33,9 +33,10 @@ $client = new BonequestSDK();
 
 ```php
 try {
-    $result = $client->episode()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare Episode record (throws on error).
+    $episode = $client->Episode()->load(["id" => "example_id"]);
+    print_r($episode);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -81,13 +82,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = BonequestSDK::test();
+$client = BonequestSDK::test([
+    "entity" => ["episode" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->episode()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$episode = $client->Episode()->load(["id" => "test01"]);
+print_r($episode);
 ```
 
 ### Use a custom fetch function
@@ -166,7 +171,7 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `get_utility` | `(): Utility` | Copy of the SDK utility object. |
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
-| `Episode` | `($data): EpisodeEntity` | Create a Episode entity instance. |
+| `Episode` | `($data): EpisodeEntity` | Create an Episode entity instance. |
 | `Quote` | `($data): QuoteEntity` | Create a Quote entity instance. |
 | `Search` | `($data): SearchEntity` | Create a Search entity instance. |
 
@@ -274,7 +279,7 @@ API path: `/search/`
 
 ### Episode
 
-Create an instance: `const episode = client.episode`
+Create an instance: `$episode = $client->Episode();`
 
 #### Operations
 
@@ -291,14 +296,15 @@ Create an instance: `const episode = client.episode`
 
 #### Example: Load
 
-```ts
-const episode = await client.episode.load({ id: 'episode_id' })
+```php
+// load() returns the bare Episode record (throws on error).
+$episode = $client->Episode()->load(["id" => "episode_id"]);
 ```
 
 
 ### Quote
 
-Create an instance: `const quote = client.quote`
+Create an instance: `$quote = $client->Quote();`
 
 #### Operations
 
@@ -328,14 +334,15 @@ Create an instance: `const quote = client.quote`
 
 #### Example: List
 
-```ts
-const quotes = await client.quote.list()
+```php
+// list() returns an array of Quote records (throws on error).
+$quotes = $client->Quote()->list();
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `$search = $client->Search();`
 
 #### Operations
 
@@ -365,8 +372,9 @@ Create an instance: `const search = client.search`
 
 #### Example: List
 
-```ts
-const searchs = await client.search.list()
+```php
+// list() returns an array of Search records (throws on error).
+$searchs = $client->Search()->list();
 ```
 
 
@@ -441,7 +449,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$episode = $client->episode();
+$episode = $client->Episode();
 $episode->load(["id" => "example_id"]);
 
 // $episode->dataGet() now returns the loaded episode data

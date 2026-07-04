@@ -91,7 +91,7 @@ same parameters as `direct()`.
 ## EpisodeEntity
 
 ```lua
-local episode = client:episode(nil)
+local episode = client:Episode(nil)
 ```
 
 ### Fields
@@ -108,7 +108,7 @@ local episode = client:episode(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:episode():load({ id = "episode_id" })
+local result, err = client:Episode():load({ id = "episode_id" })
 ```
 
 ### Common Methods
@@ -144,7 +144,7 @@ Return the entity name.
 ## QuoteEntity
 
 ```lua
-local quote = client:quote(nil)
+local quote = client:Quote(nil)
 ```
 
 ### Fields
@@ -174,7 +174,7 @@ local quote = client:quote(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:quote():list()
+local results, err = client:Quote():list()
 ```
 
 ### Common Methods
@@ -210,7 +210,7 @@ Return the entity name.
 ## SearchEntity
 
 ```lua
-local search = client:search(nil)
+local search = client:Search(nil)
 ```
 
 ### Fields
@@ -240,7 +240,7 @@ local search = client:search(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:search():list()
+local results, err = client:Search():list()
 ```
 
 ### Common Methods

@@ -206,42 +206,21 @@ class BonequestSDK {
 
 
 
-  _episode?: EpisodeEntity
-
-  // Idiomatic facade: `client.episode.list()` / `client.episode.load({ id })`.
-  get episode(): EpisodeEntity {
-    return (this._episode ??= new EpisodeEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.episode` instead. */
+  // Entity access: `client.Episode().list()` / `client.Episode().load({ id })`.
   Episode(data?: any) {
     const self = this
     return new EpisodeEntity(self,data)
   }
 
 
-  _quote?: QuoteEntity
-
-  // Idiomatic facade: `client.quote.list()` / `client.quote.load({ id })`.
-  get quote(): QuoteEntity {
-    return (this._quote ??= new QuoteEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.quote` instead. */
+  // Entity access: `client.Quote().list()` / `client.Quote().load({ id })`.
   Quote(data?: any) {
     const self = this
     return new QuoteEntity(self,data)
   }
 
 
-  _search?: SearchEntity
-
-  // Idiomatic facade: `client.search.list()` / `client.search.load({ id })`.
-  get search(): SearchEntity {
-    return (this._search ??= new SearchEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.search` instead. */
+  // Entity access: `client.Search().list()` / `client.Search().load({ id })`.
   Search(data?: any) {
     const self = this
     return new SearchEntity(self,data)

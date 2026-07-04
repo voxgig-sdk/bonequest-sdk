@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:episode():list() / client:episode():load({ id = ... })
-function BonequestSDK:episode(data)
+-- Idiomatic facade: client:Episode():list() / client:Episode():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function BonequestSDK:Episode(data)
   local EntityMod = require("entity.episode_entity")
   if data == nil then
     if self._episode == nil then
@@ -256,15 +257,10 @@ function BonequestSDK:episode(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:episode() instead.
-function BonequestSDK:Episode(data)
-  local EntityMod = require("entity.episode_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:quote():list() / client:quote():load({ id = ... })
-function BonequestSDK:quote(data)
+-- Idiomatic facade: client:Quote():list() / client:Quote():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function BonequestSDK:Quote(data)
   local EntityMod = require("entity.quote_entity")
   if data == nil then
     if self._quote == nil then
@@ -275,15 +271,10 @@ function BonequestSDK:quote(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:quote() instead.
-function BonequestSDK:Quote(data)
-  local EntityMod = require("entity.quote_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:search():list() / client:search():load({ id = ... })
-function BonequestSDK:search(data)
+-- Idiomatic facade: client:Search():list() / client:Search():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function BonequestSDK:Search(data)
   local EntityMod = require("entity.search_entity")
   if data == nil then
     if self._search == nil then
@@ -291,12 +282,6 @@ function BonequestSDK:search(data)
     end
     return self._search
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:search() instead.
-function BonequestSDK:Search(data)
-  local EntityMod = require("entity.search_entity")
   return EntityMod.new(self, data)
 end
 

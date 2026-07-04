@@ -133,7 +133,7 @@ Alias for `BonequestSDK.test()`.
 ## EpisodeEntity
 
 ```ts
-const episode = client.episode
+const episode = client.Episode()
 ```
 
 ### Fields
@@ -150,7 +150,7 @@ const episode = client.episode
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.episode.load({ id: 'episode_id' })
+const result = await client.Episode().load({ id: 'episode_id' })
 ```
 
 ### Common Methods
@@ -184,7 +184,7 @@ Return a copy of the entity options.
 ## QuoteEntity
 
 ```ts
-const quote = client.quote
+const quote = client.Quote()
 ```
 
 ### Fields
@@ -214,7 +214,7 @@ const quote = client.quote
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.quote.list()
+const results = await client.Quote().list()
 ```
 
 ### Common Methods
@@ -248,7 +248,7 @@ Return a copy of the entity options.
 ## SearchEntity
 
 ```ts
-const search = client.search
+const search = client.Search()
 ```
 
 ### Fields
@@ -278,7 +278,7 @@ const search = client.search
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.search.list()
+const results = await client.Search().list()
 ```
 
 ### Common Methods

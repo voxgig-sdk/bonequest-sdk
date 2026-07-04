@@ -4,97 +4,95 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Episode:
-    episode: Optional[list] = None
-    meta: Optional[dict] = None
+class Episode(TypedDict, total=False):
+    episode: list
+    meta: dict
 
 
-@dataclass
-class EpisodeLoadMatch:
+class EpisodeLoadMatch(TypedDict):
     count: int
     id: int
 
 
-@dataclass
-class Quote:
-    day: Optional[int] = None
-    dialog: Optional[list] = None
-    episode: Optional[int] = None
-    hd: Optional[list] = None
-    height: Optional[int] = None
-    hifi: Optional[dict] = None
-    image: Optional[str] = None
-    month: Optional[int] = None
-    navigation: Optional[dict] = None
-    player: Optional[list] = None
-    tag: Optional[list] = None
-    thumb: Optional[str] = None
-    title: Optional[str] = None
-    width: Optional[int] = None
-    year: Optional[int] = None
+class Quote(TypedDict, total=False):
+    day: int
+    dialog: list
+    episode: int
+    hd: list
+    height: int
+    hifi: dict
+    image: str
+    month: int
+    navigation: dict
+    player: list
+    tag: list
+    thumb: str
+    title: str
+    width: int
+    year: int
 
 
-@dataclass
-class QuoteListMatch:
-    day: Optional[int] = None
-    dialog: Optional[list] = None
-    episode: Optional[int] = None
-    hd: Optional[list] = None
-    height: Optional[int] = None
-    hifi: Optional[dict] = None
-    image: Optional[str] = None
-    month: Optional[int] = None
-    navigation: Optional[dict] = None
-    player: Optional[list] = None
-    tag: Optional[list] = None
-    thumb: Optional[str] = None
-    title: Optional[str] = None
-    width: Optional[int] = None
-    year: Optional[int] = None
+class QuoteListMatch(TypedDict, total=False):
+    day: int
+    dialog: list
+    episode: int
+    hd: list
+    height: int
+    hifi: dict
+    image: str
+    month: int
+    navigation: dict
+    player: list
+    tag: list
+    thumb: str
+    title: str
+    width: int
+    year: int
 
 
-@dataclass
-class Search:
-    day: Optional[int] = None
-    dialog: Optional[list] = None
-    episode: Optional[int] = None
-    hd: Optional[list] = None
-    height: Optional[int] = None
-    hifi: Optional[dict] = None
-    image: Optional[str] = None
-    month: Optional[int] = None
-    navigation: Optional[dict] = None
-    player: Optional[list] = None
-    tag: Optional[list] = None
-    thumb: Optional[str] = None
-    title: Optional[str] = None
-    width: Optional[int] = None
-    year: Optional[int] = None
+class Search(TypedDict, total=False):
+    day: int
+    dialog: list
+    episode: int
+    hd: list
+    height: int
+    hifi: dict
+    image: str
+    month: int
+    navigation: dict
+    player: list
+    tag: list
+    thumb: str
+    title: str
+    width: int
+    year: int
 
 
-@dataclass
-class SearchListMatch:
-    day: Optional[int] = None
-    dialog: Optional[list] = None
-    episode: Optional[int] = None
-    hd: Optional[list] = None
-    height: Optional[int] = None
-    hifi: Optional[dict] = None
-    image: Optional[str] = None
-    month: Optional[int] = None
-    navigation: Optional[dict] = None
-    player: Optional[list] = None
-    tag: Optional[list] = None
-    thumb: Optional[str] = None
-    title: Optional[str] = None
-    width: Optional[int] = None
-    year: Optional[int] = None
-
+class SearchListMatch(TypedDict, total=False):
+    day: int
+    dialog: list
+    episode: int
+    hd: list
+    height: int
+    hifi: dict
+    image: str
+    month: int
+    navigation: dict
+    player: list
+    tag: list
+    thumb: str
+    title: str
+    width: int
+    year: int

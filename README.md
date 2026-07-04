@@ -26,9 +26,9 @@ import { BonequestSDK } from '@voxgig-sdk/bonequest'
 
 const client = new BonequestSDK()
 
-// Load episode data
-const episode = await client.episode.load({})
-console.log(episode.data)
+// Load episode data (returns a Episode)
+const episode = await client.Episode().load()
+console.log(episode)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -86,8 +86,8 @@ from bonequest_sdk import BonequestSDK
 client = BonequestSDK()
 
 
-# Load a specific episode
-episode = client.episode.load({"id": "example_id"})
+# Load a specific episode (returns the record, raises on error)
+episode = client.Episode().load({"id": "example_id"})
 print(episode)
 ```
 
@@ -100,8 +100,8 @@ require_once 'bonequest_sdk.php';
 $client = new BonequestSDK();
 
 
-// Load a specific episode
-$episode = $client->episode()->load(["id" => "example_id"]);
+// Load a specific episode (returns the bare record; throws on error)
+$episode = $client->Episode()->load(["id" => "example_id"]);
 print_r($episode);
 ```
 
@@ -125,8 +125,8 @@ require_relative "Bonequest_sdk"
 client = BonequestSDK.new
 
 
-# Load a specific episode
-episode = client.episode.load({ "id" => "example_id" })
+# Load a specific episode (returns the bare record; raises on error)
+episode = client.Episode.load({ "id" => "example_id" })
 puts episode
 ```
 
@@ -139,7 +139,7 @@ local client = sdk.new()
 
 
 -- Load a specific episode
-local episode, err = client:episode():load({ id = "example_id" })
+local episode, err = client:Episode():load({ id = "example_id" })
 print(episode)
 ```
 
@@ -152,22 +152,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = BonequestSDK.test()
-const result = await client.episode.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const episode = await client.Episode().load({ id: 'test01' })
+// episode is a bare Episode populated with mock data
+console.log(episode)
 ```
 
 ### Python
 
 ```python
 client = BonequestSDK.test()
-result = client.episode.load({"id": "test01"})
+episode = client.Episode().load({"id": "test01"})
+print(episode)
 ```
 
 ### PHP
 
 ```php
-$client = BonequestSDK::test();
-$result = $client->episode()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = BonequestSDK::test([
+    "entity" => ["episode" => ["test01" => ["id" => "test01"]]],
+]);
+$episode = $client->Episode()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -182,15 +187,18 @@ result, err := client.Episode(nil).Load(
 ### Ruby
 
 ```ruby
-client = BonequestSDK.test
-result = client.episode.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = BonequestSDK.test({
+  "entity" => { "episode" => { "test01" => { "id" => "test01" } } },
+})
+episode = client.Episode.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:episode():load({ id = "test01" })
+local result, err = client:Episode():load({ id = "test01" })
 ```
 
 ## How it works
@@ -238,6 +246,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

@@ -94,7 +94,7 @@ same parameters as `direct()`. Raises on error.
 ## EpisodeEntity
 
 ```ruby
-episode = client.episode
+episode = client.Episode
 ```
 
 ### Fields
@@ -111,7 +111,7 @@ episode = client.episode
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.episode.load({ "id" => "episode_id" })
+result = client.Episode.load({ "id" => "episode_id" })
 ```
 
 ### Common Methods
@@ -147,7 +147,7 @@ Return the entity name.
 ## QuoteEntity
 
 ```ruby
-quote = client.quote
+quote = client.Quote
 ```
 
 ### Fields
@@ -177,7 +177,7 @@ quote = client.quote
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.quote.list(nil)
+results = client.Quote.list(nil)
 ```
 
 ### Common Methods
@@ -213,7 +213,7 @@ Return the entity name.
 ## SearchEntity
 
 ```ruby
-search = client.search
+search = client.Search
 ```
 
 ### Fields
@@ -243,7 +243,7 @@ search = client.search
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.search.list(nil)
+results = client.Search.list(nil)
 ```
 
 ### Common Methods
