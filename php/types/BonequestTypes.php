@@ -46,7 +46,7 @@ class Quote
     public ?int $year = null;
 }
 
-/** Match filter for Quote#list (any subset of Quote fields). */
+/** Request payload for Quote#list. */
 class QuoteListMatch
 {
     public ?int $day = null;
@@ -86,7 +86,7 @@ class Search
     public ?int $year = null;
 }
 
-/** Match filter for Search#list (any subset of Search fields). */
+/** Request payload for Search#list. */
 class SearchListMatch
 {
     public ?int $day = null;

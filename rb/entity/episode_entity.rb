@@ -67,10 +67,12 @@ class EpisodeEntity
   
   # Load a single Episode.
   #
-  # @param reqmatch [EpisodeLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param reqmatch [EpisodeLoadMatch, Hash, nil] match criteria (id/query fields);
+  #   optional — an entity with no id-like key loads with no match (nil is treated
+  #   as an empty match, so client.Episode.load works with no args).
   # @param ctrl [Object, nil] optional per-call control
   # @return [Episode, Hash] the loaded Episode; raises BonequestError on failure
-  def load(reqmatch, ctrl = nil)
+  def load(reqmatch = nil, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
       "opname" => "load",

@@ -32,6 +32,21 @@
 ---@field year? number
 
 ---@class QuoteListMatch
+---@field day? number
+---@field dialog? table
+---@field episode? number
+---@field hd? table
+---@field height? number
+---@field hifi? table
+---@field image? string
+---@field month? number
+---@field navigation? table
+---@field player? table
+---@field tag? table
+---@field thumb? string
+---@field title? string
+---@field width? number
+---@field year? number
 
 ---@class Search
 ---@field day? number
@@ -51,6 +66,21 @@
 ---@field year? number
 
 ---@class SearchListMatch
+---@field day? number
+---@field dialog? table
+---@field episode? number
+---@field hd? table
+---@field height? number
+---@field hifi? table
+---@field image? string
+---@field month? number
+---@field navigation? table
+---@field player? table
+---@field tag? table
+---@field thumb? string
+---@field title? string
+---@field width? number
+---@field year? number
 
 local M = {}
 

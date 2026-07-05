@@ -98,8 +98,8 @@ local episode = client:Episode(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episode` | ``$ARRAY`` | No |  |
-| `meta` | ``$OBJECT`` | No |  |
+| `episode` | `table` | No |  |
+| `meta` | `table` | No |  |
 
 ### Operations
 
@@ -151,21 +151,21 @@ local quote = client:Quote(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | ``$INTEGER`` | No |  |
-| `dialog` | ``$ARRAY`` | No |  |
-| `episode` | ``$INTEGER`` | No |  |
-| `hd` | ``$ARRAY`` | No |  |
-| `height` | ``$INTEGER`` | No |  |
-| `hifi` | ``$OBJECT`` | No |  |
-| `image` | ``$STRING`` | No |  |
-| `month` | ``$INTEGER`` | No |  |
-| `navigation` | ``$OBJECT`` | No |  |
-| `player` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `width` | ``$INTEGER`` | No |  |
-| `year` | ``$INTEGER`` | No |  |
+| `day` | `number` | No |  |
+| `dialog` | `table` | No |  |
+| `episode` | `number` | No |  |
+| `hd` | `table` | No |  |
+| `height` | `number` | No |  |
+| `hifi` | `table` | No |  |
+| `image` | `string` | No |  |
+| `month` | `number` | No |  |
+| `navigation` | `table` | No |  |
+| `player` | `table` | No |  |
+| `tag` | `table` | No |  |
+| `thumb` | `string` | No |  |
+| `title` | `string` | No |  |
+| `width` | `number` | No |  |
+| `year` | `number` | No |  |
 
 ### Operations
 
@@ -217,21 +217,21 @@ local search = client:Search(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | ``$INTEGER`` | No |  |
-| `dialog` | ``$ARRAY`` | No |  |
-| `episode` | ``$INTEGER`` | No |  |
-| `hd` | ``$ARRAY`` | No |  |
-| `height` | ``$INTEGER`` | No |  |
-| `hifi` | ``$OBJECT`` | No |  |
-| `image` | ``$STRING`` | No |  |
-| `month` | ``$INTEGER`` | No |  |
-| `navigation` | ``$OBJECT`` | No |  |
-| `player` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `width` | ``$INTEGER`` | No |  |
-| `year` | ``$INTEGER`` | No |  |
+| `day` | `number` | No |  |
+| `dialog` | `table` | No |  |
+| `episode` | `number` | No |  |
+| `hd` | `table` | No |  |
+| `height` | `number` | No |  |
+| `hifi` | `table` | No |  |
+| `image` | `string` | No |  |
+| `month` | `number` | No |  |
+| `navigation` | `table` | No |  |
+| `player` | `table` | No |  |
+| `tag` | `table` | No |  |
+| `thumb` | `string` | No |  |
+| `title` | `string` | No |  |
+| `width` | `number` | No |  |
+| `year` | `number` | No |  |
 
 ### Operations
 

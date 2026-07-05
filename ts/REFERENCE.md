@@ -140,8 +140,8 @@ const episode = client.Episode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episode` | ``$ARRAY`` | No |  |
-| `meta` | ``$OBJECT`` | No |  |
+| `episode` | `any[]` | No |  |
+| `meta` | `Record<string, any>` | No |  |
 
 ### Operations
 
@@ -150,7 +150,7 @@ const episode = client.Episode()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Episode().load({ id: 'episode_id' })
+const result = await client.Episode().load({ id: 1 })
 ```
 
 ### Common Methods
@@ -191,21 +191,21 @@ const quote = client.Quote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | ``$INTEGER`` | No |  |
-| `dialog` | ``$ARRAY`` | No |  |
-| `episode` | ``$INTEGER`` | No |  |
-| `hd` | ``$ARRAY`` | No |  |
-| `height` | ``$INTEGER`` | No |  |
-| `hifi` | ``$OBJECT`` | No |  |
-| `image` | ``$STRING`` | No |  |
-| `month` | ``$INTEGER`` | No |  |
-| `navigation` | ``$OBJECT`` | No |  |
-| `player` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `width` | ``$INTEGER`` | No |  |
-| `year` | ``$INTEGER`` | No |  |
+| `day` | `number` | No |  |
+| `dialog` | `any[]` | No |  |
+| `episode` | `number` | No |  |
+| `hd` | `any[]` | No |  |
+| `height` | `number` | No |  |
+| `hifi` | `Record<string, any>` | No |  |
+| `image` | `string` | No |  |
+| `month` | `number` | No |  |
+| `navigation` | `Record<string, any>` | No |  |
+| `player` | `any[]` | No |  |
+| `tag` | `any[]` | No |  |
+| `thumb` | `string` | No |  |
+| `title` | `string` | No |  |
+| `width` | `number` | No |  |
+| `year` | `number` | No |  |
 
 ### Operations
 
@@ -255,21 +255,21 @@ const search = client.Search()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | ``$INTEGER`` | No |  |
-| `dialog` | ``$ARRAY`` | No |  |
-| `episode` | ``$INTEGER`` | No |  |
-| `hd` | ``$ARRAY`` | No |  |
-| `height` | ``$INTEGER`` | No |  |
-| `hifi` | ``$OBJECT`` | No |  |
-| `image` | ``$STRING`` | No |  |
-| `month` | ``$INTEGER`` | No |  |
-| `navigation` | ``$OBJECT`` | No |  |
-| `player` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `width` | ``$INTEGER`` | No |  |
-| `year` | ``$INTEGER`` | No |  |
+| `day` | `number` | No |  |
+| `dialog` | `any[]` | No |  |
+| `episode` | `number` | No |  |
+| `hd` | `any[]` | No |  |
+| `height` | `number` | No |  |
+| `hifi` | `Record<string, any>` | No |  |
+| `image` | `string` | No |  |
+| `month` | `number` | No |  |
+| `navigation` | `Record<string, any>` | No |  |
+| `player` | `any[]` | No |  |
+| `tag` | `any[]` | No |  |
+| `thumb` | `string` | No |  |
+| `title` | `string` | No |  |
+| `width` | `number` | No |  |
+| `year` | `number` | No |  |
 
 ### Operations
 

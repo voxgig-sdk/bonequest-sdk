@@ -221,19 +221,19 @@ class BonequestSDK:
 
 
     def Episode(self, data=None) -> "EpisodeEntity":
-        """Entity factory: client.Episode().list({}) / client.Episode().load({"id": ...})."""
+        """Entity factory: client.Episode().list() / client.Episode().load({"id": ...})."""
         from entity.episode_entity import EpisodeEntity
         return EpisodeEntity(self, data)
 
 
     def Quote(self, data=None) -> "QuoteEntity":
-        """Entity factory: client.Quote().list({}) / client.Quote().load({"id": ...})."""
+        """Entity factory: client.Quote().list() / client.Quote().load({"id": ...})."""
         from entity.quote_entity import QuoteEntity
         return QuoteEntity(self, data)
 
 
     def Search(self, data=None) -> "SearchEntity":
-        """Entity factory: client.Search().list({}) / client.Search().load({"id": ...})."""
+        """Entity factory: client.Search().list() / client.Search().load({"id": ...})."""
         from entity.search_entity import SearchEntity
         return SearchEntity(self, data)
 

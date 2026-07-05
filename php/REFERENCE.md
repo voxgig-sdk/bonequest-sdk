@@ -53,11 +53,11 @@ Create a new `QuoteEntity` instance. Pass `null` for no initial data.
 
 Create a new `SearchEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): BonequestUtility`
 
 Return a copy of the SDK utility object.
 
@@ -100,8 +100,8 @@ $episode = $client->Episode();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episode` | ``$ARRAY`` | No |  |
-| `meta` | ``$OBJECT`` | No |  |
+| `episode` | `array` | No |  |
+| `meta` | `array` | No |  |
 
 ### Operations
 
@@ -115,19 +115,19 @@ $result = $client->Episode()->load(["id" => "episode_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -136,7 +136,7 @@ Set the entity match criteria.
 Create a new `EpisodeEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -153,47 +153,47 @@ $quote = $client->Quote();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | ``$INTEGER`` | No |  |
-| `dialog` | ``$ARRAY`` | No |  |
-| `episode` | ``$INTEGER`` | No |  |
-| `hd` | ``$ARRAY`` | No |  |
-| `height` | ``$INTEGER`` | No |  |
-| `hifi` | ``$OBJECT`` | No |  |
-| `image` | ``$STRING`` | No |  |
-| `month` | ``$INTEGER`` | No |  |
-| `navigation` | ``$OBJECT`` | No |  |
-| `player` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `width` | ``$INTEGER`` | No |  |
-| `year` | ``$INTEGER`` | No |  |
+| `day` | `int` | No |  |
+| `dialog` | `array` | No |  |
+| `episode` | `int` | No |  |
+| `hd` | `array` | No |  |
+| `height` | `int` | No |  |
+| `hifi` | `array` | No |  |
+| `image` | `string` | No |  |
+| `month` | `int` | No |  |
+| `navigation` | `array` | No |  |
+| `player` | `array` | No |  |
+| `tag` | `array` | No |  |
+| `thumb` | `string` | No |  |
+| `title` | `string` | No |  |
+| `width` | `int` | No |  |
+| `year` | `int` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Quote()->list([]);
+$results = $client->Quote()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -202,7 +202,7 @@ Set the entity match criteria.
 Create a new `QuoteEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -219,47 +219,47 @@ $search = $client->Search();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | ``$INTEGER`` | No |  |
-| `dialog` | ``$ARRAY`` | No |  |
-| `episode` | ``$INTEGER`` | No |  |
-| `hd` | ``$ARRAY`` | No |  |
-| `height` | ``$INTEGER`` | No |  |
-| `hifi` | ``$OBJECT`` | No |  |
-| `image` | ``$STRING`` | No |  |
-| `month` | ``$INTEGER`` | No |  |
-| `navigation` | ``$OBJECT`` | No |  |
-| `player` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `width` | ``$INTEGER`` | No |  |
-| `year` | ``$INTEGER`` | No |  |
+| `day` | `int` | No |  |
+| `dialog` | `array` | No |  |
+| `episode` | `int` | No |  |
+| `hd` | `array` | No |  |
+| `height` | `int` | No |  |
+| `hifi` | `array` | No |  |
+| `image` | `string` | No |  |
+| `month` | `int` | No |  |
+| `navigation` | `array` | No |  |
+| `player` | `array` | No |  |
+| `tag` | `array` | No |  |
+| `thumb` | `string` | No |  |
+| `title` | `string` | No |  |
+| `width` | `int` | No |  |
+| `year` | `int` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Search()->list([]);
+$results = $client->Search()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -268,7 +268,7 @@ Set the entity match criteria.
 Create a new `SearchEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

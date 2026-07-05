@@ -33,7 +33,23 @@ export interface Quote {
   year?: number
 }
 
-export type QuoteListMatch = Partial<Quote>
+export interface QuoteListMatch {
+  day?: number
+  dialog?: any[]
+  episode?: number
+  hd?: any[]
+  height?: number
+  hifi?: Record<string, any>
+  image?: string
+  month?: number
+  navigation?: Record<string, any>
+  player?: any[]
+  tag?: any[]
+  thumb?: string
+  title?: string
+  width?: number
+  year?: number
+}
 
 export interface Search {
   day?: number
@@ -53,5 +69,21 @@ export interface Search {
   year?: number
 }
 
-export type SearchListMatch = Partial<Search>
+export interface SearchListMatch {
+  day?: number
+  dialog?: any[]
+  episode?: number
+  hd?: any[]
+  height?: number
+  hifi?: Record<string, any>
+  image?: string
+  month?: number
+  navigation?: Record<string, any>
+  player?: any[]
+  tag?: any[]
+  thumb?: string
+  title?: string
+  width?: number
+  year?: number
+}
 

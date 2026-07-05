@@ -95,8 +95,8 @@ episode = client.Episode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episode` | ``$ARRAY`` | No |  |
-| `meta` | ``$OBJECT`` | No |  |
+| `episode` | `list` | No |  |
+| `meta` | `dict` | No |  |
 
 ### Operations
 
@@ -147,30 +147,30 @@ quote = client.Quote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | ``$INTEGER`` | No |  |
-| `dialog` | ``$ARRAY`` | No |  |
-| `episode` | ``$INTEGER`` | No |  |
-| `hd` | ``$ARRAY`` | No |  |
-| `height` | ``$INTEGER`` | No |  |
-| `hifi` | ``$OBJECT`` | No |  |
-| `image` | ``$STRING`` | No |  |
-| `month` | ``$INTEGER`` | No |  |
-| `navigation` | ``$OBJECT`` | No |  |
-| `player` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `width` | ``$INTEGER`` | No |  |
-| `year` | ``$INTEGER`` | No |  |
+| `day` | `int` | No |  |
+| `dialog` | `list` | No |  |
+| `episode` | `int` | No |  |
+| `hd` | `list` | No |  |
+| `height` | `int` | No |  |
+| `hifi` | `dict` | No |  |
+| `image` | `str` | No |  |
+| `month` | `int` | No |  |
+| `navigation` | `dict` | No |  |
+| `player` | `list` | No |  |
+| `tag` | `list` | No |  |
+| `thumb` | `str` | No |  |
+| `title` | `str` | No |  |
+| `width` | `int` | No |  |
+| `year` | `int` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Quote().list({})
+results = client.Quote().list()
 for quote in results:
     print(quote)
 ```
@@ -214,30 +214,30 @@ search = client.Search()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | ``$INTEGER`` | No |  |
-| `dialog` | ``$ARRAY`` | No |  |
-| `episode` | ``$INTEGER`` | No |  |
-| `hd` | ``$ARRAY`` | No |  |
-| `height` | ``$INTEGER`` | No |  |
-| `hifi` | ``$OBJECT`` | No |  |
-| `image` | ``$STRING`` | No |  |
-| `month` | ``$INTEGER`` | No |  |
-| `navigation` | ``$OBJECT`` | No |  |
-| `player` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `width` | ``$INTEGER`` | No |  |
-| `year` | ``$INTEGER`` | No |  |
+| `day` | `int` | No |  |
+| `dialog` | `list` | No |  |
+| `episode` | `int` | No |  |
+| `hd` | `list` | No |  |
+| `height` | `int` | No |  |
+| `hifi` | `dict` | No |  |
+| `image` | `str` | No |  |
+| `month` | `int` | No |  |
+| `navigation` | `dict` | No |  |
+| `player` | `list` | No |  |
+| `tag` | `list` | No |  |
+| `thumb` | `str` | No |  |
+| `title` | `str` | No |  |
+| `width` | `int` | No |  |
+| `year` | `int` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Search().list({})
+results = client.Search().list()
 for search in results:
     print(search)
 ```

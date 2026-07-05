@@ -99,7 +99,7 @@ Quote = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Quote#list (any subset of Quote fields).
+# Request payload for Quote#list.
 #
 # @!attribute [rw] day
 #   @return [Integer, nil]
@@ -229,7 +229,7 @@ Search = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Search#list (any subset of Search fields).
+# Request payload for Search#list.
 #
 # @!attribute [rw] day
 #   @return [Integer, nil]

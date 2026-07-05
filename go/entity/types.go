@@ -39,8 +39,7 @@ type Quote struct {
 	Year *int `json:"year,omitempty"`
 }
 
-// QuoteListMatch mirrors the quote fields as an all-optional match
-// filter (Go analog of Partial<Quote>).
+// QuoteListMatch is the typed request payload for Quote.ListTyped.
 type QuoteListMatch struct {
 	Day *int `json:"day,omitempty"`
 	Dialog *[]any `json:"dialog,omitempty"`
@@ -78,8 +77,7 @@ type Search struct {
 	Year *int `json:"year,omitempty"`
 }
 
-// SearchListMatch mirrors the search fields as an all-optional match
-// filter (Go analog of Partial<Search>).
+// SearchListMatch is the typed request payload for Search.ListTyped.
 type SearchListMatch struct {
 	Day *int `json:"day,omitempty"`
 	Dialog *[]any `json:"dialog,omitempty"`

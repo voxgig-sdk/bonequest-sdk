@@ -8,7 +8,7 @@ Complete API reference for the Bonequest Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'bonequest_sdk'
+require_relative 'Bonequest_sdk'
 
 client = BonequestSDK.new(options)
 ```
@@ -101,8 +101,8 @@ episode = client.Episode
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episode` | ``$ARRAY`` | No |  |
-| `meta` | ``$OBJECT`` | No |  |
+| `episode` | `Array` | No |  |
+| `meta` | `Hash` | No |  |
 
 ### Operations
 
@@ -154,30 +154,30 @@ quote = client.Quote
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | ``$INTEGER`` | No |  |
-| `dialog` | ``$ARRAY`` | No |  |
-| `episode` | ``$INTEGER`` | No |  |
-| `hd` | ``$ARRAY`` | No |  |
-| `height` | ``$INTEGER`` | No |  |
-| `hifi` | ``$OBJECT`` | No |  |
-| `image` | ``$STRING`` | No |  |
-| `month` | ``$INTEGER`` | No |  |
-| `navigation` | ``$OBJECT`` | No |  |
-| `player` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `width` | ``$INTEGER`` | No |  |
-| `year` | ``$INTEGER`` | No |  |
+| `day` | `Integer` | No |  |
+| `dialog` | `Array` | No |  |
+| `episode` | `Integer` | No |  |
+| `hd` | `Array` | No |  |
+| `height` | `Integer` | No |  |
+| `hifi` | `Hash` | No |  |
+| `image` | `String` | No |  |
+| `month` | `Integer` | No |  |
+| `navigation` | `Hash` | No |  |
+| `player` | `Array` | No |  |
+| `tag` | `Array` | No |  |
+| `thumb` | `String` | No |  |
+| `title` | `String` | No |  |
+| `width` | `Integer` | No |  |
+| `year` | `Integer` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Quote.list(nil)
+results = client.Quote.list
 ```
 
 ### Common Methods
@@ -220,30 +220,30 @@ search = client.Search
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | ``$INTEGER`` | No |  |
-| `dialog` | ``$ARRAY`` | No |  |
-| `episode` | ``$INTEGER`` | No |  |
-| `hd` | ``$ARRAY`` | No |  |
-| `height` | ``$INTEGER`` | No |  |
-| `hifi` | ``$OBJECT`` | No |  |
-| `image` | ``$STRING`` | No |  |
-| `month` | ``$INTEGER`` | No |  |
-| `navigation` | ``$OBJECT`` | No |  |
-| `player` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `width` | ``$INTEGER`` | No |  |
-| `year` | ``$INTEGER`` | No |  |
+| `day` | `Integer` | No |  |
+| `dialog` | `Array` | No |  |
+| `episode` | `Integer` | No |  |
+| `hd` | `Array` | No |  |
+| `height` | `Integer` | No |  |
+| `hifi` | `Hash` | No |  |
+| `image` | `String` | No |  |
+| `month` | `Integer` | No |  |
+| `navigation` | `Hash` | No |  |
+| `player` | `Array` | No |  |
+| `tag` | `Array` | No |  |
+| `thumb` | `String` | No |  |
+| `title` | `String` | No |  |
+| `width` | `Integer` | No |  |
+| `year` | `Integer` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Search.list(nil)
+results = client.Search.list
 ```
 
 ### Common Methods

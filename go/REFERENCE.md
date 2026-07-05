@@ -105,8 +105,8 @@ episode := client.Episode(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episode` | ``$ARRAY`` | No |  |
-| `meta` | ``$OBJECT`` | No |  |
+| `episode` | `[]any` | No |  |
+| `meta` | `map[string]any` | No |  |
 
 ### Operations
 
@@ -152,21 +152,21 @@ quote := client.Quote(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | ``$INTEGER`` | No |  |
-| `dialog` | ``$ARRAY`` | No |  |
-| `episode` | ``$INTEGER`` | No |  |
-| `hd` | ``$ARRAY`` | No |  |
-| `height` | ``$INTEGER`` | No |  |
-| `hifi` | ``$OBJECT`` | No |  |
-| `image` | ``$STRING`` | No |  |
-| `month` | ``$INTEGER`` | No |  |
-| `navigation` | ``$OBJECT`` | No |  |
-| `player` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `width` | ``$INTEGER`` | No |  |
-| `year` | ``$INTEGER`` | No |  |
+| `day` | `int` | No |  |
+| `dialog` | `[]any` | No |  |
+| `episode` | `int` | No |  |
+| `hd` | `[]any` | No |  |
+| `height` | `int` | No |  |
+| `hifi` | `map[string]any` | No |  |
+| `image` | `string` | No |  |
+| `month` | `int` | No |  |
+| `navigation` | `map[string]any` | No |  |
+| `player` | `[]any` | No |  |
+| `tag` | `[]any` | No |  |
+| `thumb` | `string` | No |  |
+| `title` | `string` | No |  |
+| `width` | `int` | No |  |
+| `year` | `int` | No |  |
 
 ### Operations
 
@@ -212,21 +212,21 @@ search := client.Search(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | ``$INTEGER`` | No |  |
-| `dialog` | ``$ARRAY`` | No |  |
-| `episode` | ``$INTEGER`` | No |  |
-| `hd` | ``$ARRAY`` | No |  |
-| `height` | ``$INTEGER`` | No |  |
-| `hifi` | ``$OBJECT`` | No |  |
-| `image` | ``$STRING`` | No |  |
-| `month` | ``$INTEGER`` | No |  |
-| `navigation` | ``$OBJECT`` | No |  |
-| `player` | ``$ARRAY`` | No |  |
-| `tag` | ``$ARRAY`` | No |  |
-| `thumb` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `width` | ``$INTEGER`` | No |  |
-| `year` | ``$INTEGER`` | No |  |
+| `day` | `int` | No |  |
+| `dialog` | `[]any` | No |  |
+| `episode` | `int` | No |  |
+| `hd` | `[]any` | No |  |
+| `height` | `int` | No |  |
+| `hifi` | `map[string]any` | No |  |
+| `image` | `string` | No |  |
+| `month` | `int` | No |  |
+| `navigation` | `map[string]any` | No |  |
+| `player` | `[]any` | No |  |
+| `tag` | `[]any` | No |  |
+| `thumb` | `string` | No |  |
+| `title` | `string` | No |  |
+| `width` | `int` | No |  |
+| `year` | `int` | No |  |
 
 ### Operations
 
