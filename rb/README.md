@@ -35,7 +35,7 @@ client = BonequestSDK.new
 ```ruby
 begin
   # load returns the bare Episode record (raises on error).
-  episode = client.Episode.load({ "id" => "example_id" })
+  episode = client.Episode.load({ "id" => 1 })
   puts episode
 rescue => err
   warn "load failed: #{err}"
@@ -321,7 +321,7 @@ Create an instance: `episode = client.Episode`
 
 ```ruby
 # load returns the bare Episode record (raises on error).
-episode = client.Episode.load({ "id" => "episode_id" })
+episode = client.Episode.load({ "id" => 1 })
 ```
 
 

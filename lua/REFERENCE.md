@@ -108,7 +108,7 @@ local episode = client:Episode(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Episode():load({ id = "episode_id" })
+local result, err = client:Episode():load({ id = 1 })
 ```
 
 ### Common Methods

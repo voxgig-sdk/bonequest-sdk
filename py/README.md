@@ -42,7 +42,7 @@ client = BonequestSDK()
 
 ```python
 try:
-    episode = client.Episode().load({"id": "example_id"})
+    episode = client.Episode().load({"id": 1})
     print(episode)
 except Exception as err:
     print(f"load failed: {err}")
@@ -323,7 +323,7 @@ Create an instance: `episode = client.Episode()`
 #### Example: Load
 
 ```python
-episode = client.Episode().load({"id": "episode_id"})
+episode = client.Episode().load({"id": 1})
 ```
 
 

@@ -36,7 +36,7 @@ $client = new BonequestSDK();
 ```php
 try {
     // load() returns the bare Episode record (throws on error).
-    $episode = $client->Episode()->load(["id" => "example_id"]);
+    $episode = $client->Episode()->load(["id" => 1]);
     print_r($episode);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -331,7 +331,7 @@ Create an instance: `$episode = $client->Episode();`
 
 ```php
 // load() returns the bare Episode record (throws on error).
-$episode = $client->Episode()->load(["id" => "episode_id"]);
+$episode = $client->Episode()->load(["id" => 1]);
 ```
 
 

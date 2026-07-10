@@ -36,7 +36,7 @@ local client = sdk.new()
 ### 3. Load an episode
 
 ```lua
-local episode, err = client:Episode():load({ id = "example_id" })
+local episode, err = client:Episode():load({ id = 1 })
 if err then error(err) end
 print(episode)
 ```
@@ -309,7 +309,7 @@ Create an instance: `local episode = client:Episode(nil)`
 #### Example: Load
 
 ```lua
-local episode, err = client:Episode():load({ id = "episode_id" })
+local episode, err = client:Episode():load({ id = 1 })
 ```
 
 

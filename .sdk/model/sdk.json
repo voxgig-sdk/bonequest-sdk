@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -619,14 +616,17 @@
           "description": "API Documentation",
           "url": "https://github.com/bonequest/api"
         },
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Production server",
             "url": "https://www.bonequest.com/api/v2"
           }
         ],
+        "summary": "The BoneQuest API provides access to episode data, allowing users to fetch details about episodes, including dialogue and metadata.",
         "title": "BoneQuest API",
-        "version": "2.0.0"
+        "version": "2.0.0",
+        "website": "https://github.com/bonequest/api"
       },
       "option": {},
       "target": {
@@ -679,6 +679,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -729,6 +732,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

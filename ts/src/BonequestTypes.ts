@@ -11,8 +11,8 @@ export interface Episode {
 }
 
 export interface EpisodeLoadMatch {
-  count: number
-  id: number
+  count?: number
+  id?: number
 }
 
 export interface Quote {

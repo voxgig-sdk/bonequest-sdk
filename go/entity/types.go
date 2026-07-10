@@ -16,8 +16,8 @@ type Episode struct {
 
 // EpisodeLoadMatch is the typed request payload for Episode.LoadTyped.
 type EpisodeLoadMatch struct {
-	Count int `json:"count"`
-	Id int `json:"id"`
+	Count *int `json:"count,omitempty"`
+	Id *int `json:"id,omitempty"`
 }
 
 // Quote is the typed data model for the quote entity.

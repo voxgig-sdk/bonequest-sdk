@@ -342,7 +342,7 @@ Create an instance: `episode := client.Episode(nil)`
 #### Example: Load
 
 ```go
-episode, err := client.Episode(nil).Load(map[string]any{"id": "episode_id"}, nil)
+episode, err := client.Episode(nil).Load(map[string]any{"id": 1}, nil)
 if err != nil {
     panic(err)
 }

@@ -99,6 +99,7 @@ same parameters as `Direct()`.
 
 ```go
 episode := client.Episode(nil)
+fmt.Println(episode.GetName()) // "episode"
 ```
 
 ### Fields
@@ -115,7 +116,11 @@ episode := client.Episode(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Episode(nil).Load(map[string]any{"id": "episode_id"}, nil)
+result, err := client.Episode(nil).Load(map[string]any{"id": 1}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -146,6 +151,7 @@ Return the entity name.
 
 ```go
 quote := client.Quote(nil)
+fmt.Println(quote.GetName()) // "quote"
 ```
 
 ### Fields
@@ -176,6 +182,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Quote(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -206,6 +216,7 @@ Return the entity name.
 
 ```go
 search := client.Search(nil)
+fmt.Println(search.GetName()) // "search"
 ```
 
 ### Fields
@@ -236,6 +247,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Search(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods

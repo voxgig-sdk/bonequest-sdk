@@ -105,7 +105,7 @@ episode = client.Episode()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Episode().load({"id": "episode_id"})
+result = client.Episode().load({"id": 1})
 ```
 
 ### Common Methods
