@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- Bonequest SDK exists test
 
 local sdk = require("bonequest_sdk")
 
