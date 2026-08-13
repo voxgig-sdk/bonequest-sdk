@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ BonequestUtility::setRegistrar(function (BonequestUtility $u): void {
     $u->prepare_params = [BonequestPrepareParams::class, 'call'];
     $u->prepare_path = [BonequestPreparePath::class, 'call'];
     $u->prepare_query = [BonequestPrepareQuery::class, 'call'];
+    $u->graphql_body = [BonequestGraphql::class, 'body'];
+    $u->graphql_errors = [BonequestGraphql::class, 'errors'];
     $u->result_basic = [BonequestResultBasic::class, 'call'];
     $u->result_body = [BonequestResultBody::class, 'call'];
     $u->result_headers = [BonequestResultHeaders::class, 'call'];

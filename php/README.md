@@ -35,7 +35,7 @@ $client = new BonequestSDK();
 
 ```php
 try {
-    // load() returns the bare Episode record (throws on error).
+    // load() returns the ENTITY — call data_get() for the Episode record (throws on error).
     $episode = $client->Episode()->load(["id" => 1]);
     print_r($episode);
 } catch (\Throwable $err) {
@@ -51,7 +51,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $episode = $client->Episode()->load(["id" => 1]);
+    $searchs = $client->Search()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -118,17 +118,15 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```php
-$client = BonequestSDK::test([
-    "entity" => ["episode" => ["test01" => ["id" => "test01"]]],
-]);
+$client = BonequestSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$episode = $client->Episode()->load(["id" => "test01"]);
-print_r($episode);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$search = $client->Search()->list();
+print_r($search);
 ```
 
 ### Use a custom fetch function
@@ -228,7 +226,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -250,7 +248,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `episode` |  |
+| `episodes` |  |
 | `meta` |  |
 
 Operations: Load.
@@ -270,8 +268,8 @@ API path: `/episodes/random/{count}`
 | `image` |  |
 | `month` |  |
 | `navigation` |  |
-| `player` |  |
-| `tag` |  |
+| `players` |  |
+| `tags` |  |
 | `thumb` |  |
 | `title` |  |
 | `width` |  |
@@ -294,8 +292,8 @@ API path: `/quote/random`
 | `image` |  |
 | `month` |  |
 | `navigation` |  |
-| `player` |  |
-| `tag` |  |
+| `players` |  |
+| `tags` |  |
 | `thumb` |  |
 | `title` |  |
 | `width` |  |
@@ -324,13 +322,13 @@ Create an instance: `$episode = $client->Episode();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `episode` | `array` |  |
+| `episodes` | `array` |  |
 | `meta` | `array` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Episode record (throws on error).
+// load() returns the ENTITY — call data_get() for the Episode record (throws on error).
 $episode = $client->Episode()->load(["id" => 1]);
 ```
 
@@ -358,8 +356,8 @@ Create an instance: `$quote = $client->Quote();`
 | `image` | `string` |  |
 | `month` | `int` |  |
 | `navigation` | `array` |  |
-| `player` | `array` |  |
-| `tag` | `array` |  |
+| `players` | `array` |  |
+| `tags` | `array` |  |
 | `thumb` | `string` |  |
 | `title` | `string` |  |
 | `width` | `int` |  |
@@ -396,8 +394,8 @@ Create an instance: `$search = $client->Search();`
 | `image` | `string` |  |
 | `month` | `int` |  |
 | `navigation` | `array` |  |
-| `player` | `array` |  |
-| `tag` | `array` |  |
+| `players` | `array` |  |
+| `tags` | `array` |  |
 | `thumb` | `string` |  |
 | `title` | `string` |  |
 | `width` | `int` |  |
@@ -483,15 +481,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$episode = $client->Episode();
-$episode->load(["id" => 1]);
+$search = $client->Search();
+$search->list();
 
-// $episode->data_get() now returns the episode data from the last load
-// $episode->match_get() returns the last match criteria
+// $search->data_get() now returns the search data from the last list
+// $search->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

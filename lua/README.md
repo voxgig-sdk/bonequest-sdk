@@ -48,7 +48,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local episode, err = client:Episode():load({ id = 1 })
+local searchs, err = client:Search():list()
 if err then error(err) end
 ```
 
@@ -106,7 +106,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Episode():load({ id = "test01" })
+local result, err = client:Search():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -229,7 +229,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `episode` |  |
+| `episodes` |  |
 | `meta` |  |
 
 Operations: Load.
@@ -249,8 +249,8 @@ API path: `/episodes/random/{count}`
 | `image` |  |
 | `month` |  |
 | `navigation` |  |
-| `player` |  |
-| `tag` |  |
+| `players` |  |
+| `tags` |  |
 | `thumb` |  |
 | `title` |  |
 | `width` |  |
@@ -273,8 +273,8 @@ API path: `/quote/random`
 | `image` |  |
 | `month` |  |
 | `navigation` |  |
-| `player` |  |
-| `tag` |  |
+| `players` |  |
+| `tags` |  |
 | `thumb` |  |
 | `title` |  |
 | `width` |  |
@@ -303,7 +303,7 @@ Create an instance: `local episode = client:Episode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `episode` | `table` |  |
+| `episodes` | `table` |  |
 | `meta` | `table` |  |
 
 #### Example: Load
@@ -336,8 +336,8 @@ Create an instance: `local quote = client:Quote(nil)`
 | `image` | `string` |  |
 | `month` | `number` |  |
 | `navigation` | `table` |  |
-| `player` | `table` |  |
-| `tag` | `table` |  |
+| `players` | `table` |  |
+| `tags` | `table` |  |
 | `thumb` | `string` |  |
 | `title` | `string` |  |
 | `width` | `number` |  |
@@ -373,8 +373,8 @@ Create an instance: `local search = client:Search(nil)`
 | `image` | `string` |  |
 | `month` | `number` |  |
 | `navigation` | `table` |  |
-| `player` | `table` |  |
-| `tag` | `table` |  |
+| `players` | `table` |  |
+| `tags` | `table` |  |
 | `thumb` | `string` |  |
 | `title` | `string` |  |
 | `width` | `number` |  |
@@ -459,15 +459,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local episode = client:Episode()
-episode:load({ id = 1 })
+local search = client:Search()
+search:list()
 
--- episode:data_get() now returns the episode data from the last load
--- episode:match_get() returns the last match criteria
+-- search:data_get() now returns the search data from the last list
+-- search:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

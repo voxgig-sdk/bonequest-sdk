@@ -63,7 +63,7 @@ describe('QuoteEntity', async () => {
     const quote_ref01_ent = client.Quote()
     const quote_ref01_match: any = {}
 
-    const quote_ref01_list = await quote_ref01_ent.list(quote_ref01_match)
+    const quote_ref01_list = (await quote_ref01_ent.list(quote_ref01_match)).map((e: any) => e.data())
 
 
   })

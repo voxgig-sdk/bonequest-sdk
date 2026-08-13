@@ -53,10 +53,10 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const episode = await client.Episode().load({ id: 1 })
-  console.log(episode)
+  const searchs = await client.Search().list()
+  console.log(searchs)
 } catch (err) {
-  console.error('load failed:', err)
+  console.error('list failed:', err)
 }
 ```
 
@@ -120,9 +120,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = BonequestSDK.test()
 
-const episode = await client.Episode().load({ id: 1 })
-// episode is a bare entity populated with mock response data
-console.log(episode)
+const search = await client.Search().list()
+// search is the entity, populated with mock response data
+// — call search.data() for the record itself
+console.log(search)
 ```
 
 You can also use the instance method:
@@ -137,10 +138,10 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Episode()
+const entity = client.Search()
 
 // First call runs the operation and stores its result
-await entity.load({ id: 1 })
+await entity.list()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -289,7 +290,7 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `episode` |  |
+| `episodes` |  |
 | `meta` |  |
 
 Operations: load.
@@ -309,8 +310,8 @@ API path: `/episodes/random/{count}`
 | `image` |  |
 | `month` |  |
 | `navigation` |  |
-| `player` |  |
-| `tag` |  |
+| `players` |  |
+| `tags` |  |
 | `thumb` |  |
 | `title` |  |
 | `width` |  |
@@ -333,8 +334,8 @@ API path: `/quote/random`
 | `image` |  |
 | `month` |  |
 | `navigation` |  |
-| `player` |  |
-| `tag` |  |
+| `players` |  |
+| `tags` |  |
 | `thumb` |  |
 | `title` |  |
 | `width` |  |
@@ -363,7 +364,7 @@ Create an instance: `const episode = client.Episode()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `episode` | `any[]` |  |
+| `episodes` | `any[]` |  |
 | `meta` | `Record<string, any>` |  |
 
 #### Example: Load
@@ -396,8 +397,8 @@ Create an instance: `const quote = client.Quote()`
 | `image` | `string` |  |
 | `month` | `number` |  |
 | `navigation` | `Record<string, any>` |  |
-| `player` | `any[]` |  |
-| `tag` | `any[]` |  |
+| `players` | `any[]` |  |
+| `tags` | `any[]` |  |
 | `thumb` | `string` |  |
 | `title` | `string` |  |
 | `width` | `number` |  |
@@ -433,8 +434,8 @@ Create an instance: `const search = client.Search()`
 | `image` | `string` |  |
 | `month` | `number` |  |
 | `navigation` | `Record<string, any>` |  |
-| `player` | `any[]` |  |
-| `tag` | `any[]` |  |
+| `players` | `any[]` |  |
+| `tags` | `any[]` |  |
 | `thumb` | `string` |  |
 | `title` | `string` |  |
 | `width` | `number` |  |
@@ -511,16 +512,16 @@ import { BonequestSDK } from '@voxgig-sdk/bonequest'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const episode = client.Episode()
-await episode.load({ id: 1 })
+const search = client.Search()
+await search.list()
 
-// episode.data() now returns the episode data from the last `load`
-// episode.match() returns { id: 1 }
+// search.data() now returns the search data from the last `list`
+// search.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

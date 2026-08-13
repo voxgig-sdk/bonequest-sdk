@@ -140,7 +140,7 @@ const episode = client.Episode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episode` | `any[]` | No |  |
+| `episodes` | `any[]` | No |  |
 | `meta` | `Record<string, any>` | No |  |
 
 ### Operations
@@ -200,12 +200,32 @@ const quote = client.Quote()
 | `image` | `string` | No |  |
 | `month` | `number` | No |  |
 | `navigation` | `Record<string, any>` | No |  |
-| `player` | `any[]` | No |  |
-| `tag` | `any[]` | No |  |
+| `players` | `any[]` | No |  |
+| `tags` | `any[]` | No |  |
 | `thumb` | `string` | No |  |
 | `title` | `string` | No |  |
 | `width` | `number` | No |  |
 | `year` | `number` | No |  |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `random` | `/quote/random` | `client.Quote().list({ $action: 'random', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Quote record — check the API definition for its shape.
+
+```ts
+const result = await client.Quote().list({
+  $action: 'random',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -264,8 +284,8 @@ const search = client.Search()
 | `image` | `string` | No |  |
 | `month` | `number` | No |  |
 | `navigation` | `Record<string, any>` | No |  |
-| `player` | `any[]` | No |  |
-| `tag` | `any[]` | No |  |
+| `players` | `any[]` | No |  |
+| `tags` | `any[]` | No |  |
 | `thumb` | `string` | No |  |
 | `title` | `string` | No |  |
 | `width` | `number` | No |  |

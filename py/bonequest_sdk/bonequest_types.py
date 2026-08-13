@@ -1,0 +1,98 @@
+# Typed models for the Bonequest SDK.
+#
+# GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
+# params (op.<name>.points[].args.params[]). Field/param types come from the
+# canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
+# @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
+
+from __future__ import annotations
+
+from typing import TypedDict, Any
+
+
+class Episode(TypedDict, total=False):
+    episodes: list
+    meta: dict
+
+
+class EpisodeLoadMatch(TypedDict, total=False):
+    count: int
+    id: int
+
+
+class Quote(TypedDict, total=False):
+    day: int
+    dialog: list
+    episode: int
+    hd: list
+    height: int
+    hifi: dict
+    image: str
+    month: int
+    navigation: dict
+    players: list
+    tags: list
+    thumb: str
+    title: str
+    width: int
+    year: int
+
+
+class QuoteListMatch(TypedDict, total=False):
+    day: int
+    dialog: list
+    episode: int
+    hd: list
+    height: int
+    hifi: dict
+    image: str
+    month: int
+    navigation: dict
+    players: list
+    tags: list
+    thumb: str
+    title: str
+    width: int
+    year: int
+
+
+class Search(TypedDict, total=False):
+    day: int
+    dialog: list
+    episode: int
+    hd: list
+    height: int
+    hifi: dict
+    image: str
+    month: int
+    navigation: dict
+    players: list
+    tags: list
+    thumb: str
+    title: str
+    width: int
+    year: int
+
+
+class SearchListMatch(TypedDict, total=False):
+    day: int
+    dialog: list
+    episode: int
+    hd: list
+    height: int
+    hifi: dict
+    image: str
+    month: int
+    navigation: dict
+    players: list
+    tags: list
+    thumb: str
+    title: str
+    width: int
+    year: int

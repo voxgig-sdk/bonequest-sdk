@@ -106,7 +106,7 @@ fmt.Println(episode.GetName()) // "episode"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episode` | `[]any` | No |  |
+| `episodes` | `[]any` | No |  |
 | `meta` | `map[string]any` | No |  |
 
 ### Operations
@@ -167,8 +167,8 @@ fmt.Println(quote.GetName()) // "quote"
 | `image` | `string` | No |  |
 | `month` | `int` | No |  |
 | `navigation` | `map[string]any` | No |  |
-| `player` | `[]any` | No |  |
-| `tag` | `[]any` | No |  |
+| `players` | `[]any` | No |  |
+| `tags` | `[]any` | No |  |
 | `thumb` | `string` | No |  |
 | `title` | `string` | No |  |
 | `width` | `int` | No |  |
@@ -232,8 +232,8 @@ fmt.Println(search.GetName()) // "search"
 | `image` | `string` | No |  |
 | `month` | `int` | No |  |
 | `navigation` | `map[string]any` | No |  |
-| `player` | `[]any` | No |  |
-| `tag` | `[]any` | No |  |
+| `players` | `[]any` | No |  |
+| `tags` | `[]any` | No |  |
 | `thumb` | `string` | No |  |
 | `title` | `string` | No |  |
 | `width` | `int` | No |  |

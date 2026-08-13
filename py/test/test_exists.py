@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# Bonequest SDK exists test
 
 import pytest
 from bonequest_sdk import BonequestSDK

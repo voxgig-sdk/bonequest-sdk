@@ -66,12 +66,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-episode, err := client.Episode(nil).Load(map[string]any{"id": 1}, nil)
+searchs, err := client.Search(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = episode
+_ = searchs
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -135,13 +135,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-episode, err := client.Episode(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+search, err := client.Search(nil).List(
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(episode) // the returned mock data
+fmt.Println(search) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -262,7 +262,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"episode"` |  |
+| `"episodes"` |  |
 | `"meta"` |  |
 
 Operations: Load.
@@ -282,8 +282,8 @@ API path: `/episodes/random/{count}`
 | `"image"` |  |
 | `"month"` |  |
 | `"navigation"` |  |
-| `"player"` |  |
-| `"tag"` |  |
+| `"players"` |  |
+| `"tags"` |  |
 | `"thumb"` |  |
 | `"title"` |  |
 | `"width"` |  |
@@ -306,8 +306,8 @@ API path: `/quote/random`
 | `"image"` |  |
 | `"month"` |  |
 | `"navigation"` |  |
-| `"player"` |  |
-| `"tag"` |  |
+| `"players"` |  |
+| `"tags"` |  |
 | `"thumb"` |  |
 | `"title"` |  |
 | `"width"` |  |
@@ -336,7 +336,7 @@ Create an instance: `episode := client.Episode(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `episode` | `[]any` |  |
+| `episodes` | `[]any` |  |
 | `meta` | `map[string]any` |  |
 
 #### Example: Load
@@ -373,8 +373,8 @@ Create an instance: `quote := client.Quote(nil)`
 | `image` | `string` |  |
 | `month` | `int` |  |
 | `navigation` | `map[string]any` |  |
-| `player` | `[]any` |  |
-| `tag` | `[]any` |  |
+| `players` | `[]any` |  |
+| `tags` | `[]any` |  |
 | `thumb` | `string` |  |
 | `title` | `string` |  |
 | `width` | `int` |  |
@@ -414,8 +414,8 @@ Create an instance: `search := client.Search(nil)`
 | `image` | `string` |  |
 | `month` | `int` |  |
 | `navigation` | `map[string]any` |  |
-| `player` | `[]any` |  |
-| `tag` | `[]any` |  |
+| `players` | `[]any` |  |
+| `tags` | `[]any` |  |
 | `thumb` | `string` |  |
 | `title` | `string` |  |
 | `width` | `int` |  |
@@ -501,15 +501,15 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-episode := client.Episode(nil)
-episode.Load(map[string]any{"id": 1}, nil)
+search := client.Search(nil)
+search.List(nil, nil)
 
-// episode.Data() now returns the episode data from the last load
-// episode.Match() returns the last match criteria
+// search.Data() now returns the search data from the last list
+// search.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

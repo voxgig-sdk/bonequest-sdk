@@ -51,12 +51,12 @@ main: kit: entity: quote: {
       type: "`$OBJECT`"
     }
     {
-      name: "player"
+      name: "players"
       req: false
       type: "`$ARRAY`"
     }
     {
-      name: "tag"
+      name: "tags"
       req: false
       type: "`$ARRAY`"
     }

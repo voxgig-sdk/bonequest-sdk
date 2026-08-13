@@ -28,7 +28,7 @@ local function make_config()
         ["fields"] = {
           {
             ["active"] = true,
-            ["name"] = "episode",
+            ["name"] = "episodes",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 0,
@@ -63,6 +63,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/episodes/random/{count}",
                 ["parts"] = {
@@ -97,6 +98,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/episode/{episodeNumber}",
                 ["parts"] = {
@@ -135,6 +137,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/episodes/{episodeNumbers}",
                 ["parts"] = {
@@ -236,14 +239,14 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "player",
+            ["name"] = "players",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 9,
           },
           {
             ["active"] = true,
-            ["name"] = "tag",
+            ["name"] = "tags",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 10,
@@ -286,6 +289,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/quote/random",
                 ["parts"] = {
@@ -376,14 +380,14 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "player",
+            ["name"] = "players",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 9,
           },
           {
             ["active"] = true,
-            ["name"] = "tag",
+            ["name"] = "tags",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 10,
@@ -438,6 +442,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/search/",
                 ["parts"] = {

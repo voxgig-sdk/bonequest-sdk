@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import BonequestSDK
-from core.error import BonequestError
-from core.result import BonequestResult
-from core.response import BonequestResponse
-from core.spec import BonequestSpec
-from feature.base_feature import BonequestBaseFeature
+from projectname_sdk.core.error import BonequestError
+from projectname_sdk.core.result import BonequestResult
+from projectname_sdk.core.response import BonequestResponse
+from projectname_sdk.core.spec import BonequestSpec
+from projectname_sdk.feature.base_feature import BonequestBaseFeature
 
 
 def _client():

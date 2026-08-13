@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'Bonequest',
   }
 
 
@@ -62,7 +62,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "episode",
+          "name": "episodes",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 0
@@ -97,6 +97,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/episodes/random/{count}",
               "parts": [
@@ -131,6 +132,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/episode/{episodeNumber}",
               "parts": [
@@ -169,6 +171,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/episodes/{episodeNumbers}",
               "parts": [
@@ -270,14 +273,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "player",
+          "name": "players",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 9
         },
         {
           "active": true,
-          "name": "tag",
+          "name": "tags",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 10
@@ -320,6 +323,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/quote/random",
               "parts": [
@@ -410,14 +414,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "player",
+          "name": "players",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 9
         },
         {
           "active": true,
-          "name": "tag",
+          "name": "tags",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 10
@@ -472,6 +476,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/search/",
               "parts": [

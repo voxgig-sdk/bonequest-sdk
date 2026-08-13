@@ -38,18 +38,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = BonequestSDK.test()
-const episode = await client.Episode().load({ id: 1 })
-// episode is a bare Episode populated with mock data
-console.log(episode)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = BonequestSDK.test({
+  entity: {
+    search: {
+      test01: { id: 'test01' },
+    },
+  },
+})
+const searchs = await client.Search().list()
+// searchs is an array of Search entities, populated with mock data
+// — call searchs[0].data() for the record itself
+console.log(searchs)
 ```
 
 ### Python
 
 ```python
 client = BonequestSDK.test()
-episode = client.Episode().load({"id": "test01"})
-print(episode)
+searchs = client.Search().list()
+print(searchs)
 ```
 
 ### PHP
@@ -57,17 +66,17 @@ print(episode)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = BonequestSDK::test([
-    "entity" => ["episode" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["search" => ["test01" => []]],
 ]);
-$episode = $client->Episode()->load(["id" => "test01"]);
+$searchs = $client->Search()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Episode(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+result, err := client.Search(nil).List(
+    nil, nil,
 )
 ```
 
@@ -76,16 +85,16 @@ result, err := client.Episode(nil).Load(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = BonequestSDK.test({
-  "entity" => { "episode" => { "test01" => { "id" => "test01" } } },
+  "entity" => { "search" => { "test01" => {} } },
 })
-episode = client.Episode.load({ "id" => "test01" })
+searchs = client.Search.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:Episode():load({ id = "test01" })
+local results, err = client:Search():list()
 ```
 
 ## Packages
@@ -184,7 +193,7 @@ require_once 'bonequest_sdk.php';
 $client = new BonequestSDK();
 
 
-// Load a specific episode (returns the bare record; throws on error)
+// Load a specific episode (returns the ENTITY; call data_get() for the record; throws on error)
 $episode = $client->Episode()->load(["id" => 1]);
 print_r($episode);
 ```
@@ -212,7 +221,7 @@ require_relative "Bonequest_sdk"
 client = BonequestSDK.new
 
 
-# Load a specific episode (returns the bare record; raises on error)
+# Load a specific episode (returns the ENTITY; call data_get for the record)
 episode = client.Episode.load({ "id" => 1 })
 puts episode
 ```
@@ -346,6 +355,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://www.bonequest.com/api/v2](https://www.bonequest.com/api/v2)
 

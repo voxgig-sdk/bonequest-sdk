@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import BonequestControl
-from core.error import BonequestError
-from core.result import BonequestResult
-from core.spec import BonequestSpec
+from projectname_sdk.config import make_config
+from projectname_sdk.features import _make_feature
+from projectname_sdk.core.control import BonequestControl
+from projectname_sdk.core.error import BonequestError
+from projectname_sdk.core.result import BonequestResult
+from projectname_sdk.core.spec import BonequestSpec
 
 
 # True when this SDK was generated with the named feature.

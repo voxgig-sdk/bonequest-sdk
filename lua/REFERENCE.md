@@ -98,7 +98,7 @@ local episode = client:Episode(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episode` | `table` | No |  |
+| `episodes` | `table` | No |  |
 | `meta` | `table` | No |  |
 
 ### Operations
@@ -160,8 +160,8 @@ local quote = client:Quote(nil)
 | `image` | `string` | No |  |
 | `month` | `number` | No |  |
 | `navigation` | `table` | No |  |
-| `player` | `table` | No |  |
-| `tag` | `table` | No |  |
+| `players` | `table` | No |  |
+| `tags` | `table` | No |  |
 | `thumb` | `string` | No |  |
 | `title` | `string` | No |  |
 | `width` | `number` | No |  |
@@ -226,8 +226,8 @@ local search = client:Search(nil)
 | `image` | `string` | No |  |
 | `month` | `number` | No |  |
 | `navigation` | `table` | No |  |
-| `player` | `table` | No |  |
-| `tag` | `table` | No |  |
+| `players` | `table` | No |  |
+| `tags` | `table` | No |  |
 | `thumb` | `string` | No |  |
 | `title` | `string` | No |  |
 | `width` | `number` | No |  |

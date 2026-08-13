@@ -34,7 +34,7 @@ class BonequestConfig
           'fields' => [
             [
               'active' => true,
-              'name' => 'episode',
+              'name' => 'episodes',
               'req' => false,
               'type' => '`$ARRAY`',
               'index$' => 0,
@@ -69,6 +69,7 @@ class BonequestConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/episodes/random/{count}',
                   'parts' => [
@@ -103,6 +104,7 @@ class BonequestConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/episode/{episodeNumber}',
                   'parts' => [
@@ -141,6 +143,7 @@ class BonequestConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/episodes/{episodeNumbers}',
                   'parts' => [
@@ -242,14 +245,14 @@ class BonequestConfig
             ],
             [
               'active' => true,
-              'name' => 'player',
+              'name' => 'players',
               'req' => false,
               'type' => '`$ARRAY`',
               'index$' => 9,
             ],
             [
               'active' => true,
-              'name' => 'tag',
+              'name' => 'tags',
               'req' => false,
               'type' => '`$ARRAY`',
               'index$' => 10,
@@ -292,6 +295,7 @@ class BonequestConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/quote/random',
                   'parts' => [
@@ -382,14 +386,14 @@ class BonequestConfig
             ],
             [
               'active' => true,
-              'name' => 'player',
+              'name' => 'players',
               'req' => false,
               'type' => '`$ARRAY`',
               'index$' => 9,
             ],
             [
               'active' => true,
-              'name' => 'tag',
+              'name' => 'tags',
               'req' => false,
               'type' => '`$ARRAY`',
               'index$' => 10,
@@ -444,6 +448,7 @@ class BonequestConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/search/',
                   'parts' => [

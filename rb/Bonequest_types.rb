@@ -10,13 +10,13 @@
 
 # Episode entity data model.
 #
-# @!attribute [rw] episode
+# @!attribute [rw] episodes
 #   @return [Array, nil]
 #
 # @!attribute [rw] meta
 #   @return [Hash, nil]
 Episode = Struct.new(
-  :episode,
+  :episodes,
   :meta,
   keyword_init: true
 )
@@ -63,10 +63,10 @@ EpisodeLoadMatch = Struct.new(
 # @!attribute [rw] navigation
 #   @return [Hash, nil]
 #
-# @!attribute [rw] player
+# @!attribute [rw] players
 #   @return [Array, nil]
 #
-# @!attribute [rw] tag
+# @!attribute [rw] tags
 #   @return [Array, nil]
 #
 # @!attribute [rw] thumb
@@ -90,8 +90,8 @@ Quote = Struct.new(
   :image,
   :month,
   :navigation,
-  :player,
-  :tag,
+  :players,
+  :tags,
   :thumb,
   :title,
   :width,
@@ -128,10 +128,10 @@ Quote = Struct.new(
 # @!attribute [rw] navigation
 #   @return [Hash, nil]
 #
-# @!attribute [rw] player
+# @!attribute [rw] players
 #   @return [Array, nil]
 #
-# @!attribute [rw] tag
+# @!attribute [rw] tags
 #   @return [Array, nil]
 #
 # @!attribute [rw] thumb
@@ -155,8 +155,8 @@ QuoteListMatch = Struct.new(
   :image,
   :month,
   :navigation,
-  :player,
-  :tag,
+  :players,
+  :tags,
   :thumb,
   :title,
   :width,
@@ -193,10 +193,10 @@ QuoteListMatch = Struct.new(
 # @!attribute [rw] navigation
 #   @return [Hash, nil]
 #
-# @!attribute [rw] player
+# @!attribute [rw] players
 #   @return [Array, nil]
 #
-# @!attribute [rw] tag
+# @!attribute [rw] tags
 #   @return [Array, nil]
 #
 # @!attribute [rw] thumb
@@ -220,8 +220,8 @@ Search = Struct.new(
   :image,
   :month,
   :navigation,
-  :player,
-  :tag,
+  :players,
+  :tags,
   :thumb,
   :title,
   :width,
@@ -258,10 +258,10 @@ Search = Struct.new(
 # @!attribute [rw] navigation
 #   @return [Hash, nil]
 #
-# @!attribute [rw] player
+# @!attribute [rw] players
 #   @return [Array, nil]
 #
-# @!attribute [rw] tag
+# @!attribute [rw] tags
 #   @return [Array, nil]
 #
 # @!attribute [rw] thumb
@@ -285,8 +285,8 @@ SearchListMatch = Struct.new(
   :image,
   :month,
   :navigation,
-  :player,
-  :tag,
+  :players,
+  :tags,
   :thumb,
   :title,
   :width,

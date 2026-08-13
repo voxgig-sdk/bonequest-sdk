@@ -15,7 +15,7 @@ declare(strict_types=1);
 /** Episode entity data model. */
 class Episode
 {
-    public ?array $episode = null;
+    public ?array $episodes = null;
     public ?array $meta = null;
 }
 
@@ -38,8 +38,8 @@ class Quote
     public ?string $image = null;
     public ?int $month = null;
     public ?array $navigation = null;
-    public ?array $player = null;
-    public ?array $tag = null;
+    public ?array $players = null;
+    public ?array $tags = null;
     public ?string $thumb = null;
     public ?string $title = null;
     public ?int $width = null;
@@ -58,8 +58,8 @@ class QuoteListMatch
     public ?string $image = null;
     public ?int $month = null;
     public ?array $navigation = null;
-    public ?array $player = null;
-    public ?array $tag = null;
+    public ?array $players = null;
+    public ?array $tags = null;
     public ?string $thumb = null;
     public ?string $title = null;
     public ?int $width = null;
@@ -78,8 +78,8 @@ class Search
     public ?string $image = null;
     public ?int $month = null;
     public ?array $navigation = null;
-    public ?array $player = null;
-    public ?array $tag = null;
+    public ?array $players = null;
+    public ?array $tags = null;
     public ?string $thumb = null;
     public ?string $title = null;
     public ?int $width = null;
@@ -98,8 +98,8 @@ class SearchListMatch
     public ?string $image = null;
     public ?int $month = null;
     public ?array $navigation = null;
-    public ?array $player = null;
-    public ?array $tag = null;
+    public ?array $players = null;
+    public ?array $tags = null;
     public ?string $thumb = null;
     public ?string $title = null;
     public ?int $width = null;

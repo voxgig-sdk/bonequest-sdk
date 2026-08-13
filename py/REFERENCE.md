@@ -95,7 +95,7 @@ episode = client.Episode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episode` | `list` | No |  |
+| `episodes` | `list` | No |  |
 | `meta` | `dict` | No |  |
 
 ### Operations
@@ -156,8 +156,8 @@ quote = client.Quote()
 | `image` | `str` | No |  |
 | `month` | `int` | No |  |
 | `navigation` | `dict` | No |  |
-| `player` | `list` | No |  |
-| `tag` | `list` | No |  |
+| `players` | `list` | No |  |
+| `tags` | `list` | No |  |
 | `thumb` | `str` | No |  |
 | `title` | `str` | No |  |
 | `width` | `int` | No |  |
@@ -223,8 +223,8 @@ search = client.Search()
 | `image` | `str` | No |  |
 | `month` | `int` | No |  |
 | `navigation` | `dict` | No |  |
-| `player` | `list` | No |  |
-| `tag` | `list` | No |  |
+| `players` | `list` | No |  |
+| `tags` | `list` | No |  |
 | `thumb` | `str` | No |  |
 | `title` | `str` | No |  |
 | `width` | `int` | No |  |

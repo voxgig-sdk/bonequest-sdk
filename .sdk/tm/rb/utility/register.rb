@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ BonequestUtility.registrar = ->(u) {
   u.prepare_params = BonequestUtilities::PrepareParams
   u.prepare_path = BonequestUtilities::PreparePath
   u.prepare_query = BonequestUtilities::PrepareQuery
+  u.graphql_body = BonequestUtilities::GraphqlBody
+  u.graphql_errors = BonequestUtilities::GraphqlErrors
   u.result_basic = BonequestUtilities::ResultBasic
   u.result_body = BonequestUtilities::ResultBody
   u.result_headers = BonequestUtilities::ResultHeaders

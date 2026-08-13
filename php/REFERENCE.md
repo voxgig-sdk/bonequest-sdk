@@ -100,7 +100,7 @@ $episode = $client->Episode();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episode` | `array` | No |  |
+| `episodes` | `array` | No |  |
 | `meta` | `array` | No |  |
 
 ### Operations
@@ -162,8 +162,8 @@ $quote = $client->Quote();
 | `image` | `string` | No |  |
 | `month` | `int` | No |  |
 | `navigation` | `array` | No |  |
-| `player` | `array` | No |  |
-| `tag` | `array` | No |  |
+| `players` | `array` | No |  |
+| `tags` | `array` | No |  |
 | `thumb` | `string` | No |  |
 | `title` | `string` | No |  |
 | `width` | `int` | No |  |
@@ -228,8 +228,8 @@ $search = $client->Search();
 | `image` | `string` | No |  |
 | `month` | `int` | No |  |
 | `navigation` | `array` | No |  |
-| `player` | `array` | No |  |
-| `tag` | `array` | No |  |
+| `players` | `array` | No |  |
+| `tags` | `array` | No |  |
 | `thumb` | `string` | No |  |
 | `title` | `string` | No |  |
 | `width` | `int` | No |  |

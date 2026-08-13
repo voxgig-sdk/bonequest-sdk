@@ -37,7 +37,7 @@ class QuoteEntity extends BonequestEntityBase<Quote> {
 
 
 
-  async list(this: any, reqmatch?: QuoteListMatch, ctrl?: Control): Promise<Quote[]> {
+  async list(this: any, reqmatch?: QuoteListMatch, ctrl?: Control): Promise<QuoteEntity[]> {
 
     const utility = this._utility
 

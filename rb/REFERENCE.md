@@ -101,7 +101,7 @@ episode = client.Episode
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episode` | `Array` | No |  |
+| `episodes` | `Array` | No |  |
 | `meta` | `Hash` | No |  |
 
 ### Operations
@@ -163,8 +163,8 @@ quote = client.Quote
 | `image` | `String` | No |  |
 | `month` | `Integer` | No |  |
 | `navigation` | `Hash` | No |  |
-| `player` | `Array` | No |  |
-| `tag` | `Array` | No |  |
+| `players` | `Array` | No |  |
+| `tags` | `Array` | No |  |
 | `thumb` | `String` | No |  |
 | `title` | `String` | No |  |
 | `width` | `Integer` | No |  |
@@ -229,8 +229,8 @@ search = client.Search
 | `image` | `String` | No |  |
 | `month` | `Integer` | No |  |
 | `navigation` | `Hash` | No |  |
-| `player` | `Array` | No |  |
-| `tag` | `Array` | No |  |
+| `players` | `Array` | No |  |
+| `tags` | `Array` | No |  |
 | `thumb` | `String` | No |  |
 | `title` | `String` | No |  |
 | `width` | `Integer` | No |  |

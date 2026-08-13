@@ -34,7 +34,7 @@ client = BonequestSDK.new
 
 ```ruby
 begin
-  # load returns the bare Episode record (raises on error).
+  # load returns the ENTITY — call data_get for the Episode record (raises on error).
   episode = client.Episode.load({ "id" => 1 })
   puts episode
 rescue => err
@@ -49,9 +49,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  episode = client.Episode.load({ "id" => 1 })
+  searchs = client.Search.list()
 rescue => err
-  warn "load failed: #{err}"
+  warn "list failed: #{err}"
 end
 ```
 
@@ -112,17 +112,15 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = BonequestSDK.test({
-  "entity" => { "episode" => { "test01" => { "id" => "test01" } } },
-})
+client = BonequestSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-episode = client.Episode.load({ "id" => "test01" })
-puts episode
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+search = client.Search.list()
+puts search
 ```
 
 ### Use a custom fetch function
@@ -240,7 +238,7 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `episode` |  |
+| `episodes` |  |
 | `meta` |  |
 
 Operations: Load.
@@ -260,8 +258,8 @@ API path: `/episodes/random/{count}`
 | `image` |  |
 | `month` |  |
 | `navigation` |  |
-| `player` |  |
-| `tag` |  |
+| `players` |  |
+| `tags` |  |
 | `thumb` |  |
 | `title` |  |
 | `width` |  |
@@ -284,8 +282,8 @@ API path: `/quote/random`
 | `image` |  |
 | `month` |  |
 | `navigation` |  |
-| `player` |  |
-| `tag` |  |
+| `players` |  |
+| `tags` |  |
 | `thumb` |  |
 | `title` |  |
 | `width` |  |
@@ -314,13 +312,13 @@ Create an instance: `episode = client.Episode`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `episode` | `Array` |  |
+| `episodes` | `Array` |  |
 | `meta` | `Hash` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Episode record (raises on error).
+# load returns the ENTITY — call data_get for the Episode record (raises on error).
 episode = client.Episode.load({ "id" => 1 })
 ```
 
@@ -348,8 +346,8 @@ Create an instance: `quote = client.Quote`
 | `image` | `String` |  |
 | `month` | `Integer` |  |
 | `navigation` | `Hash` |  |
-| `player` | `Array` |  |
-| `tag` | `Array` |  |
+| `players` | `Array` |  |
+| `tags` | `Array` |  |
 | `thumb` | `String` |  |
 | `title` | `String` |  |
 | `width` | `Integer` |  |
@@ -386,8 +384,8 @@ Create an instance: `search = client.Search`
 | `image` | `String` |  |
 | `month` | `Integer` |  |
 | `navigation` | `Hash` |  |
-| `player` | `Array` |  |
-| `tag` | `Array` |  |
+| `players` | `Array` |  |
+| `tags` | `Array` |  |
 | `thumb` | `String` |  |
 | `title` | `String` |  |
 | `width` | `Integer` |  |
@@ -473,15 +471,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-episode = client.Episode
-episode.load({ "id" => 1 })
+search = client.Search
+search.list()
 
-# episode.data_get now returns the episode data from the last load
-# episode.match_get returns the last match criteria
+# search.data_get now returns the search data from the last list
+# search.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

@@ -7,7 +7,7 @@
 -- edit by hand.
 
 ---@class Episode
----@field episode? table
+---@field episodes? table
 ---@field meta? table
 
 ---@class EpisodeLoadMatch
@@ -24,8 +24,8 @@
 ---@field image? string
 ---@field month? number
 ---@field navigation? table
----@field player? table
----@field tag? table
+---@field players? table
+---@field tags? table
 ---@field thumb? string
 ---@field title? string
 ---@field width? number
@@ -41,8 +41,8 @@
 ---@field image? string
 ---@field month? number
 ---@field navigation? table
----@field player? table
----@field tag? table
+---@field players? table
+---@field tags? table
 ---@field thumb? string
 ---@field title? string
 ---@field width? number
@@ -58,8 +58,8 @@
 ---@field image? string
 ---@field month? number
 ---@field navigation? table
----@field player? table
----@field tag? table
+---@field players? table
+---@field tags? table
 ---@field thumb? string
 ---@field title? string
 ---@field width? number
@@ -75,8 +75,8 @@
 ---@field image? string
 ---@field month? number
 ---@field navigation? table
----@field player? table
----@field tag? table
+---@field players? table
+---@field tags? table
 ---@field thumb? string
 ---@field title? string
 ---@field width? number

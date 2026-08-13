@@ -29,7 +29,7 @@ module BonequestConfig
           "fields" => [
             {
               "active" => true,
-              "name" => "episode",
+              "name" => "episodes",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 0,
@@ -64,6 +64,7 @@ module BonequestConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/episodes/random/{count}",
                   "parts" => [
@@ -98,6 +99,7 @@ module BonequestConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/episode/{episodeNumber}",
                   "parts" => [
@@ -136,6 +138,7 @@ module BonequestConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/episodes/{episodeNumbers}",
                   "parts" => [
@@ -237,14 +240,14 @@ module BonequestConfig
             },
             {
               "active" => true,
-              "name" => "player",
+              "name" => "players",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 9,
             },
             {
               "active" => true,
-              "name" => "tag",
+              "name" => "tags",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 10,
@@ -287,6 +290,7 @@ module BonequestConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/quote/random",
                   "parts" => [
@@ -377,14 +381,14 @@ module BonequestConfig
             },
             {
               "active" => true,
-              "name" => "player",
+              "name" => "players",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 9,
             },
             {
               "active" => true,
-              "name" => "tag",
+              "name" => "tags",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 10,
@@ -439,6 +443,7 @@ module BonequestConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/search/",
                   "parts" => [
