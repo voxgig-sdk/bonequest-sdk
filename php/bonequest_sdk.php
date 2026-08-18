@@ -40,7 +40,7 @@ class BonequestSDK
         $utility = new BonequestUtility();
         $this->_utility = $utility;
 
-        $config = BonequestConfig::make_config();
+        $config = BonequestConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

@@ -1,6 +1,20 @@
 # Bonequest SDK configuration
 
 module BonequestConfig
+  # Return the process-wide config, built once on first use. The SDK reads
+  # the config on every request and never writes to it, so one instance is
+  # shared by every client rather than rebuilt per client.
+  #
+  # The returned hash is shared: treat it as read-only. Callers that need to
+  # mutate should use make_config, which always returns a fresh copy.
+  def self.shared_config
+    @shared_config ||= make_config
+  end
+
+
+  # Build a fresh, fully materialised config hash. Every call rebuilds the
+  # whole structure, so prefer shared_config unless you need a private copy
+  # you intend to mutate.
   def self.make_config
     {
       "main" => {
@@ -28,18 +42,12 @@ module BonequestConfig
         "episode" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "episodes",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "meta",
-              "req" => false,
               "type" => "`$OBJECT`",
-              "index$" => 1,
             },
           ],
           "name" => "episode",
@@ -49,18 +57,15 @@ module BonequestConfig
               "name" => "load",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "example" => 1,
                         "kind" => "param",
                         "name" => "count",
                         "orig" => "count",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -81,21 +86,17 @@ module BonequestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "example" => 420,
                         "kind" => "param",
                         "name" => "id",
                         "orig" => "episode_number",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -120,21 +121,17 @@ module BonequestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 1,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "example" => "666,667",
                         "kind" => "param",
                         "name" => "id",
                         "orig" => "episode_number",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -159,10 +156,8 @@ module BonequestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 2,
                 },
               ],
-              "key$" => "load",
             },
           },
           "relations" => {
@@ -176,109 +171,64 @@ module BonequestConfig
         "quote" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "day",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "dialog",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "episode",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 2,
             },
             {
-              "active" => true,
               "name" => "hd",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 3,
             },
             {
-              "active" => true,
               "name" => "height",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 4,
             },
             {
-              "active" => true,
               "name" => "hifi",
-              "req" => false,
               "type" => "`$OBJECT`",
-              "index$" => 5,
             },
             {
-              "active" => true,
               "name" => "image",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 6,
             },
             {
-              "active" => true,
               "name" => "month",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 7,
             },
             {
-              "active" => true,
               "name" => "navigation",
-              "req" => false,
               "type" => "`$OBJECT`",
-              "index$" => 8,
             },
             {
-              "active" => true,
               "name" => "players",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 9,
             },
             {
-              "active" => true,
               "name" => "tags",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 10,
             },
             {
-              "active" => true,
               "name" => "thumb",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 11,
             },
             {
-              "active" => true,
               "name" => "title",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 12,
             },
             {
-              "active" => true,
               "name" => "width",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 13,
             },
             {
-              "active" => true,
               "name" => "year",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 14,
             },
           ],
           "name" => "quote",
@@ -288,7 +238,6 @@ module BonequestConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
@@ -304,10 +253,8 @@ module BonequestConfig
                     "req" => "`reqdata`",
                     "res" => "`body.quote`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {
@@ -317,109 +264,64 @@ module BonequestConfig
         "search" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "day",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "dialog",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "episode",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 2,
             },
             {
-              "active" => true,
               "name" => "hd",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 3,
             },
             {
-              "active" => true,
               "name" => "height",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 4,
             },
             {
-              "active" => true,
               "name" => "hifi",
-              "req" => false,
               "type" => "`$OBJECT`",
-              "index$" => 5,
             },
             {
-              "active" => true,
               "name" => "image",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 6,
             },
             {
-              "active" => true,
               "name" => "month",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 7,
             },
             {
-              "active" => true,
               "name" => "navigation",
-              "req" => false,
               "type" => "`$OBJECT`",
-              "index$" => 8,
             },
             {
-              "active" => true,
               "name" => "players",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 9,
             },
             {
-              "active" => true,
               "name" => "tags",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 10,
             },
             {
-              "active" => true,
               "name" => "thumb",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 11,
             },
             {
-              "active" => true,
               "name" => "title",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 12,
             },
             {
-              "active" => true,
               "name" => "width",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 13,
             },
             {
-              "active" => true,
               "name" => "year",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 14,
             },
           ],
           "name" => "search",
@@ -429,11 +331,9 @@ module BonequestConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "example" => "\"what about nuts\"",
                         "kind" => "query",
                         "name" => "q",
@@ -458,10 +358,8 @@ module BonequestConfig
                     "req" => "`reqdata`",
                     "res" => "`body.search`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {

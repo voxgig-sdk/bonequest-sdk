@@ -21,8 +21,7 @@ class Episode(TypedDict, total=False):
     meta: dict
 
 
-class EpisodeLoadMatch(TypedDict, total=False):
-    count: int
+class EpisodeLoadMatch(TypedDict):
     id: int
 
 

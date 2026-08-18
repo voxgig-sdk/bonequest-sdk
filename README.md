@@ -23,7 +23,7 @@ support (`list`, `load`):
 
 ```ts
 const client = new BonequestSDK()
-const episode = await client.Episode().load()
+const episode = await client.Episode().load({ id: 1 })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —

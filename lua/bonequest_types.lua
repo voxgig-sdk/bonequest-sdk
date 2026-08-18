@@ -11,8 +11,7 @@
 ---@field meta? table
 
 ---@class EpisodeLoadMatch
----@field count? number
----@field id? number
+---@field id number
 
 ---@class Quote
 ---@field day? number

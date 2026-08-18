@@ -22,8 +22,7 @@ class Episode
 /** Request payload for Episode#load. */
 class EpisodeLoadMatch
 {
-    public ?int $count = null;
-    public ?int $id = null;
+    public int $id;
 }
 
 /** Quote entity data model. */

@@ -5,6 +5,29 @@ declare(strict_types=1);
 
 class BonequestConfig
 {
+    /** @var array<string,mixed>|null */
+    private static ?array $shared_config = null;
+
+    /**
+     * Return the process-wide config, built once on first use. The SDK reads
+     * the config on every request and never writes to it, so one instance is
+     * shared by every client rather than rebuilt per client.
+     *
+     * PHP arrays are copy-on-write, so callers that do mutate the result get
+     * their own copy and cannot disturb the shared one.
+     */
+    public static function shared_config(): array
+    {
+        if (self::$shared_config === null) {
+            self::$shared_config = self::make_config();
+        }
+        return self::$shared_config;
+    }
+
+    /**
+     * Build a fresh, fully materialised config array. Every call rebuilds the
+     * whole structure, so prefer shared_config unless you need a private copy.
+     */
     public static function make_config(): array
     {
         return [
@@ -33,18 +56,12 @@ class BonequestConfig
         'episode' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'episodes',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'meta',
-              'req' => false,
               'type' => '`$OBJECT`',
-              'index$' => 1,
             ],
           ],
           'name' => 'episode',
@@ -54,18 +71,15 @@ class BonequestConfig
               'name' => 'load',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'example' => 1,
                         'kind' => 'param',
                         'name' => 'count',
                         'orig' => 'count',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
-                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -86,21 +100,17 @@ class BonequestConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'example' => 420,
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'episode_number',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
-                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -125,21 +135,17 @@ class BonequestConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 1,
                 ],
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'example' => '666,667',
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'episode_number',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -164,10 +170,8 @@ class BonequestConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 2,
                 ],
               ],
-              'key$' => 'load',
             ],
           ],
           'relations' => [
@@ -181,109 +185,64 @@ class BonequestConfig
         'quote' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'day',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'dialog',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'episode',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 2,
             ],
             [
-              'active' => true,
               'name' => 'hd',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 3,
             ],
             [
-              'active' => true,
               'name' => 'height',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 4,
             ],
             [
-              'active' => true,
               'name' => 'hifi',
-              'req' => false,
               'type' => '`$OBJECT`',
-              'index$' => 5,
             ],
             [
-              'active' => true,
               'name' => 'image',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 6,
             ],
             [
-              'active' => true,
               'name' => 'month',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 7,
             ],
             [
-              'active' => true,
               'name' => 'navigation',
-              'req' => false,
               'type' => '`$OBJECT`',
-              'index$' => 8,
             ],
             [
-              'active' => true,
               'name' => 'players',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 9,
             ],
             [
-              'active' => true,
               'name' => 'tags',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 10,
             ],
             [
-              'active' => true,
               'name' => 'thumb',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 11,
             ],
             [
-              'active' => true,
               'name' => 'title',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 12,
             ],
             [
-              'active' => true,
               'name' => 'width',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 13,
             ],
             [
-              'active' => true,
               'name' => 'year',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 14,
             ],
           ],
           'name' => 'quote',
@@ -293,7 +252,6 @@ class BonequestConfig
               'name' => 'list',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
@@ -309,10 +267,8 @@ class BonequestConfig
                     'req' => '`reqdata`',
                     'res' => '`body.quote`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'list',
             ],
           ],
           'relations' => [
@@ -322,109 +278,64 @@ class BonequestConfig
         'search' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'day',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'dialog',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'episode',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 2,
             ],
             [
-              'active' => true,
               'name' => 'hd',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 3,
             ],
             [
-              'active' => true,
               'name' => 'height',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 4,
             ],
             [
-              'active' => true,
               'name' => 'hifi',
-              'req' => false,
               'type' => '`$OBJECT`',
-              'index$' => 5,
             ],
             [
-              'active' => true,
               'name' => 'image',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 6,
             ],
             [
-              'active' => true,
               'name' => 'month',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 7,
             ],
             [
-              'active' => true,
               'name' => 'navigation',
-              'req' => false,
               'type' => '`$OBJECT`',
-              'index$' => 8,
             ],
             [
-              'active' => true,
               'name' => 'players',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 9,
             ],
             [
-              'active' => true,
               'name' => 'tags',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 10,
             ],
             [
-              'active' => true,
               'name' => 'thumb',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 11,
             ],
             [
-              'active' => true,
               'name' => 'title',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 12,
             ],
             [
-              'active' => true,
               'name' => 'width',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 13,
             ],
             [
-              'active' => true,
               'name' => 'year',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 14,
             ],
           ],
           'name' => 'search',
@@ -434,11 +345,9 @@ class BonequestConfig
               'name' => 'list',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'query' => [
                       [
-                        'active' => true,
                         'example' => '"what about nuts"',
                         'kind' => 'query',
                         'name' => 'q',
@@ -463,10 +372,8 @@ class BonequestConfig
                     'req' => '`reqdata`',
                     'res' => '`body.search`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'list',
             ],
           ],
           'relations' => [

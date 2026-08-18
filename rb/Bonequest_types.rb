@@ -23,13 +23,9 @@ Episode = Struct.new(
 
 # Request payload for Episode#load.
 #
-# @!attribute [rw] count
-#   @return [Integer, nil]
-#
 # @!attribute [rw] id
-#   @return [Integer, nil]
+#   @return [Integer]
 EpisodeLoadMatch = Struct.new(
-  :count,
   :id,
   keyword_init: true
 )

@@ -28,7 +28,7 @@ class BonequestSDK
     utility = BonequestUtility.new
     @_utility = utility
 
-    config = BonequestConfig.make_config
+    config = BonequestConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,
