@@ -13,6 +13,7 @@ main: kit: entity: episode: {
     {
       name: "meta"
       req: false
+      short: "API metadata wrapper"
       type: "`$OBJECT`"
     }
   ]

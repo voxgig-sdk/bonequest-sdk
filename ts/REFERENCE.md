@@ -141,7 +141,7 @@ const episode = client.Episode()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `episodes` | `any[]` | No |  |
-| `meta` | `Record<string, any>` | No |  |
+| `meta` | `Record<string, any>` | No | API metadata wrapper |
 
 ### Operations
 
@@ -191,21 +191,21 @@ const quote = client.Quote()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | `number` | No |  |
-| `dialog` | `any[]` | No |  |
-| `episode` | `number` | No |  |
-| `hd` | `any[]` | No |  |
-| `height` | `number` | No |  |
-| `hifi` | `Record<string, any>` | No |  |
-| `image` | `string` | No |  |
-| `month` | `number` | No |  |
-| `navigation` | `Record<string, any>` | No |  |
-| `players` | `any[]` | No |  |
-| `tags` | `any[]` | No |  |
-| `thumb` | `string` | No |  |
-| `title` | `string` | No |  |
-| `width` | `number` | No |  |
-| `year` | `number` | No |  |
+| `day` | `number` | No | Day of month published |
+| `dialog` | `any[]` | No | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `number` | No | Episode number |
+| `hd` | `any[]` | No | Optional array containing details about associated BoneQuest HD images |
+| `height` | `number` | No | Image height |
+| `hifi` | `Record<string, any>` | No | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | No | Partial URL to episode image |
+| `month` | `number` | No | Month published, number between 1-12 |
+| `navigation` | `Record<string, any>` | No | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `any[]` | No | Array of player names |
+| `tags` | `any[]` | No | Array of tags applied |
+| `thumb` | `string` | No | Partial URL to thumbnail of episode image |
+| `title` | `string` | No | Episode title |
+| `width` | `number` | No | Image width |
+| `year` | `number` | No | Year published |
 
 ### Actions
 
@@ -275,21 +275,21 @@ const search = client.Search()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | `number` | No |  |
-| `dialog` | `any[]` | No |  |
-| `episode` | `number` | No |  |
-| `hd` | `any[]` | No |  |
-| `height` | `number` | No |  |
-| `hifi` | `Record<string, any>` | No |  |
-| `image` | `string` | No |  |
-| `month` | `number` | No |  |
-| `navigation` | `Record<string, any>` | No |  |
-| `players` | `any[]` | No |  |
-| `tags` | `any[]` | No |  |
-| `thumb` | `string` | No |  |
-| `title` | `string` | No |  |
-| `width` | `number` | No |  |
-| `year` | `number` | No |  |
+| `day` | `number` | No | Day of month published |
+| `dialog` | `any[]` | No | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `number` | No | Episode number |
+| `hd` | `any[]` | No | Optional array containing details about associated BoneQuest HD images |
+| `height` | `number` | No | Image height |
+| `hifi` | `Record<string, any>` | No | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | No | Partial URL to episode image |
+| `month` | `number` | No | Month published, number between 1-12 |
+| `navigation` | `Record<string, any>` | No | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `any[]` | No | Array of player names |
+| `tags` | `any[]` | No | Array of tags applied |
+| `thumb` | `string` | No | Partial URL to thumbnail of episode image |
+| `title` | `string` | No | Episode title |
+| `width` | `number` | No | Image width |
+| `year` | `number` | No | Year published |
 
 ### Operations
 

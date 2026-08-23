@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'Bonequest',
+        slug: "bonequest",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -66,6 +77,7 @@ class Config {
         },
         {
           "name": "meta",
+          "short": "API metadata wrapper",
           "type": "`$OBJECT`"
         }
       ],
@@ -191,62 +203,77 @@ class Config {
       "fields": [
         {
           "name": "day",
+          "short": "Day of month published",
           "type": "`$INTEGER`"
         },
         {
           "name": "dialog",
+          "short": "Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog",
           "type": "`$ARRAY`"
         },
         {
           "name": "episode",
+          "short": "Episode number",
           "type": "`$INTEGER`"
         },
         {
           "name": "hd",
+          "short": "Optional array containing details about associated BoneQuest HD images",
           "type": "`$ARRAY`"
         },
         {
           "name": "height",
+          "short": "Image height",
           "type": "`$INTEGER`"
         },
         {
           "name": "hifi",
+          "short": "Optional details about an associated BoneQuest HiFi episode",
           "type": "`$OBJECT`"
         },
         {
           "name": "image",
+          "short": "Partial URL to episode image",
           "type": "`$STRING`"
         },
         {
           "name": "month",
+          "short": "Month published, number between 1-12",
           "type": "`$INTEGER`"
         },
         {
           "name": "navigation",
+          "short": "Back and next keys contain fully-formed episode for surrounding episodes",
           "type": "`$OBJECT`"
         },
         {
           "name": "players",
+          "short": "Array of player names",
           "type": "`$ARRAY`"
         },
         {
           "name": "tags",
+          "short": "Array of tags applied",
           "type": "`$ARRAY`"
         },
         {
           "name": "thumb",
+          "short": "Partial URL to thumbnail of episode image",
           "type": "`$STRING`"
         },
         {
           "name": "title",
+          "short": "Episode title",
           "type": "`$STRING`"
         },
         {
           "name": "width",
+          "short": "Image width",
           "type": "`$INTEGER`"
         },
         {
           "name": "year",
+          "short": "Year published",
           "type": "`$INTEGER`"
         }
       ],
@@ -284,62 +311,77 @@ class Config {
       "fields": [
         {
           "name": "day",
+          "short": "Day of month published",
           "type": "`$INTEGER`"
         },
         {
           "name": "dialog",
+          "short": "Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog",
           "type": "`$ARRAY`"
         },
         {
           "name": "episode",
+          "short": "Episode number",
           "type": "`$INTEGER`"
         },
         {
           "name": "hd",
+          "short": "Optional array containing details about associated BoneQuest HD images",
           "type": "`$ARRAY`"
         },
         {
           "name": "height",
+          "short": "Image height",
           "type": "`$INTEGER`"
         },
         {
           "name": "hifi",
+          "short": "Optional details about an associated BoneQuest HiFi episode",
           "type": "`$OBJECT`"
         },
         {
           "name": "image",
+          "short": "Partial URL to episode image",
           "type": "`$STRING`"
         },
         {
           "name": "month",
+          "short": "Month published, number between 1-12",
           "type": "`$INTEGER`"
         },
         {
           "name": "navigation",
+          "short": "Back and next keys contain fully-formed episode for surrounding episodes",
           "type": "`$OBJECT`"
         },
         {
           "name": "players",
+          "short": "Array of player names",
           "type": "`$ARRAY`"
         },
         {
           "name": "tags",
+          "short": "Array of tags applied",
           "type": "`$ARRAY`"
         },
         {
           "name": "thumb",
+          "short": "Partial URL to thumbnail of episode image",
           "type": "`$STRING`"
         },
         {
           "name": "title",
+          "short": "Episode title",
           "type": "`$STRING`"
         },
         {
           "name": "width",
+          "short": "Image width",
           "type": "`$INTEGER`"
         },
         {
           "name": "year",
+          "short": "Year published",
           "type": "`$INTEGER`"
         }
       ],

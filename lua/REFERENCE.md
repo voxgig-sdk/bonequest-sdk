@@ -99,7 +99,7 @@ local episode = client:Episode(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `episodes` | `table` | No |  |
-| `meta` | `table` | No |  |
+| `meta` | `table` | No | API metadata wrapper |
 
 ### Operations
 
@@ -151,21 +151,21 @@ local quote = client:Quote(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | `number` | No |  |
-| `dialog` | `table` | No |  |
-| `episode` | `number` | No |  |
-| `hd` | `table` | No |  |
-| `height` | `number` | No |  |
-| `hifi` | `table` | No |  |
-| `image` | `string` | No |  |
-| `month` | `number` | No |  |
-| `navigation` | `table` | No |  |
-| `players` | `table` | No |  |
-| `tags` | `table` | No |  |
-| `thumb` | `string` | No |  |
-| `title` | `string` | No |  |
-| `width` | `number` | No |  |
-| `year` | `number` | No |  |
+| `day` | `number` | No | Day of month published |
+| `dialog` | `table` | No | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `number` | No | Episode number |
+| `hd` | `table` | No | Optional array containing details about associated BoneQuest HD images |
+| `height` | `number` | No | Image height |
+| `hifi` | `table` | No | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | No | Partial URL to episode image |
+| `month` | `number` | No | Month published, number between 1-12 |
+| `navigation` | `table` | No | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `table` | No | Array of player names |
+| `tags` | `table` | No | Array of tags applied |
+| `thumb` | `string` | No | Partial URL to thumbnail of episode image |
+| `title` | `string` | No | Episode title |
+| `width` | `number` | No | Image width |
+| `year` | `number` | No | Year published |
 
 ### Operations
 
@@ -217,21 +217,21 @@ local search = client:Search(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `day` | `number` | No |  |
-| `dialog` | `table` | No |  |
-| `episode` | `number` | No |  |
-| `hd` | `table` | No |  |
-| `height` | `number` | No |  |
-| `hifi` | `table` | No |  |
-| `image` | `string` | No |  |
-| `month` | `number` | No |  |
-| `navigation` | `table` | No |  |
-| `players` | `table` | No |  |
-| `tags` | `table` | No |  |
-| `thumb` | `string` | No |  |
-| `title` | `string` | No |  |
-| `width` | `number` | No |  |
-| `year` | `number` | No |  |
+| `day` | `number` | No | Day of month published |
+| `dialog` | `table` | No | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `number` | No | Episode number |
+| `hd` | `table` | No | Optional array containing details about associated BoneQuest HD images |
+| `height` | `number` | No | Image height |
+| `hifi` | `table` | No | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | No | Partial URL to episode image |
+| `month` | `number` | No | Month published, number between 1-12 |
+| `navigation` | `table` | No | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `table` | No | Array of player names |
+| `tags` | `table` | No | Array of tags applied |
+| `thumb` | `string` | No | Partial URL to thumbnail of episode image |
+| `title` | `string` | No | Episode title |
+| `width` | `number` | No | Image width |
+| `year` | `number` | No | Year published |
 
 ### Operations
 

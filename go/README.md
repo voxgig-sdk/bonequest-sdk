@@ -6,7 +6,7 @@ The Golang SDK for the Bonequest API — an entity-oriented client using standar
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Episode(nil)` — each with the same small set of operations (`List`, `Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -263,7 +263,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | Field | Description |
 | --- | --- |
 | `"episodes"` |  |
-| `"meta"` |  |
+| `"meta"` | API metadata wrapper |
 
 Operations: Load.
 
@@ -273,21 +273,21 @@ API path: `/episodes/random/{count}`
 
 | Field | Description |
 | --- | --- |
-| `"day"` |  |
-| `"dialog"` |  |
-| `"episode"` |  |
-| `"hd"` |  |
-| `"height"` |  |
-| `"hifi"` |  |
-| `"image"` |  |
-| `"month"` |  |
-| `"navigation"` |  |
-| `"players"` |  |
-| `"tags"` |  |
-| `"thumb"` |  |
-| `"title"` |  |
-| `"width"` |  |
-| `"year"` |  |
+| `"day"` | Day of month published |
+| `"dialog"` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `"episode"` | Episode number |
+| `"hd"` | Optional array containing details about associated BoneQuest HD images |
+| `"height"` | Image height |
+| `"hifi"` | Optional details about an associated BoneQuest HiFi episode |
+| `"image"` | Partial URL to episode image |
+| `"month"` | Month published, number between 1-12 |
+| `"navigation"` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `"players"` | Array of player names |
+| `"tags"` | Array of tags applied |
+| `"thumb"` | Partial URL to thumbnail of episode image |
+| `"title"` | Episode title |
+| `"width"` | Image width |
+| `"year"` | Year published |
 
 Operations: List.
 
@@ -297,21 +297,21 @@ API path: `/quote/random`
 
 | Field | Description |
 | --- | --- |
-| `"day"` |  |
-| `"dialog"` |  |
-| `"episode"` |  |
-| `"hd"` |  |
-| `"height"` |  |
-| `"hifi"` |  |
-| `"image"` |  |
-| `"month"` |  |
-| `"navigation"` |  |
-| `"players"` |  |
-| `"tags"` |  |
-| `"thumb"` |  |
-| `"title"` |  |
-| `"width"` |  |
-| `"year"` |  |
+| `"day"` | Day of month published |
+| `"dialog"` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `"episode"` | Episode number |
+| `"hd"` | Optional array containing details about associated BoneQuest HD images |
+| `"height"` | Image height |
+| `"hifi"` | Optional details about an associated BoneQuest HiFi episode |
+| `"image"` | Partial URL to episode image |
+| `"month"` | Month published, number between 1-12 |
+| `"navigation"` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `"players"` | Array of player names |
+| `"tags"` | Array of tags applied |
+| `"thumb"` | Partial URL to thumbnail of episode image |
+| `"title"` | Episode title |
+| `"width"` | Image width |
+| `"year"` | Year published |
 
 Operations: List.
 
@@ -337,7 +337,7 @@ Create an instance: `episode := client.Episode(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `episodes` | `[]any` |  |
-| `meta` | `map[string]any` |  |
+| `meta` | `map[string]any` | API metadata wrapper |
 
 #### Example: Load
 
@@ -364,21 +364,21 @@ Create an instance: `quote := client.Quote(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `day` | `int` |  |
-| `dialog` | `[]any` |  |
-| `episode` | `int` |  |
-| `hd` | `[]any` |  |
-| `height` | `int` |  |
-| `hifi` | `map[string]any` |  |
-| `image` | `string` |  |
-| `month` | `int` |  |
-| `navigation` | `map[string]any` |  |
-| `players` | `[]any` |  |
-| `tags` | `[]any` |  |
-| `thumb` | `string` |  |
-| `title` | `string` |  |
-| `width` | `int` |  |
-| `year` | `int` |  |
+| `day` | `int` | Day of month published |
+| `dialog` | `[]any` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `int` | Episode number |
+| `hd` | `[]any` | Optional array containing details about associated BoneQuest HD images |
+| `height` | `int` | Image height |
+| `hifi` | `map[string]any` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | Partial URL to episode image |
+| `month` | `int` | Month published, number between 1-12 |
+| `navigation` | `map[string]any` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `[]any` | Array of player names |
+| `tags` | `[]any` | Array of tags applied |
+| `thumb` | `string` | Partial URL to thumbnail of episode image |
+| `title` | `string` | Episode title |
+| `width` | `int` | Image width |
+| `year` | `int` | Year published |
 
 #### Example: List
 
@@ -405,21 +405,21 @@ Create an instance: `search := client.Search(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `day` | `int` |  |
-| `dialog` | `[]any` |  |
-| `episode` | `int` |  |
-| `hd` | `[]any` |  |
-| `height` | `int` |  |
-| `hifi` | `map[string]any` |  |
-| `image` | `string` |  |
-| `month` | `int` |  |
-| `navigation` | `map[string]any` |  |
-| `players` | `[]any` |  |
-| `tags` | `[]any` |  |
-| `thumb` | `string` |  |
-| `title` | `string` |  |
-| `width` | `int` |  |
-| `year` | `int` |  |
+| `day` | `int` | Day of month published |
+| `dialog` | `[]any` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `int` | Episode number |
+| `hd` | `[]any` | Optional array containing details about associated BoneQuest HD images |
+| `height` | `int` | Image height |
+| `hifi` | `map[string]any` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | Partial URL to episode image |
+| `month` | `int` | Month published, number between 1-12 |
+| `navigation` | `map[string]any` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `[]any` | Array of player names |
+| `tags` | `[]any` | Array of tags applied |
+| `thumb` | `string` | Partial URL to thumbnail of episode image |
+| `title` | `string` | Episode title |
+| `width` | `int` | Image width |
+| `year` | `int` | Year published |
 
 #### Example: List
 

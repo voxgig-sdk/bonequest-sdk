@@ -245,7 +245,7 @@ On error, `ok` is `False` and `err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `episodes` |  |
-| `meta` |  |
+| `meta` | API metadata wrapper |
 
 Operations: Load.
 
@@ -255,21 +255,21 @@ API path: `/episodes/random/{count}`
 
 | Field | Description |
 | --- | --- |
-| `day` |  |
-| `dialog` |  |
-| `episode` |  |
-| `hd` |  |
-| `height` |  |
-| `hifi` |  |
-| `image` |  |
-| `month` |  |
-| `navigation` |  |
-| `players` |  |
-| `tags` |  |
-| `thumb` |  |
-| `title` |  |
-| `width` |  |
-| `year` |  |
+| `day` | Day of month published |
+| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | Episode number |
+| `hd` | Optional array containing details about associated BoneQuest HD images |
+| `height` | Image height |
+| `hifi` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | Partial URL to episode image |
+| `month` | Month published, number between 1-12 |
+| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | Array of player names |
+| `tags` | Array of tags applied |
+| `thumb` | Partial URL to thumbnail of episode image |
+| `title` | Episode title |
+| `width` | Image width |
+| `year` | Year published |
 
 Operations: List.
 
@@ -279,21 +279,21 @@ API path: `/quote/random`
 
 | Field | Description |
 | --- | --- |
-| `day` |  |
-| `dialog` |  |
-| `episode` |  |
-| `hd` |  |
-| `height` |  |
-| `hifi` |  |
-| `image` |  |
-| `month` |  |
-| `navigation` |  |
-| `players` |  |
-| `tags` |  |
-| `thumb` |  |
-| `title` |  |
-| `width` |  |
-| `year` |  |
+| `day` | Day of month published |
+| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | Episode number |
+| `hd` | Optional array containing details about associated BoneQuest HD images |
+| `height` | Image height |
+| `hifi` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | Partial URL to episode image |
+| `month` | Month published, number between 1-12 |
+| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | Array of player names |
+| `tags` | Array of tags applied |
+| `thumb` | Partial URL to thumbnail of episode image |
+| `title` | Episode title |
+| `width` | Image width |
+| `year` | Year published |
 
 Operations: List.
 
@@ -319,7 +319,7 @@ Create an instance: `episode = client.Episode()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `episodes` | `list` |  |
-| `meta` | `dict` |  |
+| `meta` | `dict` | API metadata wrapper |
 
 #### Example: Load
 
@@ -342,21 +342,21 @@ Create an instance: `quote = client.Quote()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `day` | `int` |  |
-| `dialog` | `list` |  |
-| `episode` | `int` |  |
-| `hd` | `list` |  |
-| `height` | `int` |  |
-| `hifi` | `dict` |  |
-| `image` | `str` |  |
-| `month` | `int` |  |
-| `navigation` | `dict` |  |
-| `players` | `list` |  |
-| `tags` | `list` |  |
-| `thumb` | `str` |  |
-| `title` | `str` |  |
-| `width` | `int` |  |
-| `year` | `int` |  |
+| `day` | `int` | Day of month published |
+| `dialog` | `list` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `int` | Episode number |
+| `hd` | `list` | Optional array containing details about associated BoneQuest HD images |
+| `height` | `int` | Image height |
+| `hifi` | `dict` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `str` | Partial URL to episode image |
+| `month` | `int` | Month published, number between 1-12 |
+| `navigation` | `dict` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `list` | Array of player names |
+| `tags` | `list` | Array of tags applied |
+| `thumb` | `str` | Partial URL to thumbnail of episode image |
+| `title` | `str` | Episode title |
+| `width` | `int` | Image width |
+| `year` | `int` | Year published |
 
 #### Example: List
 
@@ -379,21 +379,21 @@ Create an instance: `search = client.Search()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `day` | `int` |  |
-| `dialog` | `list` |  |
-| `episode` | `int` |  |
-| `hd` | `list` |  |
-| `height` | `int` |  |
-| `hifi` | `dict` |  |
-| `image` | `str` |  |
-| `month` | `int` |  |
-| `navigation` | `dict` |  |
-| `players` | `list` |  |
-| `tags` | `list` |  |
-| `thumb` | `str` |  |
-| `title` | `str` |  |
-| `width` | `int` |  |
-| `year` | `int` |  |
+| `day` | `int` | Day of month published |
+| `dialog` | `list` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `int` | Episode number |
+| `hd` | `list` | Optional array containing details about associated BoneQuest HD images |
+| `height` | `int` | Image height |
+| `hifi` | `dict` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `str` | Partial URL to episode image |
+| `month` | `int` | Month published, number between 1-12 |
+| `navigation` | `dict` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `list` | Array of player names |
+| `tags` | `list` | Array of tags applied |
+| `thumb` | `str` | Partial URL to thumbnail of episode image |
+| `title` | `str` | Episode title |
+| `width` | `int` | Image width |
+| `year` | `int` | Year published |
 
 #### Example: List
 

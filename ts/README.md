@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -291,7 +291,7 @@ The `prepare()` method returns:
 | Field | Description |
 | --- | --- |
 | `episodes` |  |
-| `meta` |  |
+| `meta` | API metadata wrapper |
 
 Operations: load.
 
@@ -301,21 +301,21 @@ API path: `/episodes/random/{count}`
 
 | Field | Description |
 | --- | --- |
-| `day` |  |
-| `dialog` |  |
-| `episode` |  |
-| `hd` |  |
-| `height` |  |
-| `hifi` |  |
-| `image` |  |
-| `month` |  |
-| `navigation` |  |
-| `players` |  |
-| `tags` |  |
-| `thumb` |  |
-| `title` |  |
-| `width` |  |
-| `year` |  |
+| `day` | Day of month published |
+| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | Episode number |
+| `hd` | Optional array containing details about associated BoneQuest HD images |
+| `height` | Image height |
+| `hifi` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | Partial URL to episode image |
+| `month` | Month published, number between 1-12 |
+| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | Array of player names |
+| `tags` | Array of tags applied |
+| `thumb` | Partial URL to thumbnail of episode image |
+| `title` | Episode title |
+| `width` | Image width |
+| `year` | Year published |
 
 Operations: list.
 
@@ -325,21 +325,21 @@ API path: `/quote/random`
 
 | Field | Description |
 | --- | --- |
-| `day` |  |
-| `dialog` |  |
-| `episode` |  |
-| `hd` |  |
-| `height` |  |
-| `hifi` |  |
-| `image` |  |
-| `month` |  |
-| `navigation` |  |
-| `players` |  |
-| `tags` |  |
-| `thumb` |  |
-| `title` |  |
-| `width` |  |
-| `year` |  |
+| `day` | Day of month published |
+| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | Episode number |
+| `hd` | Optional array containing details about associated BoneQuest HD images |
+| `height` | Image height |
+| `hifi` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | Partial URL to episode image |
+| `month` | Month published, number between 1-12 |
+| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | Array of player names |
+| `tags` | Array of tags applied |
+| `thumb` | Partial URL to thumbnail of episode image |
+| `title` | Episode title |
+| `width` | Image width |
+| `year` | Year published |
 
 Operations: list.
 
@@ -365,7 +365,7 @@ Create an instance: `const episode = client.Episode()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `episodes` | `any[]` |  |
-| `meta` | `Record<string, any>` |  |
+| `meta` | `Record<string, any>` | API metadata wrapper |
 
 #### Example: Load
 
@@ -388,21 +388,21 @@ Create an instance: `const quote = client.Quote()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `day` | `number` |  |
-| `dialog` | `any[]` |  |
-| `episode` | `number` |  |
-| `hd` | `any[]` |  |
-| `height` | `number` |  |
-| `hifi` | `Record<string, any>` |  |
-| `image` | `string` |  |
-| `month` | `number` |  |
-| `navigation` | `Record<string, any>` |  |
-| `players` | `any[]` |  |
-| `tags` | `any[]` |  |
-| `thumb` | `string` |  |
-| `title` | `string` |  |
-| `width` | `number` |  |
-| `year` | `number` |  |
+| `day` | `number` | Day of month published |
+| `dialog` | `any[]` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `number` | Episode number |
+| `hd` | `any[]` | Optional array containing details about associated BoneQuest HD images |
+| `height` | `number` | Image height |
+| `hifi` | `Record<string, any>` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | Partial URL to episode image |
+| `month` | `number` | Month published, number between 1-12 |
+| `navigation` | `Record<string, any>` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `any[]` | Array of player names |
+| `tags` | `any[]` | Array of tags applied |
+| `thumb` | `string` | Partial URL to thumbnail of episode image |
+| `title` | `string` | Episode title |
+| `width` | `number` | Image width |
+| `year` | `number` | Year published |
 
 #### Example: List
 
@@ -425,21 +425,21 @@ Create an instance: `const search = client.Search()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `day` | `number` |  |
-| `dialog` | `any[]` |  |
-| `episode` | `number` |  |
-| `hd` | `any[]` |  |
-| `height` | `number` |  |
-| `hifi` | `Record<string, any>` |  |
-| `image` | `string` |  |
-| `month` | `number` |  |
-| `navigation` | `Record<string, any>` |  |
-| `players` | `any[]` |  |
-| `tags` | `any[]` |  |
-| `thumb` | `string` |  |
-| `title` | `string` |  |
-| `width` | `number` |  |
-| `year` | `number` |  |
+| `day` | `number` | Day of month published |
+| `dialog` | `any[]` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `number` | Episode number |
+| `hd` | `any[]` | Optional array containing details about associated BoneQuest HD images |
+| `height` | `number` | Image height |
+| `hifi` | `Record<string, any>` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | Partial URL to episode image |
+| `month` | `number` | Month published, number between 1-12 |
+| `navigation` | `Record<string, any>` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `any[]` | Array of player names |
+| `tags` | `any[]` | Array of tags applied |
+| `thumb` | `string` | Partial URL to thumbnail of episode image |
+| `title` | `string` | Episode title |
+| `width` | `number` | Image width |
+| `year` | `number` | Year published |
 
 #### Example: List
 

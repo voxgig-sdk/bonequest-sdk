@@ -8,76 +8,91 @@ main: kit: entity: search: {
     {
       name: "day"
       req: false
+      short: "Day of month published"
       type: "`$INTEGER`"
     }
     {
       name: "dialog"
       req: false
+      short: "Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog"
       type: "`$ARRAY`"
     }
     {
       name: "episode"
       req: false
+      short: "Episode number"
       type: "`$INTEGER`"
     }
     {
       name: "hd"
       req: false
+      short: "Optional array containing details about associated BoneQuest HD images"
       type: "`$ARRAY`"
     }
     {
       name: "height"
       req: false
+      short: "Image height"
       type: "`$INTEGER`"
     }
     {
       name: "hifi"
       req: false
+      short: "Optional details about an associated BoneQuest HiFi episode"
       type: "`$OBJECT`"
     }
     {
       name: "image"
       req: false
+      short: "Partial URL to episode image"
       type: "`$STRING`"
     }
     {
       name: "month"
       req: false
+      short: "Month published, number between 1-12"
       type: "`$INTEGER`"
     }
     {
       name: "navigation"
       req: false
+      short: "Back and next keys contain fully-formed episode for surrounding episodes"
       type: "`$OBJECT`"
     }
     {
       name: "players"
       req: false
+      short: "Array of player names"
       type: "`$ARRAY`"
     }
     {
       name: "tags"
       req: false
+      short: "Array of tags applied"
       type: "`$ARRAY`"
     }
     {
       name: "thumb"
       req: false
+      short: "Partial URL to thumbnail of episode image"
       type: "`$STRING`"
     }
     {
       name: "title"
       req: false
+      short: "Episode title"
       type: "`$STRING`"
     }
     {
       name: "width"
       req: false
+      short: "Image width"
       type: "`$INTEGER`"
     }
     {
       name: "year"
       req: false
+      short: "Year published"
       type: "`$INTEGER`"
     }
   ]

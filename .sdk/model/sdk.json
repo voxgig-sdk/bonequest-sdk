@@ -42,6 +42,7 @@
               "active": true,
               "name": "meta",
               "req": false,
+              "short": "API metadata wrapper",
               "type": "`$OBJECT`"
             }
           ],
@@ -179,90 +180,105 @@
               "active": true,
               "name": "day",
               "req": false,
+              "short": "Day of month published",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "dialog",
               "req": false,
+              "short": "Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "episode",
               "req": false,
+              "short": "Episode number",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "hd",
               "req": false,
+              "short": "Optional array containing details about associated BoneQuest HD images",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "height",
               "req": false,
+              "short": "Image height",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "hifi",
               "req": false,
+              "short": "Optional details about an associated BoneQuest HiFi episode",
               "type": "`$OBJECT`"
             },
             {
               "active": true,
               "name": "image",
               "req": false,
+              "short": "Partial URL to episode image",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "month",
               "req": false,
+              "short": "Month published, number between 1-12",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "navigation",
               "req": false,
+              "short": "Back and next keys contain fully-formed episode for surrounding episodes",
               "type": "`$OBJECT`"
             },
             {
               "active": true,
               "name": "players",
               "req": false,
+              "short": "Array of player names",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "tags",
               "req": false,
+              "short": "Array of tags applied",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "thumb",
               "req": false,
+              "short": "Partial URL to thumbnail of episode image",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "title",
               "req": false,
+              "short": "Episode title",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "width",
               "req": false,
+              "short": "Image width",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "year",
               "req": false,
+              "short": "Year published",
               "type": "`$INTEGER`"
             }
           ],
@@ -307,90 +323,105 @@
               "active": true,
               "name": "day",
               "req": false,
+              "short": "Day of month published",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "dialog",
               "req": false,
+              "short": "Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "episode",
               "req": false,
+              "short": "Episode number",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "hd",
               "req": false,
+              "short": "Optional array containing details about associated BoneQuest HD images",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "height",
               "req": false,
+              "short": "Image height",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "hifi",
               "req": false,
+              "short": "Optional details about an associated BoneQuest HiFi episode",
               "type": "`$OBJECT`"
             },
             {
               "active": true,
               "name": "image",
               "req": false,
+              "short": "Partial URL to episode image",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "month",
               "req": false,
+              "short": "Month published, number between 1-12",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "navigation",
               "req": false,
+              "short": "Back and next keys contain fully-formed episode for surrounding episodes",
               "type": "`$OBJECT`"
             },
             {
               "active": true,
               "name": "players",
               "req": false,
+              "short": "Array of player names",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "tags",
               "req": false,
+              "short": "Array of tags applied",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "thumb",
               "req": false,
+              "short": "Partial URL to thumbnail of episode image",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "title",
               "req": false,
+              "short": "Episode title",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "width",
               "req": false,
+              "short": "Image width",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "year",
               "req": false,
+              "short": "Year published",
               "type": "`$INTEGER`"
             }
           ],
