@@ -249,6 +249,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `episodes` |  |
+| `id` |  |
 | `meta` | API metadata wrapper |
 
 Operations: Load.
@@ -323,6 +324,7 @@ Create an instance: `$episode = $client->Episode();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `episodes` | `array` |  |
+| `id` | `string` |  |
 | `meta` | `array` | API metadata wrapper |
 
 #### Example: Load

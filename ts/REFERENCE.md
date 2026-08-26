@@ -141,6 +141,7 @@ const episode = client.Episode()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `episodes` | `any[]` | No |  |
+| `id` | `string` | No |  |
 | `meta` | `Record<string, any>` | No | API metadata wrapper |
 
 ### Operations

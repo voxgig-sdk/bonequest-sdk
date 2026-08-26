@@ -18,6 +18,7 @@ from typing import TypedDict, Any
 
 class Episode(TypedDict, total=False):
     episodes: list
+    id: str
     meta: dict
 
 

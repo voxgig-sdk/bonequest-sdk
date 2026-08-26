@@ -291,6 +291,7 @@ The `prepare()` method returns:
 | Field | Description |
 | --- | --- |
 | `episodes` |  |
+| `id` |  |
 | `meta` | API metadata wrapper |
 
 Operations: load.
@@ -365,6 +366,7 @@ Create an instance: `const episode = client.Episode()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `episodes` | `any[]` |  |
+| `id` | `string` |  |
 | `meta` | `Record<string, any>` | API metadata wrapper |
 
 #### Example: Load

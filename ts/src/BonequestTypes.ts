@@ -7,6 +7,7 @@
 
 export interface Episode {
   episodes?: any[]
+  id?: string
   meta?: Record<string, any>
 }
 

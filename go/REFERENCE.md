@@ -107,6 +107,7 @@ fmt.Println(episode.GetName()) // "episode"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `episodes` | `[]any` | No |  |
+| `id` | `string` | No |  |
 | `meta` | `map[string]any` | No | API metadata wrapper |
 
 ### Operations

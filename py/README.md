@@ -245,6 +245,7 @@ On error, `ok` is `False` and `err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `episodes` |  |
+| `id` |  |
 | `meta` | API metadata wrapper |
 
 Operations: Load.
@@ -319,6 +320,7 @@ Create an instance: `episode = client.Episode()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `episodes` | `list` |  |
+| `id` | `str` |  |
 | `meta` | `dict` | API metadata wrapper |
 
 #### Example: Load

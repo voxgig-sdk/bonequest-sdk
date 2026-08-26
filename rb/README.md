@@ -239,6 +239,7 @@ returns a result `Hash` with these keys:
 | Field | Description |
 | --- | --- |
 | `episodes` |  |
+| `id` |  |
 | `meta` | API metadata wrapper |
 
 Operations: Load.
@@ -313,6 +314,7 @@ Create an instance: `episode = client.Episode`
 | Field | Type | Description |
 | --- | --- | --- |
 | `episodes` | `Array` |  |
+| `id` | `String` |  |
 | `meta` | `Hash` | API metadata wrapper |
 
 #### Example: Load

@@ -102,6 +102,7 @@ episode = client.Episode
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `episodes` | `Array` | No |  |
+| `id` | `String` | No |  |
 | `meta` | `Hash` | No | API metadata wrapper |
 
 ### Operations

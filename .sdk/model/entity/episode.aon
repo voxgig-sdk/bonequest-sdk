@@ -11,12 +11,22 @@ main: kit: entity: episode: {
       type: "`$ARRAY`"
     }
     {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
       name: "meta"
       req: false
       short: "API metadata wrapper"
       type: "`$OBJECT`"
     }
   ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
 
   name: "episode"
   op: {

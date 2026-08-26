@@ -42,6 +42,7 @@ class BonequestConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
@@ -61,6 +62,10 @@ class BonequestConfig
             [
               'name' => 'episodes',
               'type' => '`$ARRAY`',
+            ],
+            [
+              'name' => 'id',
+              'type' => '`$STRING`',
             ],
             [
               'name' => 'meta',

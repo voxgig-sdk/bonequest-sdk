@@ -13,10 +13,14 @@
 # @!attribute [rw] episodes
 #   @return [Array, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] meta
 #   @return [Hash, nil]
 Episode = Struct.new(
   :episodes,
+  :id,
   :meta,
   keyword_init: true
 )

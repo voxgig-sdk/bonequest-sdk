@@ -8,6 +8,7 @@
 
 ---@class Episode
 ---@field episodes? table
+---@field id? string
 ---@field meta? table
 
 ---@class EpisodeLoadMatch

@@ -99,6 +99,7 @@ local episode = client:Episode(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `episodes` | `table` | No |  |
+| `id` | `string` | No |  |
 | `meta` | `table` | No | API metadata wrapper |
 
 ### Operations

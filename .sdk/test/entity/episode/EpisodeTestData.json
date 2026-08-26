@@ -3,21 +3,21 @@
     "episode": {
       "EPISODE00": {
         "episodes": [],
+        "id": "EPISODE00",
         "meta": {},
-        "count": "COUNT01",
-        "id": "EPISODE00"
+        "count": "COUNT01"
       },
       "EPISODE01": {
         "episodes": [],
+        "id": "EPISODE01",
         "meta": {},
-        "count": "COUNT01",
-        "id": "EPISODE01"
+        "count": "COUNT01"
       },
       "EPISODE02": {
         "episodes": [],
+        "id": "EPISODE02",
         "meta": {},
-        "count": "COUNT01",
-        "id": "EPISODE02"
+        "count": "COUNT01"
       }
     }
   },

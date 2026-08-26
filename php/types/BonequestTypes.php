@@ -16,6 +16,7 @@ declare(strict_types=1);
 class Episode
 {
     public ?array $episodes = null;
+    public ?string $id = null;
     public ?array $meta = null;
 }
 

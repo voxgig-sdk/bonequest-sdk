@@ -28,6 +28,7 @@ module BonequestConfig
           "options" => {
             "active" => false,
           },
+          "transport" => "base",
         },
       },
       "options" => {
@@ -47,6 +48,10 @@ module BonequestConfig
             {
               "name" => "episodes",
               "type" => "`$ARRAY`",
+            },
+            {
+              "name" => "id",
+              "type" => "`$STRING`",
             },
             {
               "name" => "meta",

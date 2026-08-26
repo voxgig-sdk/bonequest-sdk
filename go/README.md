@@ -263,6 +263,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | Field | Description |
 | --- | --- |
 | `"episodes"` |  |
+| `"id"` |  |
 | `"meta"` | API metadata wrapper |
 
 Operations: Load.
@@ -337,6 +338,7 @@ Create an instance: `episode := client.Episode(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `episodes` | `[]any` |  |
+| `id` | `string` |  |
 | `meta` | `map[string]any` | API metadata wrapper |
 
 #### Example: Load

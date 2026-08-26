@@ -61,13 +61,19 @@ func TestEpisodeEntity(t *testing.T) {
 
 		// LOAD
 		episodeRef01Ent := client.Episode(nil)
-		episodeRef01MatchDt0 := map[string]any{}
+		episodeRef01MatchDt0 := map[string]any{
+			"id": episodeRef01Data["id"],
+		}
 		episodeRef01DataDt0Loaded, err := episodeRef01Ent.Load(episodeRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if episodeRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		episodeRef01DataDt0LoadResult := core.ToMapAny(entityData(episodeRef01DataDt0Loaded))
+		if episodeRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if episodeRef01DataDt0LoadResult["id"] != episodeRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})

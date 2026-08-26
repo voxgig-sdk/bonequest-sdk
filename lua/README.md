@@ -230,6 +230,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | Field | Description |
 | --- | --- |
 | `episodes` |  |
+| `id` |  |
 | `meta` | API metadata wrapper |
 
 Operations: Load.
@@ -304,6 +305,7 @@ Create an instance: `local episode = client:Episode(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `episodes` | `table` |  |
+| `id` | `string` |  |
 | `meta` | `table` | API metadata wrapper |
 
 #### Example: Load

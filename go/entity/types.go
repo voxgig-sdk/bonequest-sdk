@@ -15,6 +15,7 @@ import (
 // Episode is the typed data model for the episode entity.
 type Episode struct {
 	Episodes *[]any `json:"episodes,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Meta *map[string]any `json:"meta,omitempty"`
 }
 

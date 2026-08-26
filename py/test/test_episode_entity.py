@@ -48,9 +48,13 @@ class TestEpisodeEntity:
 
         # LOAD
         episode_ref01_ent = client.Episode(None)
-        episode_ref01_match_dt0 = {}
+        episode_ref01_match_dt0 = {
+            "id": episode_ref01_data["id"],
+        }
         episode_ref01_data_dt0_loaded = episode_ref01_ent.load(episode_ref01_match_dt0, None)
-        assert episode_ref01_data_dt0_loaded is not None
+        episode_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(episode_ref01_data_dt0_loaded))
+        assert episode_ref01_data_dt0_load_result is not None
+        assert episode_ref01_data_dt0_load_result["id"] == episode_ref01_data["id"]
 
 
 

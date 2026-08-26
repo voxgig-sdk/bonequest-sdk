@@ -101,6 +101,7 @@ $episode = $client->Episode();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `episodes` | `array` | No |  |
+| `id` | `string` | No |  |
 | `meta` | `array` | No | API metadata wrapper |
 
 ### Operations
