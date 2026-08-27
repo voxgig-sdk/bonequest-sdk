@@ -80,19 +80,5 @@ class Search(TypedDict, total=False):
     year: int
 
 
-class SearchListMatch(TypedDict, total=False):
-    day: int
-    dialog: list
-    episode: int
-    hd: list
-    height: int
-    hifi: dict
-    image: str
-    month: int
-    navigation: dict
-    players: list
-    tags: list
-    thumb: str
-    title: str
-    width: int
-    year: int
+class SearchListMatch(TypedDict):
+    q: str

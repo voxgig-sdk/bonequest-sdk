@@ -83,21 +83,7 @@ type Search struct {
 
 // SearchListMatch is the typed request payload for Search.ListTyped.
 type SearchListMatch struct {
-	Day *int `json:"day,omitempty"`
-	Dialog *[]any `json:"dialog,omitempty"`
-	Episode *int `json:"episode,omitempty"`
-	Hd *[]any `json:"hd,omitempty"`
-	Height *int `json:"height,omitempty"`
-	Hifi *map[string]any `json:"hifi,omitempty"`
-	Image *string `json:"image,omitempty"`
-	Month *int `json:"month,omitempty"`
-	Navigation *map[string]any `json:"navigation,omitempty"`
-	Players *[]any `json:"players,omitempty"`
-	Tags *[]any `json:"tags,omitempty"`
-	Thumb *string `json:"thumb,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Width *int `json:"width,omitempty"`
-	Year *int `json:"year,omitempty"`
+	Q string `json:"q"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

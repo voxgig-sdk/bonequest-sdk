@@ -66,21 +66,7 @@
 ---@field year? number
 
 ---@class SearchListMatch
----@field day? number
----@field dialog? table
----@field episode? number
----@field hd? table
----@field height? number
----@field hifi? table
----@field image? string
----@field month? number
----@field navigation? table
----@field players? table
----@field tags? table
----@field thumb? string
----@field title? string
----@field width? number
----@field year? number
+---@field q string
 
 local M = {}
 

@@ -231,66 +231,10 @@ Search = Struct.new(
 
 # Request payload for Search#list.
 #
-# @!attribute [rw] day
-#   @return [Integer, nil]
-#
-# @!attribute [rw] dialog
-#   @return [Array, nil]
-#
-# @!attribute [rw] episode
-#   @return [Integer, nil]
-#
-# @!attribute [rw] hd
-#   @return [Array, nil]
-#
-# @!attribute [rw] height
-#   @return [Integer, nil]
-#
-# @!attribute [rw] hifi
-#   @return [Hash, nil]
-#
-# @!attribute [rw] image
-#   @return [String, nil]
-#
-# @!attribute [rw] month
-#   @return [Integer, nil]
-#
-# @!attribute [rw] navigation
-#   @return [Hash, nil]
-#
-# @!attribute [rw] players
-#   @return [Array, nil]
-#
-# @!attribute [rw] tags
-#   @return [Array, nil]
-#
-# @!attribute [rw] thumb
-#   @return [String, nil]
-#
-# @!attribute [rw] title
-#   @return [String, nil]
-#
-# @!attribute [rw] width
-#   @return [Integer, nil]
-#
-# @!attribute [rw] year
-#   @return [Integer, nil]
+# @!attribute [rw] q
+#   @return [String]
 SearchListMatch = Struct.new(
-  :day,
-  :dialog,
-  :episode,
-  :hd,
-  :height,
-  :hifi,
-  :image,
-  :month,
-  :navigation,
-  :players,
-  :tags,
-  :thumb,
-  :title,
-  :width,
-  :year,
+  :q,
   keyword_init: true
 )
 

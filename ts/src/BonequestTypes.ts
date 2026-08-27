@@ -76,20 +76,6 @@ export interface Search {
 }
 
 export interface SearchListMatch {
-  day?: number
-  dialog?: any[]
-  episode?: number
-  hd?: any[]
-  height?: number
-  hifi?: Record<string, any>
-  image?: string
-  month?: number
-  navigation?: Record<string, any>
-  players?: any[]
-  tags?: any[]
-  thumb?: string
-  title?: string
-  width?: number
-  year?: number
+  q: string
 }
 
