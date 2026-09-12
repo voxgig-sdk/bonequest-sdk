@@ -48,10 +48,16 @@ main: kit: entity: episode: {
           }
           method: "GET"
           orig: "/episodes/random/{count}"
-          parts: [
-            "episodes"
-            "random"
-            "{count}"
+          segments: [
+            {
+              lit: "episodes"
+            }
+            {
+              lit: "random"
+            }
+            {
+              var: "count"
+            }
           ]
           select: {
             exist: [
@@ -78,15 +84,19 @@ main: kit: entity: episode: {
           }
           method: "GET"
           orig: "/episode/{episodeNumber}"
-          parts: [
-            "episode"
-            "{id}"
-          ]
           rename: {
             param: {
               episodeNumber: "id"
             }
           }
+          segments: [
+            {
+              lit: "episode"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -112,15 +122,19 @@ main: kit: entity: episode: {
           }
           method: "GET"
           orig: "/episodes/{episodeNumbers}"
-          parts: [
-            "episodes"
-            "{id}"
-          ]
           rename: {
             param: {
               episodeNumbers: "id"
             }
           }
+          segments: [
+            {
+              lit: "episodes"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

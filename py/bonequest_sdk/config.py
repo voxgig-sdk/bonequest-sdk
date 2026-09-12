@@ -1,6 +1,14 @@
 # Bonequest SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -68,6 +76,10 @@ def make_config():
             "type": "`$OBJECT`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "episode",
         "op": {
           "load": {
@@ -90,10 +102,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/episodes/random/{count}",
-                "parts": [
-                  "episodes",
-                  "random",
-                  "{count}",
+                "segments": [
+                  {
+                    "lit": "episodes",
+                  },
+                  {
+                    "lit": "random",
+                  },
+                  {
+                    "var": "count",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -104,6 +122,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "episodes",
+                  "random",
+                  "{count}",
+                ],
               },
               {
                 "args": {
@@ -121,15 +144,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/episode/{episodeNumber}",
-                "parts": [
-                  "episode",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "episodeNumber": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "episode",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -139,6 +166,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "episode",
+                  "{id}",
+                ],
               },
               {
                 "args": {
@@ -156,15 +187,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/episodes/{episodeNumbers}",
-                "parts": [
-                  "episodes",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "episodeNumbers": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "episodes",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -174,6 +209,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "episodes",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -275,9 +314,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/quote/random",
-                "parts": [
-                  "quote",
-                  "random",
+                "segments": [
+                  {
+                    "lit": "quote",
+                  },
+                  {
+                    "lit": "random",
+                  },
                 ],
                 "select": {
                   "$action": "random",
@@ -286,6 +329,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.quote`",
                 },
+                "parts": [
+                  "quote",
+                  "random",
+                ],
               },
             ],
           },
@@ -394,8 +441,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/search/",
-                "parts": [
-                  "search",
+                "segments": [
+                  {
+                    "lit": "search",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -406,6 +455,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.search`",
                 },
+                "parts": [
+                  "search",
+                ],
               },
             ],
           },

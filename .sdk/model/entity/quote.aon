@@ -105,9 +105,13 @@ main: kit: entity: quote: {
         {
           method: "GET"
           orig: "/quote/random"
-          parts: [
-            "quote"
-            "random"
+          segments: [
+            {
+              lit: "quote"
+            }
+            {
+              lit: "random"
+            }
           ]
           select: {
             "$action": "random"

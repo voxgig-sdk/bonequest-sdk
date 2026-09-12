@@ -59,6 +59,10 @@ module BonequestConfig
               "type" => "`$OBJECT`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "episode",
           "op" => {
             "load" => {
@@ -81,10 +85,16 @@ module BonequestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/episodes/random/{count}",
-                  "parts" => [
-                    "episodes",
-                    "random",
-                    "{count}",
+                  "segments" => [
+                    {
+                      "lit" => "episodes",
+                    },
+                    {
+                      "lit" => "random",
+                    },
+                    {
+                      "var" => "count",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -95,6 +105,11 @@ module BonequestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "episodes",
+                    "random",
+                    "{count}",
+                  ],
                 },
                 {
                   "args" => {
@@ -112,15 +127,19 @@ module BonequestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/episode/{episodeNumber}",
-                  "parts" => [
-                    "episode",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "episodeNumber" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "episode",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -130,6 +149,10 @@ module BonequestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "episode",
+                    "{id}",
+                  ],
                 },
                 {
                   "args" => {
@@ -147,15 +170,19 @@ module BonequestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/episodes/{episodeNumbers}",
-                  "parts" => [
-                    "episodes",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "episodeNumbers" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "episodes",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -165,6 +192,10 @@ module BonequestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "episodes",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -266,9 +297,13 @@ module BonequestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/quote/random",
-                  "parts" => [
-                    "quote",
-                    "random",
+                  "segments" => [
+                    {
+                      "lit" => "quote",
+                    },
+                    {
+                      "lit" => "random",
+                    },
                   ],
                   "select" => {
                     "$action" => "random",
@@ -277,6 +312,10 @@ module BonequestConfig
                     "req" => "`reqdata`",
                     "res" => "`body.quote`",
                   },
+                  "parts" => [
+                    "quote",
+                    "random",
+                  ],
                 },
               ],
             },
@@ -385,8 +424,10 @@ module BonequestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/search/",
-                  "parts" => [
-                    "search",
+                  "segments" => [
+                    {
+                      "lit" => "search",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -397,6 +438,9 @@ module BonequestConfig
                     "req" => "`reqdata`",
                     "res" => "`body.search`",
                   },
+                  "parts" => [
+                    "search",
+                  ],
                 },
               ],
             },
