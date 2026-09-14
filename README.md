@@ -105,7 +105,7 @@ local results, err = client:Search():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/bonequest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/releases) |
+| TypeScript | `@voxgig-sdk/bonequest-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/releases) |
 | Python | `voxgig-sdk-bonequest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/releases) |
 | PHP | `voxgig-sdk/bonequest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/bonequest-sdk/go` | `go get github.com/voxgig-sdk/bonequest-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Search():list()
 ### TypeScript
 
 ```ts
-import { BonequestSDK } from '@voxgig-sdk/bonequest'
+import { BonequestSDK } from '@voxgig-sdk/bonequest-sdk'
 
 const client = new BonequestSDK()
 

@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { BonequestSDK } from '@voxgig-sdk/bonequest'
+import { BonequestSDK } from '@voxgig-sdk/bonequest-sdk'
 
 const client = new BonequestSDK()
 ```
@@ -532,7 +532,7 @@ bonequest/
 Import the SDK from the package root:
 
 ```ts
-import { BonequestSDK } from '@voxgig-sdk/bonequest'
+import { BonequestSDK } from '@voxgig-sdk/bonequest-sdk'
 ```
 
 ### Entity state
