@@ -1,12 +1,18 @@
 # Bonequest SDK feature factory
 
 from bonequest_sdk.feature.base_feature import BonequestBaseFeature
+from bonequest_sdk.feature.ratelimit_feature import BonequestRatelimitFeature
+from bonequest_sdk.feature.retry_feature import BonequestRetryFeature
 from bonequest_sdk.feature.test_feature import BonequestTestFeature
+from bonequest_sdk.feature.timeout_feature import BonequestTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: BonequestBaseFeature(),
+    "ratelimit": lambda: BonequestRatelimitFeature(),
+    "retry": lambda: BonequestRetryFeature(),
     "test": lambda: BonequestTestFeature(),
+    "timeout": lambda: BonequestTimeoutFeature(),
 }
 
 
