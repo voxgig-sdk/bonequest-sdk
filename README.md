@@ -46,23 +46,23 @@ network, and no credentials:
 // Shape: { entity: { <entity-name>: { <id>: <record> } } }
 const client = BonequestSDK.test({
   entity: {
-    search: {
+    episode: {
       test01: { id: 'test01' },
     },
   },
 })
-const searchs = await client.Search().list()
-// searchs is an array of Search entities, populated with mock data
-// — call searchs[0].data() for the record itself
-console.log(searchs)
+const episode = await client.Episode().load({ id: 1 })
+// episode is the Episode entity, populated with mock data
+// — call episode.data() for the record itself
+console.log(episode)
 ```
 
 ### Python
 
 ```python
 client = BonequestSDK.test()
-searchs = client.Search().list()
-print(searchs)
+episode = client.Episode().load({"id": "test01"})
+print(episode)
 ```
 
 ### PHP
@@ -70,17 +70,17 @@ print(searchs)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = BonequestSDK::test([
-    "entity" => ["search" => ["test01" => []]],
+    "entity" => ["episode" => ["test01" => ["id" => "test01"]]],
 ]);
-$searchs = $client->Search()->list();
+$episode = $client->Episode()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Search(nil).List(
-    nil, nil,
+result, err := client.Episode(nil).Load(
+    map[string]any{"id": "test01"}, nil,
 )
 ```
 
@@ -89,28 +89,28 @@ result, err := client.Search(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = BonequestSDK.test({
-  "entity" => { "search" => { "test01" => {} } },
+  "entity" => { "episode" => { "test01" => { "id" => "test01" } } },
 })
-searchs = client.Search.list()
+episode = client.Episode.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Search():list()
+local result, err = client:Episode():load({ id = "test01" })
 ```
 
 ## Packages
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/bonequest-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/releases) |
-| Python | `voxgig-sdk-bonequest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/releases) |
-| PHP | `voxgig-sdk/bonequest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/releases) |
+| TypeScript | `@voxgig-sdk/bonequest-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/tags) |
+| Python | `voxgig-sdk-bonequest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/tags) |
+| PHP | `voxgig-sdk/bonequest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/bonequest-sdk/go` | `go get github.com/voxgig-sdk/bonequest-sdk/go@latest` |
-| Ruby | `voxgig-sdk-bonequest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/releases) |
-| Lua | `voxgig-sdk-bonequest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/releases) |
+| Ruby | `voxgig-sdk-bonequest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/tags) |
+| Lua | `voxgig-sdk-bonequest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/bonequest-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/bonequest-sdk/go-cli` | `go install github.com/voxgig-sdk/bonequest-sdk/go-cli/cmd/bonequest@latest` |
 | Go MCP server | `github.com/voxgig-sdk/bonequest-sdk/go-mcp` | `go get github.com/voxgig-sdk/bonequest-sdk/go-mcp@latest` |
 

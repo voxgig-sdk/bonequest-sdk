@@ -66,12 +66,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-searchs, err := client.Search(nil).List(nil, nil)
+episode, err := client.Episode(nil).Load(map[string]any{"id": 1}, nil)
 if err != nil {
     // handle err
     return
 }
-_ = searchs
+_ = episode
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -135,13 +135,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-search, err := client.Search(nil).List(
-    nil, nil,
+episode, err := client.Episode(nil).Load(
+    map[string]any{"id": "test01"}, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(search) // the returned mock data
+fmt.Println(episode) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -274,21 +274,6 @@ API path: `/episodes/random/{count}`
 
 | Field | Description |
 | --- | --- |
-| `"day"` | Day of month published |
-| `"dialog"` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
-| `"episode"` | Episode number |
-| `"hd"` | Optional array containing details about associated BoneQuest HD images |
-| `"height"` | Image height |
-| `"hifi"` | Optional details about an associated BoneQuest HiFi episode |
-| `"image"` | Partial URL to episode image |
-| `"month"` | Month published, number between 1-12 |
-| `"navigation"` | Back and next keys contain fully-formed episode for surrounding episodes |
-| `"players"` | Array of player names |
-| `"tags"` | Array of tags applied |
-| `"thumb"` | Partial URL to thumbnail of episode image |
-| `"title"` | Episode title |
-| `"width"` | Image width |
-| `"year"` | Year published |
 
 Operations: List.
 
@@ -361,26 +346,6 @@ Create an instance: `quote := client.Quote(nil)`
 | Method | Description |
 | --- | --- |
 | `List(match, ctrl)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `day` | `int` | Day of month published |
-| `dialog` | `[]any` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
-| `episode` | `int` | Episode number |
-| `hd` | `[]any` | Optional array containing details about associated BoneQuest HD images |
-| `height` | `int` | Image height |
-| `hifi` | `map[string]any` | Optional details about an associated BoneQuest HiFi episode |
-| `image` | `string` | Partial URL to episode image |
-| `month` | `int` | Month published, number between 1-12 |
-| `navigation` | `map[string]any` | Back and next keys contain fully-formed episode for surrounding episodes |
-| `players` | `[]any` | Array of player names |
-| `tags` | `[]any` | Array of tags applied |
-| `thumb` | `string` | Partial URL to thumbnail of episode image |
-| `title` | `string` | Episode title |
-| `width` | `int` | Image width |
-| `year` | `int` | Year published |
 
 #### Example: List
 
@@ -587,15 +552,15 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `List`, the entity
+Entity instances are stateful. After a successful `Load`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-search := client.Search(nil)
-search.List(nil, nil)
+episode := client.Episode(nil)
+episode.Load(map[string]any{"id": 1}, nil)
 
-// search.Data() now returns the search data from the last list
-// search.Match() returns the last match criteria
+// episode.Data() now returns the episode data from the last load
+// episode.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

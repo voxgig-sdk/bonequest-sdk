@@ -29,41 +29,11 @@ class EpisodeLoadMatch
 /** Quote entity data model. */
 class Quote
 {
-    public ?int $day = null;
-    public ?array $dialog = null;
-    public ?int $episode = null;
-    public ?array $hd = null;
-    public ?int $height = null;
-    public ?array $hifi = null;
-    public ?string $image = null;
-    public ?int $month = null;
-    public ?array $navigation = null;
-    public ?array $players = null;
-    public ?array $tags = null;
-    public ?string $thumb = null;
-    public ?string $title = null;
-    public ?int $width = null;
-    public ?int $year = null;
 }
 
 /** Request payload for Quote#list. */
 class QuoteListMatch
 {
-    public ?int $day = null;
-    public ?array $dialog = null;
-    public ?int $episode = null;
-    public ?array $hd = null;
-    public ?int $height = null;
-    public ?array $hifi = null;
-    public ?string $image = null;
-    public ?int $month = null;
-    public ?array $navigation = null;
-    public ?array $players = null;
-    public ?array $tags = null;
-    public ?string $thumb = null;
-    public ?string $title = null;
-    public ?int $width = null;
-    public ?int $year = null;
 }
 
 /** Search entity data model. */

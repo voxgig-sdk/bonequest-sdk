@@ -55,10 +55,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    searchs = client.Search().list()
-    print(searchs)
+    episode = client.Episode().load({"id": 1})
+    print(episode)
 except Exception as err:
-    print(f"list failed: {err}")
+    print(f"load failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -124,8 +124,8 @@ client = BonequestSDK.test()
 
 # Entity ops return the ENTITY and raises on error;
 # call data_get() for the record.
-search = client.Search().list()
-# search contains the mock response record
+episode = client.Episode().load({"id": "test01"})
+# episode contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -256,21 +256,6 @@ API path: `/episodes/random/{count}`
 
 | Field | Description |
 | --- | --- |
-| `day` | Day of month published |
-| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
-| `episode` | Episode number |
-| `hd` | Optional array containing details about associated BoneQuest HD images |
-| `height` | Image height |
-| `hifi` | Optional details about an associated BoneQuest HiFi episode |
-| `image` | Partial URL to episode image |
-| `month` | Month published, number between 1-12 |
-| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
-| `players` | Array of player names |
-| `tags` | Array of tags applied |
-| `thumb` | Partial URL to thumbnail of episode image |
-| `title` | Episode title |
-| `width` | Image width |
-| `year` | Year published |
 
 Operations: List.
 
@@ -339,26 +324,6 @@ Create an instance: `quote = client.Quote()`
 | Method | Description |
 | --- | --- |
 | `list()` | List entities, optionally matching the given criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `day` | `int` | Day of month published |
-| `dialog` | `list` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
-| `episode` | `int` | Episode number |
-| `hd` | `list` | Optional array containing details about associated BoneQuest HD images |
-| `height` | `int` | Image height |
-| `hifi` | `dict` | Optional details about an associated BoneQuest HiFi episode |
-| `image` | `str` | Partial URL to episode image |
-| `month` | `int` | Month published, number between 1-12 |
-| `navigation` | `dict` | Back and next keys contain fully-formed episode for surrounding episodes |
-| `players` | `list` | Array of player names |
-| `tags` | `list` | Array of tags applied |
-| `thumb` | `str` | Partial URL to thumbnail of episode image |
-| `title` | `str` | Episode title |
-| `width` | `int` | Image width |
-| `year` | `int` | Year published |
 
 #### Example: List
 
@@ -546,6 +511,7 @@ Use `helpers.to_map()` to safely validate that a value is a dict.
 py/
 ├── bonequest_sdk.py         -- Main SDK module
 ├── config.py                    -- Configuration
+├── schema.py                    -- Generated option + entity specs
 ├── features.py                  -- Feature factory
 ├── core/                        -- Core types and context
 ├── entity/                      -- Entity implementations
@@ -559,15 +525,15 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-search = client.Search()
-search.list()
+episode = client.Episode()
+episode.load({"id": 1})
 
-# search.data_get() now returns the search data from the last list
-# search.match_get() returns the last match criteria
+# episode.data_get() now returns the episode data from the last load
+# episode.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

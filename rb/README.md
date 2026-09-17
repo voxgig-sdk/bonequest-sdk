@@ -49,9 +49,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  searchs = client.Search.list()
+  episode = client.Episode.load({ "id" => 1 })
 rescue => err
-  warn "list failed: #{err}"
+  warn "load failed: #{err}"
 end
 ```
 
@@ -112,15 +112,18 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = BonequestSDK.test
+client = BonequestSDK.test({
+  "entity" => { "episode" => { "test01" => { "id" => "test01" } } },
+})
 
 # Entity ops return the ENTITY (raises on error);
 # call data_get for the mock record.
-search = client.Search.list()
-puts search
+episode = client.Episode.load({ "id" => "test01" })
+puts episode
 ```
 
 ### Use a custom fetch function
@@ -250,21 +253,6 @@ API path: `/episodes/random/{count}`
 
 | Field | Description |
 | --- | --- |
-| `day` | Day of month published |
-| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
-| `episode` | Episode number |
-| `hd` | Optional array containing details about associated BoneQuest HD images |
-| `height` | Image height |
-| `hifi` | Optional details about an associated BoneQuest HiFi episode |
-| `image` | Partial URL to episode image |
-| `month` | Month published, number between 1-12 |
-| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
-| `players` | Array of player names |
-| `tags` | Array of tags applied |
-| `thumb` | Partial URL to thumbnail of episode image |
-| `title` | Episode title |
-| `width` | Image width |
-| `year` | Year published |
 
 Operations: List.
 
@@ -334,26 +322,6 @@ Create an instance: `quote = client.Quote`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `day` | `Integer` | Day of month published |
-| `dialog` | `Array` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
-| `episode` | `Integer` | Episode number |
-| `hd` | `Array` | Optional array containing details about associated BoneQuest HD images |
-| `height` | `Integer` | Image height |
-| `hifi` | `Hash` | Optional details about an associated BoneQuest HiFi episode |
-| `image` | `String` | Partial URL to episode image |
-| `month` | `Integer` | Month published, number between 1-12 |
-| `navigation` | `Hash` | Back and next keys contain fully-formed episode for surrounding episodes |
-| `players` | `Array` | Array of player names |
-| `tags` | `Array` | Array of tags applied |
-| `thumb` | `String` | Partial URL to thumbnail of episode image |
-| `title` | `String` | Episode title |
-| `width` | `Integer` | Image width |
-| `year` | `Integer` | Year published |
 
 #### Example: List
 
@@ -543,6 +511,7 @@ Use `Helpers.to_map()` to safely validate that a value is a hash.
 rb/
 ├── Bonequest_sdk.rb       -- Main SDK module
 ├── config.rb                  -- Configuration
+├── schema.rb                  -- Generated option + entity specs
 ├── features.rb                -- Feature factory
 ├── core/                      -- Core types and context
 ├── entity/                    -- Entity implementations
@@ -557,15 +526,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-search = client.Search
-search.list()
+episode = client.Episode
+episode.load({ "id" => 1 })
 
-# search.data_get now returns the search data from the last list
-# search.match_get returns the last match criteria
+# episode.data_get now returns the episode data from the last load
+# episode.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

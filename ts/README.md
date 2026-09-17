@@ -53,10 +53,10 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const searchs = await client.Search().list()
-  console.log(searchs)
+  const episode = await client.Episode().load({ id: 1 })
+  console.log(episode)
 } catch (err) {
-  console.error('list failed:', err)
+  console.error('load failed:', err)
 }
 ```
 
@@ -120,10 +120,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = BonequestSDK.test()
 
-const search = await client.Search().list()
-// search is the entity, populated with mock response data
-// — call search.data() for the record itself
-console.log(search)
+const episode = await client.Episode().load({ id: 1 })
+// episode is the entity, populated with mock response data
+// — call episode.data() for the record itself
+console.log(episode)
 ```
 
 You can also use the instance method:
@@ -138,14 +138,14 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Search()
+const entity = client.Episode()
 
 // First call runs the operation and stores its result
-await entity.list()
+await entity.load({ id: 1 })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data)
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -307,21 +307,6 @@ API path: `/episodes/random/{count}`
 
 | Field | Description |
 | --- | --- |
-| `day` | Day of month published |
-| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
-| `episode` | Episode number |
-| `hd` | Optional array containing details about associated BoneQuest HD images |
-| `height` | Image height |
-| `hifi` | Optional details about an associated BoneQuest HiFi episode |
-| `image` | Partial URL to episode image |
-| `month` | Month published, number between 1-12 |
-| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
-| `players` | Array of player names |
-| `tags` | Array of tags applied |
-| `thumb` | Partial URL to thumbnail of episode image |
-| `title` | Episode title |
-| `width` | Image width |
-| `year` | Year published |
 
 Operations: list.
 
@@ -390,26 +375,6 @@ Create an instance: `const quote = client.Quote()`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `day` | `number` | Day of month published |
-| `dialog` | `any[]` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
-| `episode` | `number` | Episode number |
-| `hd` | `any[]` | Optional array containing details about associated BoneQuest HD images |
-| `height` | `number` | Image height |
-| `hifi` | `Record<string, any>` | Optional details about an associated BoneQuest HiFi episode |
-| `image` | `string` | Partial URL to episode image |
-| `month` | `number` | Month published, number between 1-12 |
-| `navigation` | `Record<string, any>` | Back and next keys contain fully-formed episode for surrounding episodes |
-| `players` | `any[]` | Array of player names |
-| `tags` | `any[]` | Array of tags applied |
-| `thumb` | `string` | Partial URL to thumbnail of episode image |
-| `title` | `string` | Episode title |
-| `width` | `number` | Image width |
-| `year` | `number` | Year published |
 
 #### Example: List
 
@@ -603,16 +568,16 @@ import { BonequestSDK } from '@voxgig-sdk/bonequest-sdk'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const search = client.Search()
-await search.list()
+const episode = client.Episode()
+await episode.load({ id: 1 })
 
-// search.data() now returns the search data from the last `list`
-// search.match() returns the last match criteria
+// episode.data() now returns the episode data from the last `load`
+// episode.match() returns { id: 1 }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

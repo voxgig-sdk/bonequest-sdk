@@ -16,39 +16,9 @@ export interface EpisodeLoadMatch {
 }
 
 export interface Quote {
-  day?: number
-  dialog?: any[]
-  episode?: number
-  hd?: any[]
-  height?: number
-  hifi?: Record<string, any>
-  image?: string
-  month?: number
-  navigation?: Record<string, any>
-  players?: any[]
-  tags?: any[]
-  thumb?: string
-  title?: string
-  width?: number
-  year?: number
 }
 
 export interface QuoteListMatch {
-  day?: number
-  dialog?: any[]
-  episode?: number
-  hd?: any[]
-  height?: number
-  hifi?: Record<string, any>
-  image?: string
-  month?: number
-  navigation?: Record<string, any>
-  players?: any[]
-  tags?: any[]
-  thumb?: string
-  title?: string
-  width?: number
-  year?: number
 
   // Selects a custom action instead of the plain list:
   //   'random'

@@ -51,7 +51,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $searchs = $client->Search()->list();
+    $episode = $client->Episode()->load(["id" => 1]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -263,21 +263,6 @@ API path: `/episodes/random/{count}`
 
 | Field | Description |
 | --- | --- |
-| `day` | Day of month published |
-| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
-| `episode` | Episode number |
-| `hd` | Optional array containing details about associated BoneQuest HD images |
-| `height` | Image height |
-| `hifi` | Optional details about an associated BoneQuest HiFi episode |
-| `image` | Partial URL to episode image |
-| `month` | Month published, number between 1-12 |
-| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
-| `players` | Array of player names |
-| `tags` | Array of tags applied |
-| `thumb` | Partial URL to thumbnail of episode image |
-| `title` | Episode title |
-| `width` | Image width |
-| `year` | Year published |
 
 Operations: List.
 
@@ -347,26 +332,6 @@ Create an instance: `$quote = $client->Quote();`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `day` | `int` | Day of month published |
-| `dialog` | `array` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
-| `episode` | `int` | Episode number |
-| `hd` | `array` | Optional array containing details about associated BoneQuest HD images |
-| `height` | `int` | Image height |
-| `hifi` | `array` | Optional details about an associated BoneQuest HiFi episode |
-| `image` | `string` | Partial URL to episode image |
-| `month` | `int` | Month published, number between 1-12 |
-| `navigation` | `array` | Back and next keys contain fully-formed episode for surrounding episodes |
-| `players` | `array` | Array of player names |
-| `tags` | `array` | Array of tags applied |
-| `thumb` | `string` | Partial URL to thumbnail of episode image |
-| `title` | `string` | Episode title |
-| `width` | `int` | Image width |
-| `year` | `int` | Year published |
 
 #### Example: List
 
@@ -556,6 +521,7 @@ Use `Helpers::to_map()` to safely validate that a value is an array.
 php/
 ├── bonequest_sdk.php          -- Main SDK class
 ├── config.php                     -- Configuration
+├── schema.php                     -- Generated option + entity specs
 ├── features.php                   -- Feature factory
 ├── core/                          -- Core types and context
 ├── entity/                        -- Entity implementations
@@ -570,15 +536,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$search = $client->Search();
-$search->list();
+$episode = $client->Episode();
+$episode->load(["id" => 1]);
 
-// $search->data_get() now returns the search data from the last list
-// $search->match_get() returns the last match criteria
+// $episode->data_get() now returns the episode data from the last load
+// $episode->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

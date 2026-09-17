@@ -48,7 +48,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local searchs, err = client:Search():list()
+local episode, err = client:Episode():load({ id = 1 })
 if err then error(err) end
 ```
 
@@ -106,7 +106,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Search():list()
+local result, err = client:Episode():load({ id = "test01" })
 -- result is the returned data; err is set on failure
 ```
 
@@ -241,21 +241,6 @@ API path: `/episodes/random/{count}`
 
 | Field | Description |
 | --- | --- |
-| `day` | Day of month published |
-| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
-| `episode` | Episode number |
-| `hd` | Optional array containing details about associated BoneQuest HD images |
-| `height` | Image height |
-| `hifi` | Optional details about an associated BoneQuest HiFi episode |
-| `image` | Partial URL to episode image |
-| `month` | Month published, number between 1-12 |
-| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
-| `players` | Array of player names |
-| `tags` | Array of tags applied |
-| `thumb` | Partial URL to thumbnail of episode image |
-| `title` | Episode title |
-| `width` | Image width |
-| `year` | Year published |
 
 Operations: List.
 
@@ -324,26 +309,6 @@ Create an instance: `local quote = client:Quote(nil)`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `day` | `number` | Day of month published |
-| `dialog` | `table` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
-| `episode` | `number` | Episode number |
-| `hd` | `table` | Optional array containing details about associated BoneQuest HD images |
-| `height` | `number` | Image height |
-| `hifi` | `table` | Optional details about an associated BoneQuest HiFi episode |
-| `image` | `string` | Partial URL to episode image |
-| `month` | `number` | Month published, number between 1-12 |
-| `navigation` | `table` | Back and next keys contain fully-formed episode for surrounding episodes |
-| `players` | `table` | Array of player names |
-| `tags` | `table` | Array of tags applied |
-| `thumb` | `string` | Partial URL to thumbnail of episode image |
-| `title` | `string` | Episode title |
-| `width` | `number` | Image width |
-| `year` | `number` | Year published |
 
 #### Example: List
 
@@ -531,6 +496,7 @@ Use `helpers.to_map()` to safely validate that a value is a table.
 lua/
 ├── bonequest_sdk.lua    -- Main SDK module
 ├── config.lua               -- Configuration
+├── schema.lua               -- Generated option + entity specs
 ├── features.lua             -- Feature factory
 ├── core/                    -- Core types and context
 ├── entity/                  -- Entity implementations
@@ -545,15 +511,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local search = client:Search()
-search:list()
+local episode = client:Episode()
+episode:load({ id = 1 })
 
--- search:data_get() now returns the search data from the last list
--- search:match_get() returns the last match criteria
+-- episode:data_get() now returns the episode data from the last load
+-- episode:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

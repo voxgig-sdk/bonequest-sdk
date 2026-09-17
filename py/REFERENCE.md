@@ -144,26 +144,6 @@ Return the entity name.
 quote = client.Quote()
 ```
 
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `day` | `int` | No | Day of month published |
-| `dialog` | `list` | No | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
-| `episode` | `int` | No | Episode number |
-| `hd` | `list` | No | Optional array containing details about associated BoneQuest HD images |
-| `height` | `int` | No | Image height |
-| `hifi` | `dict` | No | Optional details about an associated BoneQuest HiFi episode |
-| `image` | `str` | No | Partial URL to episode image |
-| `month` | `int` | No | Month published, number between 1-12 |
-| `navigation` | `dict` | No | Back and next keys contain fully-formed episode for surrounding episodes |
-| `players` | `list` | No | Array of player names |
-| `tags` | `list` | No | Array of tags applied |
-| `thumb` | `str` | No | Partial URL to thumbnail of episode image |
-| `title` | `str` | No | Episode title |
-| `width` | `int` | No | Image width |
-| `year` | `int` | No | Year published |
-
 ### Operations
 
 #### `list(reqmatch=None, ctrl=None) -> list`

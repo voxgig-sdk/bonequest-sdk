@@ -26,40 +26,10 @@ type EpisodeLoadMatch struct {
 
 // Quote is the typed data model for the quote entity.
 type Quote struct {
-	Day *int `json:"day,omitempty"`
-	Dialog *[]any `json:"dialog,omitempty"`
-	Episode *int `json:"episode,omitempty"`
-	Hd *[]any `json:"hd,omitempty"`
-	Height *int `json:"height,omitempty"`
-	Hifi *map[string]any `json:"hifi,omitempty"`
-	Image *string `json:"image,omitempty"`
-	Month *int `json:"month,omitempty"`
-	Navigation *map[string]any `json:"navigation,omitempty"`
-	Players *[]any `json:"players,omitempty"`
-	Tags *[]any `json:"tags,omitempty"`
-	Thumb *string `json:"thumb,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Width *int `json:"width,omitempty"`
-	Year *int `json:"year,omitempty"`
 }
 
 // QuoteListMatch is the typed request payload for Quote.ListTyped.
 type QuoteListMatch struct {
-	Day *int `json:"day,omitempty"`
-	Dialog *[]any `json:"dialog,omitempty"`
-	Episode *int `json:"episode,omitempty"`
-	Hd *[]any `json:"hd,omitempty"`
-	Height *int `json:"height,omitempty"`
-	Hifi *map[string]any `json:"hifi,omitempty"`
-	Image *string `json:"image,omitempty"`
-	Month *int `json:"month,omitempty"`
-	Navigation *map[string]any `json:"navigation,omitempty"`
-	Players *[]any `json:"players,omitempty"`
-	Tags *[]any `json:"tags,omitempty"`
-	Thumb *string `json:"thumb,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Width *int `json:"width,omitempty"`
-	Year *int `json:"year,omitempty"`
 }
 
 // Search is the typed data model for the search entity.
