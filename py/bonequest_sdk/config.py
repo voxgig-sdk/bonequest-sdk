@@ -118,16 +118,19 @@ def make_config():
         "fields": [
           {
             "name": "episodes",
+            "title": "Episodes",
             "type": "`$ARRAY`",
           },
           {
             "name": "id",
+            "title": "Id",
             "type": "`$STRING`",
           },
           {
             "name": "meta",
-            "short": "API metadata wrapper",
+            "title": "Meta",
             "type": "`$OBJECT`",
+            "short": "API metadata wrapper",
           },
         ],
         "id": {
@@ -141,18 +144,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": 1,
-                      "kind": "param",
-                      "name": "count",
-                      "orig": "count",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/episodes/random/{count}",
@@ -167,42 +158,38 @@ def make_config():
                     "var": "count",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "count",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "episodes",
                   "random",
                   "{count}",
                 ],
-              },
-              {
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
                 "args": {
                   "params": [
                     {
-                      "example": 420,
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "episode_number",
-                      "reqd": True,
+                      "name": "count",
+                      "orig": "count",
                       "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": 1,
                     },
                   ],
                 },
+                "select": {
+                  "exist": [
+                    "count",
+                  ],
+                },
+              },
+              {
                 "kind": "http",
                 "method": "GET",
                 "orig": "/episode/{episodeNumber}",
-                "rename": {
-                  "param": {
-                    "episodeNumber": "id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "episode",
@@ -211,41 +198,41 @@ def make_config():
                     "var": "id",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "id",
-                  ],
+                "parts": [
+                  "episode",
+                  "{id}",
+                ],
+                "rename": {
+                  "param": {
+                    "episodeNumber": "id",
+                  },
                 },
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "parts": [
-                  "episode",
-                  "{id}",
-                ],
-              },
-              {
                 "args": {
                   "params": [
                     {
-                      "example": "666,667",
-                      "kind": "param",
                       "name": "id",
                       "orig": "episode_number",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
                       "reqd": True,
-                      "type": "`$STRING`",
+                      "example": 420,
                     },
                   ],
                 },
+                "select": {
+                  "exist": [
+                    "id",
+                  ],
+                },
+              },
+              {
                 "kind": "http",
                 "method": "GET",
                 "orig": "/episodes/{episodeNumbers}",
-                "rename": {
-                  "param": {
-                    "episodeNumbers": "id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "episodes",
@@ -254,29 +241,42 @@ def make_config():
                     "var": "id",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "id",
-                  ],
+                "parts": [
+                  "episodes",
+                  "{id}",
+                ],
+                "rename": {
+                  "param": {
+                    "episodeNumbers": "id",
+                  },
                 },
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "parts": [
-                  "episodes",
-                  "{id}",
-                ],
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "episode_number",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": "666,667",
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "id",
+                  ],
+                },
               },
             ],
           },
         },
         "relations": {
-          "ancestors": [
-            [
-              "random",
-            ],
-          ],
+          "ancestors": [],
         },
       },
       "quote": {
@@ -288,7 +288,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/quote/random",
@@ -300,17 +299,19 @@ def make_config():
                     "lit": "random",
                   },
                 ],
-                "select": {
-                  "$action": "random",
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.quote`",
-                },
                 "parts": [
                   "quote",
                   "random",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.quote`",
+                },
+                "args": {},
+                "select": {
+                  "$action": "random",
+                },
               },
             ],
           },
@@ -323,78 +324,93 @@ def make_config():
         "fields": [
           {
             "name": "day",
-            "short": "Day of month published",
+            "title": "Day",
             "type": "`$INTEGER`",
+            "short": "Day of month published",
           },
           {
             "name": "dialog",
-            "short": "Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog",
+            "title": "Dialog",
             "type": "`$ARRAY`",
+            "short": "Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog",
           },
           {
             "name": "episode",
-            "short": "Episode number",
+            "title": "Episode",
             "type": "`$INTEGER`",
+            "short": "Episode number",
           },
           {
             "name": "hd",
-            "short": "Optional array containing details about associated BoneQuest HD images",
+            "title": "Hd",
             "type": "`$ARRAY`",
+            "short": "Optional array containing details about associated BoneQuest HD images",
           },
           {
             "name": "height",
-            "short": "Image height",
+            "title": "Height",
             "type": "`$INTEGER`",
+            "short": "Image height",
           },
           {
             "name": "hifi",
-            "short": "Optional details about an associated BoneQuest HiFi episode",
+            "title": "Hifi",
             "type": "`$OBJECT`",
+            "short": "Optional details about an associated BoneQuest HiFi episode",
           },
           {
             "name": "image",
-            "short": "Partial URL to episode image",
+            "title": "Image",
             "type": "`$STRING`",
+            "short": "Partial URL to episode image",
           },
           {
             "name": "month",
-            "short": "Month published, number between 1-12",
+            "title": "Month",
             "type": "`$INTEGER`",
+            "short": "Month published, number between 1-12",
           },
           {
             "name": "navigation",
-            "short": "Back and next keys contain fully-formed episode for surrounding episodes",
+            "title": "Navigation",
             "type": "`$OBJECT`",
+            "short": "Back and next keys contain fully-formed episode for surrounding episodes",
           },
           {
             "name": "players",
-            "short": "Array of player names",
+            "title": "Players",
             "type": "`$ARRAY`",
+            "short": "Array of player names",
           },
           {
             "name": "tags",
-            "short": "Array of tags applied",
+            "title": "Tags",
             "type": "`$ARRAY`",
+            "short": "Array of tags applied",
           },
           {
             "name": "thumb",
-            "short": "Partial URL to thumbnail of episode image",
+            "title": "Thumb",
             "type": "`$STRING`",
+            "short": "Partial URL to thumbnail of episode image",
           },
           {
             "name": "title",
-            "short": "Episode title",
+            "title": "Title",
             "type": "`$STRING`",
+            "short": "Episode title",
           },
           {
             "name": "width",
-            "short": "Image width",
+            "title": "Width",
             "type": "`$INTEGER`",
+            "short": "Image width",
           },
           {
             "name": "year",
-            "short": "Year published",
+            "title": "Year",
             "type": "`$INTEGER`",
+            "short": "Year published",
           },
         ],
         "name": "search",
@@ -404,18 +420,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "query": [
-                    {
-                      "example": "\"what about nuts\"",
-                      "kind": "query",
-                      "name": "q",
-                      "orig": "q",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/search/",
@@ -424,18 +428,31 @@ def make_config():
                     "lit": "search",
                   },
                 ],
+                "parts": [
+                  "search",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.search`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "q",
+                      "orig": "q",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                      "reqd": True,
+                      "example": "\"what about nuts\"",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "q",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.search`",
-                },
-                "parts": [
-                  "search",
-                ],
               },
             ],
           },

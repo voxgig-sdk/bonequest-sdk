@@ -24,33 +24,102 @@
         "repr": "auto"
       },
       "contributor": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "published": false,
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "episode": {
           "active": true,
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "episodes",
-              "req": false,
-              "type": "`$ARRAY`"
+          "fields": {
+            "episodes": {
+              "a": true,
+              "h": "Episodes",
+              "n": "episodes",
+              "r": false,
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "id",
-              "req": false,
-              "type": "`$STRING`"
+            "id": {
+              "a": true,
+              "h": "Id",
+              "n": "id",
+              "r": false,
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "meta",
-              "req": false,
-              "short": "API metadata wrapper",
-              "type": "`$OBJECT`"
+            "meta": {
+              "a": true,
+              "h": "Meta",
+              "n": "meta",
+              "r": false,
+              "sh": "API metadata wrapper",
+              "t": "`$OBJECT`"
             }
-          ],
+          },
           "id": {
             "field": "id",
             "name": "id"
@@ -62,30 +131,35 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /episodes/random/{count}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": 1,
-                        "kind": "param",
-                        "name": "count",
-                        "orig": "count",
-                        "reqd": true,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "ex": 1,
+                        "k": "param",
+                        "n": "count",
+                        "or": "count",
+                        "r": true,
+                        "t": "`$INTEGER`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /episodes/random/{count}",
-                    "json": "{\"operationId\":\"getRandomEpisodes\",\"parameters\":[{\"description\":\"The number of random episodes to retrieve\",\"in\":\"path\",\"name\":\"count\",\"required\":true,\"schema\":{\"example\":1,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"episodes\":{\"items\":{\"properties\":{\"day\":{\"description\":\"Day of month published\",\"example\":20,\"maximum\":31,\"minimum\":1,\"type\":\"integer\"},\"dialog\":{\"description\":\"Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog\",\"example\":[[\"deuce\",\"I WANT A SEX CHANGE\"],[\"pants\",\"WHICH DIRECTION\"],[\"deuce\",\"SURPRISE ME\"]],\"items\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"type\":\"array\"},\"episode\":{\"description\":\"Episode number\",\"example\":6969,\"type\":\"integer\"},\"hd\":{\"description\":\"Optional array containing details about associated BoneQuest HD images\",\"items\":{\"description\":\"Details about an associated BoneQuest HD image\",\"properties\":{\"author\":{\"description\":\"Original author, typically a Tumblr username\",\"example\":\"eyetooth\",\"type\":\"string\"},\"height\":{\"description\":\"Image height\",\"example\":200,\"type\":\"integer\"},\"id\":{\"description\":\"Episode number\",\"example\":2787,\"type\":\"integer\"},\"image\":{\"description\":\"URL to full-size image\",\"example\":\"http://31.media.tumblr.com/389cf0c4c9d36943f0a9aa7007e70bbf/tumblr_mlkg3kfWHP1snfhwio1_1280.png\",\"type\":\"string\"},\"link_status\":{\"description\":\"Empty string if URL is valid\",\"example\":\"\",\"type\":\"string\"},\"mirror_url\":{\"description\":\"Partial URL to image if link_status is bad\",\"example\":\"/hd/1.2787.jpg\",\"type\":\"string\"},\"thumb_url\":{\"description\":\"Partial URL to thumbnail image\",\"example\":\"/hd/t/1.2787.jpg\",\"type\":\"string\"},\"url\":{\"description\":\"Fully-qualified URL to HD page\",\"example\":\"http://jerkcityhd.tumblr.com/post/48734349486/up-late\",\"type\":\"string\"},\"width\":{\"description\":\"Image width\",\"example\":144,\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"},\"height\":{\"description\":\"Image height\",\"example\":574,\"type\":\"integer\"},\"hifi\":{\"description\":\"Optional details about an associated BoneQuest HiFi episode\",\"properties\":{\"audio_url\":{\"description\":\"URL to mp3 file\",\"example\":\"http://bonequesthifi.com/6969.mp3\",\"type\":\"string\"},\"author\":{\"description\":\"Who made the HiFi episode\",\"example\":\"BoneQuest Hi-Fi\",\"type\":\"string\"},\"create_date\":{\"description\":\"Date of creation in seconds since UNIX epoch\",\"example\":1550592000,\"type\":\"integer\"},\"description\":{\"description\":\"Details about the episode in plain text\",\"example\":\"an audio production of BoneQuest #6969, featuring: @hydra2134, bonus suspended @IHaveShitMyself.\\nit's time.\\n~BoneQuest Hi-Fi\",\"type\":\"string\"},\"duration\":{\"description\":\"Duration in HH:MM:SS format\",\"example\":\"0:30\",\"type\":\"string\"},\"hifi_id\":{\"description\":\"Unique HiFi ID number\",\"example\":501,\"type\":\"integer\"},\"page_url\":{\"description\":\"URL to bonequesthifi.com page\",\"example\":\"https://bonequesthifi.com/6969\",\"type\":\"string\"}},\"type\":\"object\"},\"image\":{\"description\":\"Partial URL to episode image\",\"example\":\"/6969.gif\",\"type\":\"string\"},\"month\":{\"description\":\"Month published, number between 1-12\",\"example\":4,\"maximum\":12,\"minimum\":1,\"type\":\"integer\"},\"navigation\":{\"description\":\"Back and next keys contain fully-formed episode for surrounding episodes\",\"properties\":{\"back\":{\"items\":{\"properties\":\"[Circular *paths./episode/{episodeNumber}.get.responses.200.content.application/json.schema.properties.episodes.items.properties]\",\"type\":\"object\"},\"type\":\"array\"},\"next\":{\"items\":{\"properties\":\"[Circular *paths./episode/{episodeNumber}.get.responses.200.content.application/json.schema.properties.episodes.items.properties]\",\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"players\":{\"description\":\"Array of player names\",\"example\":[\"deuce\",\"pants\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"tags\":{\"description\":\"Array of tags applied\",\"example\":[\"bonequest-hi-fi\",\"deuce-pants\",\"sex-change\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"thumb\":{\"description\":\"Partial URL to thumbnail of episode image\",\"example\":\"/thumb/6969.gif\",\"type\":\"string\"},\"title\":{\"description\":\"Episode title\",\"example\":\"sex change\",\"type\":\"string\"},\"width\":{\"description\":\"Image width\",\"example\":575,\"type\":\"integer\"},\"year\":{\"description\":\"Year published\",\"example\":2018,\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"},\"meta\":{\"description\":\"API metadata wrapper\",\"properties\":{\"contact\":{\"description\":\"Preferred email address\",\"example\":\"root@bonequest.com\",\"type\":\"string\"},\"gay\":{\"example\":true,\"type\":\"boolean\"},\"high\":{\"description\":\"Highest episode number published so far\",\"example\":8340,\"type\":\"integer\"},\"queue\":{\"description\":\"Information about episode queue\",\"properties\":{\"empty\":{\"description\":\"Date when we run out of episodes queued for publication\",\"properties\":{\"day\":{\"type\":\"integer\"},\"month\":{\"type\":\"integer\"},\"year\":{\"type\":\"integer\"}},\"type\":\"object\"},\"episodes\":{\"items\":{\"type\":\"integer\"},\"type\":\"array\"},\"size\":{\"type\":\"integer\"}},\"type\":\"object\"},\"repo\":{\"description\":\"URL to repository\",\"example\":\"https://github.com/bonequest\",\"type\":\"string\"},\"url\":{\"description\":\"Base URL to website, use this to construct a fully-qualified URL for loading images and thumbnails\",\"example\":\"https://www.bonequest.com\",\"type\":\"string\"},\"version\":{\"description\":\"API version\",\"example\":\"bq/4.0.0\",\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/episodes/random/{count}",
+                  "q": {
+                    "exist": [
+                      "count"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/episodes/random/{count}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "episodes"
                     },
@@ -96,46 +170,45 @@
                       "var": "count"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "count"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /episode/{episodeNumber}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": 420,
-                        "kind": "param",
-                        "name": "id",
-                        "orig": "episode_number",
-                        "reqd": true,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "ex": 420,
+                        "k": "param",
+                        "n": "id",
+                        "or": "episode_number",
+                        "r": true,
+                        "t": "`$INTEGER`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /episode/{episodeNumber}",
-                    "json": "{\"operationId\":\"getEpisode\",\"parameters\":[{\"description\":\"The episode number to retrieve\",\"in\":\"path\",\"name\":\"episodeNumber\",\"required\":true,\"schema\":{\"example\":420,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"episodes\":{\"items\":{\"properties\":{\"day\":{\"description\":\"Day of month published\",\"example\":20,\"maximum\":31,\"minimum\":1,\"type\":\"integer\"},\"dialog\":{\"description\":\"Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog\",\"example\":[[\"deuce\",\"I WANT A SEX CHANGE\"],[\"pants\",\"WHICH DIRECTION\"],[\"deuce\",\"SURPRISE ME\"]],\"items\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"type\":\"array\"},\"episode\":{\"description\":\"Episode number\",\"example\":6969,\"type\":\"integer\"},\"hd\":{\"description\":\"Optional array containing details about associated BoneQuest HD images\",\"items\":{\"description\":\"Details about an associated BoneQuest HD image\",\"properties\":{\"author\":{\"description\":\"Original author, typically a Tumblr username\",\"example\":\"eyetooth\",\"type\":\"string\"},\"height\":{\"description\":\"Image height\",\"example\":200,\"type\":\"integer\"},\"id\":{\"description\":\"Episode number\",\"example\":2787,\"type\":\"integer\"},\"image\":{\"description\":\"URL to full-size image\",\"example\":\"http://31.media.tumblr.com/389cf0c4c9d36943f0a9aa7007e70bbf/tumblr_mlkg3kfWHP1snfhwio1_1280.png\",\"type\":\"string\"},\"link_status\":{\"description\":\"Empty string if URL is valid\",\"example\":\"\",\"type\":\"string\"},\"mirror_url\":{\"description\":\"Partial URL to image if link_status is bad\",\"example\":\"/hd/1.2787.jpg\",\"type\":\"string\"},\"thumb_url\":{\"description\":\"Partial URL to thumbnail image\",\"example\":\"/hd/t/1.2787.jpg\",\"type\":\"string\"},\"url\":{\"description\":\"Fully-qualified URL to HD page\",\"example\":\"http://jerkcityhd.tumblr.com/post/48734349486/up-late\",\"type\":\"string\"},\"width\":{\"description\":\"Image width\",\"example\":144,\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"},\"height\":{\"description\":\"Image height\",\"example\":574,\"type\":\"integer\"},\"hifi\":{\"description\":\"Optional details about an associated BoneQuest HiFi episode\",\"properties\":{\"audio_url\":{\"description\":\"URL to mp3 file\",\"example\":\"http://bonequesthifi.com/6969.mp3\",\"type\":\"string\"},\"author\":{\"description\":\"Who made the HiFi episode\",\"example\":\"BoneQuest Hi-Fi\",\"type\":\"string\"},\"create_date\":{\"description\":\"Date of creation in seconds since UNIX epoch\",\"example\":1550592000,\"type\":\"integer\"},\"description\":{\"description\":\"Details about the episode in plain text\",\"example\":\"an audio production of BoneQuest #6969, featuring: @hydra2134, bonus suspended @IHaveShitMyself.\\nit's time.\\n~BoneQuest Hi-Fi\",\"type\":\"string\"},\"duration\":{\"description\":\"Duration in HH:MM:SS format\",\"example\":\"0:30\",\"type\":\"string\"},\"hifi_id\":{\"description\":\"Unique HiFi ID number\",\"example\":501,\"type\":\"integer\"},\"page_url\":{\"description\":\"URL to bonequesthifi.com page\",\"example\":\"https://bonequesthifi.com/6969\",\"type\":\"string\"}},\"type\":\"object\"},\"image\":{\"description\":\"Partial URL to episode image\",\"example\":\"/6969.gif\",\"type\":\"string\"},\"month\":{\"description\":\"Month published, number between 1-12\",\"example\":4,\"maximum\":12,\"minimum\":1,\"type\":\"integer\"},\"navigation\":{\"description\":\"Back and next keys contain fully-formed episode for surrounding episodes\",\"properties\":{\"back\":{\"items\":{\"properties\":\"[Circular *paths./episode/{episodeNumber}.get.responses.200.content.application/json.schema.properties.episodes.items.properties]\",\"type\":\"object\"},\"type\":\"array\"},\"next\":{\"items\":{\"properties\":\"[Circular *paths./episode/{episodeNumber}.get.responses.200.content.application/json.schema.properties.episodes.items.properties]\",\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"players\":{\"description\":\"Array of player names\",\"example\":[\"deuce\",\"pants\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"tags\":{\"description\":\"Array of tags applied\",\"example\":[\"bonequest-hi-fi\",\"deuce-pants\",\"sex-change\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"thumb\":{\"description\":\"Partial URL to thumbnail of episode image\",\"example\":\"/thumb/6969.gif\",\"type\":\"string\"},\"title\":{\"description\":\"Episode title\",\"example\":\"sex change\",\"type\":\"string\"},\"width\":{\"description\":\"Image width\",\"example\":575,\"type\":\"integer\"},\"year\":{\"description\":\"Year published\",\"example\":2018,\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"},\"meta\":{\"description\":\"API metadata wrapper\",\"properties\":{\"contact\":{\"description\":\"Preferred email address\",\"example\":\"root@bonequest.com\",\"type\":\"string\"},\"gay\":{\"example\":true,\"type\":\"boolean\"},\"high\":{\"description\":\"Highest episode number published so far\",\"example\":8340,\"type\":\"integer\"},\"queue\":{\"description\":\"Information about episode queue\",\"properties\":{\"empty\":{\"description\":\"Date when we run out of episodes queued for publication\",\"properties\":{\"day\":{\"type\":\"integer\"},\"month\":{\"type\":\"integer\"},\"year\":{\"type\":\"integer\"}},\"type\":\"object\"},\"episodes\":{\"items\":{\"type\":\"integer\"},\"type\":\"array\"},\"size\":{\"type\":\"integer\"}},\"type\":\"object\"},\"repo\":{\"description\":\"URL to repository\",\"example\":\"https://github.com/bonequest\",\"type\":\"string\"},\"url\":{\"description\":\"Base URL to website, use this to construct a fully-qualified URL for loading images and thumbnails\",\"example\":\"https://www.bonequest.com\",\"type\":\"string\"},\"version\":{\"description\":\"API version\",\"example\":\"bq/4.0.0\",\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/episode/{episodeNumber}",
+                  "q": {
+                    "exist": [
+                      "id"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/episode/{episodeNumber}",
-                  "rename": {
+                  "r": {
                     "param": {
                       "episodeNumber": "id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "episode"
                     },
@@ -143,46 +216,45 @@
                       "var": "id"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "id"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
                 },
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /episodes/{episodeNumbers}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": "666,667",
-                        "kind": "param",
-                        "name": "id",
-                        "orig": "episode_number",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "666,667",
+                        "k": "param",
+                        "n": "id",
+                        "or": "episode_number",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /episodes/{episodeNumbers}",
-                    "json": "{\"operationId\":\"getEpisodes\",\"parameters\":[{\"description\":\"Comma-separated list of episode numbers to retrieve\",\"in\":\"path\",\"name\":\"episodeNumbers\",\"required\":true,\"schema\":{\"example\":\"666,667\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"episodes\":{\"items\":{\"properties\":{\"day\":{\"description\":\"Day of month published\",\"example\":20,\"maximum\":31,\"minimum\":1,\"type\":\"integer\"},\"dialog\":{\"description\":\"Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog\",\"example\":[[\"deuce\",\"I WANT A SEX CHANGE\"],[\"pants\",\"WHICH DIRECTION\"],[\"deuce\",\"SURPRISE ME\"]],\"items\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"type\":\"array\"},\"episode\":{\"description\":\"Episode number\",\"example\":6969,\"type\":\"integer\"},\"hd\":{\"description\":\"Optional array containing details about associated BoneQuest HD images\",\"items\":{\"description\":\"Details about an associated BoneQuest HD image\",\"properties\":{\"author\":{\"description\":\"Original author, typically a Tumblr username\",\"example\":\"eyetooth\",\"type\":\"string\"},\"height\":{\"description\":\"Image height\",\"example\":200,\"type\":\"integer\"},\"id\":{\"description\":\"Episode number\",\"example\":2787,\"type\":\"integer\"},\"image\":{\"description\":\"URL to full-size image\",\"example\":\"http://31.media.tumblr.com/389cf0c4c9d36943f0a9aa7007e70bbf/tumblr_mlkg3kfWHP1snfhwio1_1280.png\",\"type\":\"string\"},\"link_status\":{\"description\":\"Empty string if URL is valid\",\"example\":\"\",\"type\":\"string\"},\"mirror_url\":{\"description\":\"Partial URL to image if link_status is bad\",\"example\":\"/hd/1.2787.jpg\",\"type\":\"string\"},\"thumb_url\":{\"description\":\"Partial URL to thumbnail image\",\"example\":\"/hd/t/1.2787.jpg\",\"type\":\"string\"},\"url\":{\"description\":\"Fully-qualified URL to HD page\",\"example\":\"http://jerkcityhd.tumblr.com/post/48734349486/up-late\",\"type\":\"string\"},\"width\":{\"description\":\"Image width\",\"example\":144,\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"},\"height\":{\"description\":\"Image height\",\"example\":574,\"type\":\"integer\"},\"hifi\":{\"description\":\"Optional details about an associated BoneQuest HiFi episode\",\"properties\":{\"audio_url\":{\"description\":\"URL to mp3 file\",\"example\":\"http://bonequesthifi.com/6969.mp3\",\"type\":\"string\"},\"author\":{\"description\":\"Who made the HiFi episode\",\"example\":\"BoneQuest Hi-Fi\",\"type\":\"string\"},\"create_date\":{\"description\":\"Date of creation in seconds since UNIX epoch\",\"example\":1550592000,\"type\":\"integer\"},\"description\":{\"description\":\"Details about the episode in plain text\",\"example\":\"an audio production of BoneQuest #6969, featuring: @hydra2134, bonus suspended @IHaveShitMyself.\\nit's time.\\n~BoneQuest Hi-Fi\",\"type\":\"string\"},\"duration\":{\"description\":\"Duration in HH:MM:SS format\",\"example\":\"0:30\",\"type\":\"string\"},\"hifi_id\":{\"description\":\"Unique HiFi ID number\",\"example\":501,\"type\":\"integer\"},\"page_url\":{\"description\":\"URL to bonequesthifi.com page\",\"example\":\"https://bonequesthifi.com/6969\",\"type\":\"string\"}},\"type\":\"object\"},\"image\":{\"description\":\"Partial URL to episode image\",\"example\":\"/6969.gif\",\"type\":\"string\"},\"month\":{\"description\":\"Month published, number between 1-12\",\"example\":4,\"maximum\":12,\"minimum\":1,\"type\":\"integer\"},\"navigation\":{\"description\":\"Back and next keys contain fully-formed episode for surrounding episodes\",\"properties\":{\"back\":{\"items\":{\"properties\":\"[Circular *paths./episode/{episodeNumber}.get.responses.200.content.application/json.schema.properties.episodes.items.properties]\",\"type\":\"object\"},\"type\":\"array\"},\"next\":{\"items\":{\"properties\":\"[Circular *paths./episode/{episodeNumber}.get.responses.200.content.application/json.schema.properties.episodes.items.properties]\",\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"players\":{\"description\":\"Array of player names\",\"example\":[\"deuce\",\"pants\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"tags\":{\"description\":\"Array of tags applied\",\"example\":[\"bonequest-hi-fi\",\"deuce-pants\",\"sex-change\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"thumb\":{\"description\":\"Partial URL to thumbnail of episode image\",\"example\":\"/thumb/6969.gif\",\"type\":\"string\"},\"title\":{\"description\":\"Episode title\",\"example\":\"sex change\",\"type\":\"string\"},\"width\":{\"description\":\"Image width\",\"example\":575,\"type\":\"integer\"},\"year\":{\"description\":\"Year published\",\"example\":2018,\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"},\"meta\":{\"description\":\"API metadata wrapper\",\"properties\":{\"contact\":{\"description\":\"Preferred email address\",\"example\":\"root@bonequest.com\",\"type\":\"string\"},\"gay\":{\"example\":true,\"type\":\"boolean\"},\"high\":{\"description\":\"Highest episode number published so far\",\"example\":8340,\"type\":\"integer\"},\"queue\":{\"description\":\"Information about episode queue\",\"properties\":{\"empty\":{\"description\":\"Date when we run out of episodes queued for publication\",\"properties\":{\"day\":{\"type\":\"integer\"},\"month\":{\"type\":\"integer\"},\"year\":{\"type\":\"integer\"}},\"type\":\"object\"},\"episodes\":{\"items\":{\"type\":\"integer\"},\"type\":\"array\"},\"size\":{\"type\":\"integer\"}},\"type\":\"object\"},\"repo\":{\"description\":\"URL to repository\",\"example\":\"https://github.com/bonequest\",\"type\":\"string\"},\"url\":{\"description\":\"Base URL to website, use this to construct a fully-qualified URL for loading images and thumbnails\",\"example\":\"https://www.bonequest.com\",\"type\":\"string\"},\"version\":{\"description\":\"API version\",\"example\":\"bq/4.0.0\",\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/episodes/{episodeNumbers}",
+                  "q": {
+                    "exist": [
+                      "id"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/episodes/{episodeNumbers}",
-                  "rename": {
+                  "r": {
                     "param": {
                       "episodeNumbers": "id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "episodes"
                     },
@@ -190,12 +262,7 @@
                       "var": "id"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "id"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -204,11 +271,7 @@
             }
           },
           "relations": {
-            "ancestors": [
-              [
-                "random"
-              ]
-            ]
+            "ancestors": []
           }
         },
         "quote": {
@@ -216,7 +279,7 @@
           "alias": {
             "field": {}
           },
-          "fields": [],
+          "fields": {},
           "name": "quote",
           "op": {
             "list": {
@@ -224,18 +287,21 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /quote/random",
-                    "json": "{\"operationId\":\"getRandomQuote\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"episodes\":{\"items\":{\"properties\":{\"day\":{\"description\":\"Day of month published\",\"example\":20,\"maximum\":31,\"minimum\":1,\"type\":\"integer\"},\"dialog\":{\"description\":\"Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog\",\"example\":[[\"deuce\",\"I WANT A SEX CHANGE\"],[\"pants\",\"WHICH DIRECTION\"],[\"deuce\",\"SURPRISE ME\"]],\"items\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"type\":\"array\"},\"episode\":{\"description\":\"Episode number\",\"example\":6969,\"type\":\"integer\"},\"hd\":{\"description\":\"Optional array containing details about associated BoneQuest HD images\",\"items\":{\"description\":\"Details about an associated BoneQuest HD image\",\"properties\":{\"author\":{\"description\":\"Original author, typically a Tumblr username\",\"example\":\"eyetooth\",\"type\":\"string\"},\"height\":{\"description\":\"Image height\",\"example\":200,\"type\":\"integer\"},\"id\":{\"description\":\"Episode number\",\"example\":2787,\"type\":\"integer\"},\"image\":{\"description\":\"URL to full-size image\",\"example\":\"http://31.media.tumblr.com/389cf0c4c9d36943f0a9aa7007e70bbf/tumblr_mlkg3kfWHP1snfhwio1_1280.png\",\"type\":\"string\"},\"link_status\":{\"description\":\"Empty string if URL is valid\",\"example\":\"\",\"type\":\"string\"},\"mirror_url\":{\"description\":\"Partial URL to image if link_status is bad\",\"example\":\"/hd/1.2787.jpg\",\"type\":\"string\"},\"thumb_url\":{\"description\":\"Partial URL to thumbnail image\",\"example\":\"/hd/t/1.2787.jpg\",\"type\":\"string\"},\"url\":{\"description\":\"Fully-qualified URL to HD page\",\"example\":\"http://jerkcityhd.tumblr.com/post/48734349486/up-late\",\"type\":\"string\"},\"width\":{\"description\":\"Image width\",\"example\":144,\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"},\"height\":{\"description\":\"Image height\",\"example\":574,\"type\":\"integer\"},\"hifi\":{\"description\":\"Optional details about an associated BoneQuest HiFi episode\",\"properties\":{\"audio_url\":{\"description\":\"URL to mp3 file\",\"example\":\"http://bonequesthifi.com/6969.mp3\",\"type\":\"string\"},\"author\":{\"description\":\"Who made the HiFi episode\",\"example\":\"BoneQuest Hi-Fi\",\"type\":\"string\"},\"create_date\":{\"description\":\"Date of creation in seconds since UNIX epoch\",\"example\":1550592000,\"type\":\"integer\"},\"description\":{\"description\":\"Details about the episode in plain text\",\"example\":\"an audio production of BoneQuest #6969, featuring: @hydra2134, bonus suspended @IHaveShitMyself.\\nit's time.\\n~BoneQuest Hi-Fi\",\"type\":\"string\"},\"duration\":{\"description\":\"Duration in HH:MM:SS format\",\"example\":\"0:30\",\"type\":\"string\"},\"hifi_id\":{\"description\":\"Unique HiFi ID number\",\"example\":501,\"type\":\"integer\"},\"page_url\":{\"description\":\"URL to bonequesthifi.com page\",\"example\":\"https://bonequesthifi.com/6969\",\"type\":\"string\"}},\"type\":\"object\"},\"image\":{\"description\":\"Partial URL to episode image\",\"example\":\"/6969.gif\",\"type\":\"string\"},\"month\":{\"description\":\"Month published, number between 1-12\",\"example\":4,\"maximum\":12,\"minimum\":1,\"type\":\"integer\"},\"navigation\":{\"description\":\"Back and next keys contain fully-formed episode for surrounding episodes\",\"properties\":{\"back\":{\"items\":{\"properties\":\"[Circular *paths./episode/{episodeNumber}.get.responses.200.content.application/json.schema.properties.episodes.items.properties]\",\"type\":\"object\"},\"type\":\"array\"},\"next\":{\"items\":{\"properties\":\"[Circular *paths./episode/{episodeNumber}.get.responses.200.content.application/json.schema.properties.episodes.items.properties]\",\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"players\":{\"description\":\"Array of player names\",\"example\":[\"deuce\",\"pants\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"tags\":{\"description\":\"Array of tags applied\",\"example\":[\"bonequest-hi-fi\",\"deuce-pants\",\"sex-change\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"thumb\":{\"description\":\"Partial URL to thumbnail of episode image\",\"example\":\"/thumb/6969.gif\",\"type\":\"string\"},\"title\":{\"description\":\"Episode title\",\"example\":\"sex change\",\"type\":\"string\"},\"width\":{\"description\":\"Image width\",\"example\":575,\"type\":\"integer\"},\"year\":{\"description\":\"Year published\",\"example\":2018,\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"},\"meta\":{\"description\":\"API metadata wrapper\",\"properties\":{\"contact\":{\"description\":\"Preferred email address\",\"example\":\"root@bonequest.com\",\"type\":\"string\"},\"gay\":{\"example\":true,\"type\":\"boolean\"},\"high\":{\"description\":\"Highest episode number published so far\",\"example\":8340,\"type\":\"integer\"},\"queue\":{\"description\":\"Information about episode queue\",\"properties\":{\"empty\":{\"description\":\"Date when we run out of episodes queued for publication\",\"properties\":{\"day\":{\"type\":\"integer\"},\"month\":{\"type\":\"integer\"},\"year\":{\"type\":\"integer\"}},\"type\":\"object\"},\"episodes\":{\"items\":{\"type\":\"integer\"},\"type\":\"array\"},\"size\":{\"type\":\"integer\"}},\"type\":\"object\"},\"repo\":{\"description\":\"URL to repository\",\"example\":\"https://github.com/bonequest\",\"type\":\"string\"},\"url\":{\"description\":\"Base URL to website, use this to construct a fully-qualified URL for loading images and thumbnails\",\"example\":\"https://www.bonequest.com\",\"type\":\"string\"},\"version\":{\"description\":\"API version\",\"example\":\"bq/4.0.0\",\"type\":\"string\"}},\"type\":\"object\"},\"quote\":{\"description\":\"Quote information\",\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/quote/random",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/quote/random",
+                  "q": {
+                    "$action": "random"
+                  },
+                  "r": {},
+                  "s": [
                     {
                       "lit": "quote"
                     },
@@ -243,10 +309,7 @@
                       "lit": "random"
                     }
                   ],
-                  "select": {
-                    "$action": "random"
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.quote`"
                   }
@@ -263,113 +326,128 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "day",
-              "req": false,
-              "short": "Day of month published",
-              "type": "`$INTEGER`"
+          "fields": {
+            "day": {
+              "a": true,
+              "h": "Day",
+              "n": "day",
+              "r": false,
+              "sh": "Day of month published",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "dialog",
-              "req": false,
-              "short": "Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog",
-              "type": "`$ARRAY`"
+            "dialog": {
+              "a": true,
+              "h": "Dialog",
+              "n": "dialog",
+              "r": false,
+              "sh": "Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog",
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "episode",
-              "req": false,
-              "short": "Episode number",
-              "type": "`$INTEGER`"
+            "episode": {
+              "a": true,
+              "h": "Episode",
+              "n": "episode",
+              "r": false,
+              "sh": "Episode number",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "hd",
-              "req": false,
-              "short": "Optional array containing details about associated BoneQuest HD images",
-              "type": "`$ARRAY`"
+            "hd": {
+              "a": true,
+              "h": "Hd",
+              "n": "hd",
+              "r": false,
+              "sh": "Optional array containing details about associated BoneQuest HD images",
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "height",
-              "req": false,
-              "short": "Image height",
-              "type": "`$INTEGER`"
+            "height": {
+              "a": true,
+              "h": "Height",
+              "n": "height",
+              "r": false,
+              "sh": "Image height",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "hifi",
-              "req": false,
-              "short": "Optional details about an associated BoneQuest HiFi episode",
-              "type": "`$OBJECT`"
+            "hifi": {
+              "a": true,
+              "h": "Hifi",
+              "n": "hifi",
+              "r": false,
+              "sh": "Optional details about an associated BoneQuest HiFi episode",
+              "t": "`$OBJECT`"
             },
-            {
-              "active": true,
-              "name": "image",
-              "req": false,
-              "short": "Partial URL to episode image",
-              "type": "`$STRING`"
+            "image": {
+              "a": true,
+              "h": "Image",
+              "n": "image",
+              "r": false,
+              "sh": "Partial URL to episode image",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "month",
-              "req": false,
-              "short": "Month published, number between 1-12",
-              "type": "`$INTEGER`"
+            "month": {
+              "a": true,
+              "h": "Month",
+              "n": "month",
+              "r": false,
+              "sh": "Month published, number between 1-12",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "navigation",
-              "req": false,
-              "short": "Back and next keys contain fully-formed episode for surrounding episodes",
-              "type": "`$OBJECT`"
+            "navigation": {
+              "a": true,
+              "h": "Navigation",
+              "n": "navigation",
+              "r": false,
+              "sh": "Back and next keys contain fully-formed episode for surrounding episodes",
+              "t": "`$OBJECT`"
             },
-            {
-              "active": true,
-              "name": "players",
-              "req": false,
-              "short": "Array of player names",
-              "type": "`$ARRAY`"
+            "players": {
+              "a": true,
+              "h": "Players",
+              "n": "players",
+              "r": false,
+              "sh": "Array of player names",
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "tags",
-              "req": false,
-              "short": "Array of tags applied",
-              "type": "`$ARRAY`"
+            "tags": {
+              "a": true,
+              "h": "Tags",
+              "n": "tags",
+              "r": false,
+              "sh": "Array of tags applied",
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "thumb",
-              "req": false,
-              "short": "Partial URL to thumbnail of episode image",
-              "type": "`$STRING`"
+            "thumb": {
+              "a": true,
+              "h": "Thumb",
+              "n": "thumb",
+              "r": false,
+              "sh": "Partial URL to thumbnail of episode image",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "title",
-              "req": false,
-              "short": "Episode title",
-              "type": "`$STRING`"
+            "title": {
+              "a": true,
+              "h": "Title",
+              "n": "title",
+              "r": false,
+              "sh": "Episode title",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "width",
-              "req": false,
-              "short": "Image width",
-              "type": "`$INTEGER`"
+            "width": {
+              "a": true,
+              "h": "Width",
+              "n": "width",
+              "r": false,
+              "sh": "Image width",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "year",
-              "req": false,
-              "short": "Year published",
-              "type": "`$INTEGER`"
+            "year": {
+              "a": true,
+              "h": "Year",
+              "n": "year",
+              "r": false,
+              "sh": "Year published",
+              "t": "`$INTEGER`"
             }
-          ],
+          },
           "name": "search",
           "op": {
             "list": {
@@ -377,40 +455,40 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /search/",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "query": [
                       {
-                        "active": true,
-                        "example": "\"what about nuts\"",
-                        "kind": "query",
-                        "name": "q",
-                        "orig": "q",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "\"what about nuts\"",
+                        "k": "query",
+                        "n": "q",
+                        "or": "q",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /search/",
-                    "json": "{\"operationId\":\"searchEpisodes\",\"parameters\":[{\"description\":\"Search query. Supports Boolean (+PERL -PISS), Tags (#PAM-GRIER), Dates (8/17), Episode # (666), and Verbatim (\\\"MURMPH BURMPH\\\")\",\"in\":\"query\",\"name\":\"q\",\"required\":true,\"schema\":{\"example\":\"\\\"what about nuts\\\"\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"episodes\":{\"items\":{\"properties\":{\"day\":{\"description\":\"Day of month published\",\"example\":20,\"maximum\":31,\"minimum\":1,\"type\":\"integer\"},\"dialog\":{\"description\":\"Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog\",\"example\":[[\"deuce\",\"I WANT A SEX CHANGE\"],[\"pants\",\"WHICH DIRECTION\"],[\"deuce\",\"SURPRISE ME\"]],\"items\":{\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"type\":\"array\"},\"episode\":{\"description\":\"Episode number\",\"example\":6969,\"type\":\"integer\"},\"hd\":{\"description\":\"Optional array containing details about associated BoneQuest HD images\",\"items\":{\"description\":\"Details about an associated BoneQuest HD image\",\"properties\":{\"author\":{\"description\":\"Original author, typically a Tumblr username\",\"example\":\"eyetooth\",\"type\":\"string\"},\"height\":{\"description\":\"Image height\",\"example\":200,\"type\":\"integer\"},\"id\":{\"description\":\"Episode number\",\"example\":2787,\"type\":\"integer\"},\"image\":{\"description\":\"URL to full-size image\",\"example\":\"http://31.media.tumblr.com/389cf0c4c9d36943f0a9aa7007e70bbf/tumblr_mlkg3kfWHP1snfhwio1_1280.png\",\"type\":\"string\"},\"link_status\":{\"description\":\"Empty string if URL is valid\",\"example\":\"\",\"type\":\"string\"},\"mirror_url\":{\"description\":\"Partial URL to image if link_status is bad\",\"example\":\"/hd/1.2787.jpg\",\"type\":\"string\"},\"thumb_url\":{\"description\":\"Partial URL to thumbnail image\",\"example\":\"/hd/t/1.2787.jpg\",\"type\":\"string\"},\"url\":{\"description\":\"Fully-qualified URL to HD page\",\"example\":\"http://jerkcityhd.tumblr.com/post/48734349486/up-late\",\"type\":\"string\"},\"width\":{\"description\":\"Image width\",\"example\":144,\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"},\"height\":{\"description\":\"Image height\",\"example\":574,\"type\":\"integer\"},\"hifi\":{\"description\":\"Optional details about an associated BoneQuest HiFi episode\",\"properties\":{\"audio_url\":{\"description\":\"URL to mp3 file\",\"example\":\"http://bonequesthifi.com/6969.mp3\",\"type\":\"string\"},\"author\":{\"description\":\"Who made the HiFi episode\",\"example\":\"BoneQuest Hi-Fi\",\"type\":\"string\"},\"create_date\":{\"description\":\"Date of creation in seconds since UNIX epoch\",\"example\":1550592000,\"type\":\"integer\"},\"description\":{\"description\":\"Details about the episode in plain text\",\"example\":\"an audio production of BoneQuest #6969, featuring: @hydra2134, bonus suspended @IHaveShitMyself.\\nit's time.\\n~BoneQuest Hi-Fi\",\"type\":\"string\"},\"duration\":{\"description\":\"Duration in HH:MM:SS format\",\"example\":\"0:30\",\"type\":\"string\"},\"hifi_id\":{\"description\":\"Unique HiFi ID number\",\"example\":501,\"type\":\"integer\"},\"page_url\":{\"description\":\"URL to bonequesthifi.com page\",\"example\":\"https://bonequesthifi.com/6969\",\"type\":\"string\"}},\"type\":\"object\"},\"image\":{\"description\":\"Partial URL to episode image\",\"example\":\"/6969.gif\",\"type\":\"string\"},\"month\":{\"description\":\"Month published, number between 1-12\",\"example\":4,\"maximum\":12,\"minimum\":1,\"type\":\"integer\"},\"navigation\":{\"description\":\"Back and next keys contain fully-formed episode for surrounding episodes\",\"properties\":{\"back\":{\"items\":{\"properties\":\"[Circular *paths./episode/{episodeNumber}.get.responses.200.content.application/json.schema.properties.episodes.items.properties]\",\"type\":\"object\"},\"type\":\"array\"},\"next\":{\"items\":{\"properties\":\"[Circular *paths./episode/{episodeNumber}.get.responses.200.content.application/json.schema.properties.episodes.items.properties]\",\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"},\"players\":{\"description\":\"Array of player names\",\"example\":[\"deuce\",\"pants\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"tags\":{\"description\":\"Array of tags applied\",\"example\":[\"bonequest-hi-fi\",\"deuce-pants\",\"sex-change\"],\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"thumb\":{\"description\":\"Partial URL to thumbnail of episode image\",\"example\":\"/thumb/6969.gif\",\"type\":\"string\"},\"title\":{\"description\":\"Episode title\",\"example\":\"sex change\",\"type\":\"string\"},\"width\":{\"description\":\"Image width\",\"example\":575,\"type\":\"integer\"},\"year\":{\"description\":\"Year published\",\"example\":2018,\"type\":\"integer\"}},\"type\":\"object\"},\"type\":\"array\"},\"meta\":{\"description\":\"API metadata wrapper\",\"properties\":{\"contact\":{\"description\":\"Preferred email address\",\"example\":\"root@bonequest.com\",\"type\":\"string\"},\"gay\":{\"example\":true,\"type\":\"boolean\"},\"high\":{\"description\":\"Highest episode number published so far\",\"example\":8340,\"type\":\"integer\"},\"queue\":{\"description\":\"Information about episode queue\",\"properties\":{\"empty\":{\"description\":\"Date when we run out of episodes queued for publication\",\"properties\":{\"day\":{\"type\":\"integer\"},\"month\":{\"type\":\"integer\"},\"year\":{\"type\":\"integer\"}},\"type\":\"object\"},\"episodes\":{\"items\":{\"type\":\"integer\"},\"type\":\"array\"},\"size\":{\"type\":\"integer\"}},\"type\":\"object\"},\"repo\":{\"description\":\"URL to repository\",\"example\":\"https://github.com/bonequest\",\"type\":\"string\"},\"url\":{\"description\":\"Base URL to website, use this to construct a fully-qualified URL for loading images and thumbnails\",\"example\":\"https://www.bonequest.com\",\"type\":\"string\"},\"version\":{\"description\":\"API version\",\"example\":\"bq/4.0.0\",\"type\":\"string\"}},\"type\":\"object\"},\"search\":{\"description\":\"Search metadata\",\"properties\":{\"query\":{\"description\":\"The search query that was executed\",\"example\":\"\\\"what about nuts\\\"\",\"type\":\"string\"},\"runtime\":{\"description\":\"Time to perform query in seconds\",\"example\":0.0002644062042236328,\"type\":\"number\"},\"sums\":{\"description\":\"Counts of classification of results\",\"properties\":{\"dates\":{\"example\":0,\"type\":\"integer\"},\"episodes\":{\"example\":0,\"type\":\"integer\"},\"tags\":{\"example\":0,\"type\":\"integer\"},\"titles\":{\"example\":0,\"type\":\"integer\"},\"words\":{\"example\":1,\"type\":\"integer\"}},\"type\":\"object\"},\"version\":{\"description\":\"Search engine version number\",\"example\":\"4\",\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
-                  },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/search/",
-                  "segments": [
-                    {
-                      "lit": "search"
-                    }
-                  ],
-                  "select": {
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/search/",
+                  "q": {
                     "exist": [
                       "q"
                     ]
                   },
-                  "transform": {
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "search"
+                    }
+                  ],
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.search`"
                   }
@@ -839,19 +917,19 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "episode_ref01",
                 "srcdatavar": "episode_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "episode01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -871,13 +949,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -897,13 +975,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {

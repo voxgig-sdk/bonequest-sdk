@@ -1,7 +1,7 @@
 // Typed models for the Bonequest SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,9 +14,6 @@ import (
 
 // Episode is the typed data model for the episode entity.
 type Episode struct {
-	Episodes *[]any `json:"episodes,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Meta *map[string]any `json:"meta,omitempty"`
 }
 
 // EpisodeLoadMatch is the typed request payload for Episode.LoadTyped.
@@ -34,21 +31,6 @@ type QuoteListMatch struct {
 
 // Search is the typed data model for the search entity.
 type Search struct {
-	Day *int `json:"day,omitempty"`
-	Dialog *[]any `json:"dialog,omitempty"`
-	Episode *int `json:"episode,omitempty"`
-	Hd *[]any `json:"hd,omitempty"`
-	Height *int `json:"height,omitempty"`
-	Hifi *map[string]any `json:"hifi,omitempty"`
-	Image *string `json:"image,omitempty"`
-	Month *int `json:"month,omitempty"`
-	Navigation *map[string]any `json:"navigation,omitempty"`
-	Players *[]any `json:"players,omitempty"`
-	Tags *[]any `json:"tags,omitempty"`
-	Thumb *string `json:"thumb,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Width *int `json:"width,omitempty"`
-	Year *int `json:"year,omitempty"`
 }
 
 // SearchListMatch is the typed request payload for Search.ListTyped.

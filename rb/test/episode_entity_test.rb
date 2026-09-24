@@ -66,7 +66,7 @@ def episode_basic_setup(extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
-    ["episode01", "episode02", "episode03", "random01", "random02", "random03"],
+    ["episode01", "episode02", "episode03"],
     {
       "`$PACK`" => ["", {
         "`$KEY`" => "`$COPY`",

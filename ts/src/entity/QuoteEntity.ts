@@ -19,7 +19,6 @@ import type {
   QuoteListMatch,
 } from '../BonequestTypes'
 
-// TODO: needs Entity superclass
 class QuoteEntity extends BonequestEntityBase<Quote> {
 
   constructor(client: BonequestSDK, entopts: any) {

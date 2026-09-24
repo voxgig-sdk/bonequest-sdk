@@ -1,0 +1,45 @@
+# Entity: quote
+
+main: kit: entity: quote: {
+
+  alias: field: {}
+
+  name: "quote"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /quote/random"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/quote/random"
+          q: {
+            "$action": "random"
+          }
+          s: [
+            {
+              lit: "quote"
+            }
+            {
+              lit: "random"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.quote`"
+          }
+        }
+      ]
+    }
+  }
+
+  fields: {
+  }
+
+
+
+}

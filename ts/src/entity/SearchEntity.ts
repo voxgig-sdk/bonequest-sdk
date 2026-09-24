@@ -19,7 +19,6 @@ import type {
   SearchListMatch,
 } from '../BonequestTypes'
 
-// TODO: needs Entity superclass
 class SearchEntity extends BonequestEntityBase<Search> {
 
   constructor(client: BonequestSDK, entopts: any) {

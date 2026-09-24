@@ -1,0 +1,32 @@
+# BasicEpisodeFlow
+
+main: kit: flow: BasicEpisodeFlow:
+{
+  entity: "episode",
+  kind: "basic",
+  name: "BasicEpisodeFlow",
+  step: [
+    {
+      i: {
+        ref: "episode_ref01",
+        srcdatavar: "episode_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "episode01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-episode_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicEpisodeFlow"
+}

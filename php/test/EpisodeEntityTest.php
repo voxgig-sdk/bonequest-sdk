@@ -74,7 +74,7 @@ function episode_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["episode01", "episode02", "episode03", "random01", "random02", "random03"] as $k) {
+    foreach (["episode01", "episode02", "episode03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

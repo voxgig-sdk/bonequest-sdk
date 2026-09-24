@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QuoteEntity = void 0;
 const BonequestEntityBase_1 = require("../BonequestEntityBase");
-// TODO: needs Entity superclass
 class QuoteEntity extends BonequestEntityBase_1.BonequestEntityBase {
     constructor(client, entopts) {
         super(client, entopts);
