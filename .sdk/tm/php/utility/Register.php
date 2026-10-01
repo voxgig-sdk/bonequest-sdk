@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 BonequestUtility::setRegistrar(function (BonequestUtility $u): void {
     $u->clean = [BonequestClean::class, 'call'];
+    $u->clean_add = [BonequestClean::class, 'add'];
+    $u->clean_explain = [BonequestDone::class, 'clean_explain'];
     $u->done = [BonequestDone::class, 'call'];
     $u->make_error = [BonequestMakeError::class, 'call'];
     $u->feature_add = [BonequestFeatureAdd::class, 'call'];

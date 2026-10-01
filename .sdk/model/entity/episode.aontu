@@ -89,7 +89,7 @@ main: kit: entity: episode: {
                 ex: 420
                 k: "param"
                 n: "id"
-                or: "episode_number"
+                or: "episodeNumber"
                 r: true
                 t: "`$INTEGER`"
               }
@@ -132,7 +132,7 @@ main: kit: entity: episode: {
                 ex: "666,667"
                 k: "param"
                 n: "id"
-                or: "episode_number"
+                or: "episodeNumbers"
                 r: true
                 t: "`$STRING`"
               }

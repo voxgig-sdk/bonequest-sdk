@@ -186,7 +186,7 @@ local function make_config()
                   ["params"] = {
                     {
                       ["name"] = "id",
-                      ["orig"] = "episode_number",
+                      ["orig"] = "episodeNumber",
                       ["type"] = "`$INTEGER`",
                       ["kind"] = "param",
                       ["reqd"] = true,
@@ -229,7 +229,7 @@ local function make_config()
                   ["params"] = {
                     {
                       ["name"] = "id",
-                      ["orig"] = "episode_number",
+                      ["orig"] = "episodeNumbers",
                       ["type"] = "`$STRING`",
                       ["kind"] = "param",
                       ["reqd"] = true,

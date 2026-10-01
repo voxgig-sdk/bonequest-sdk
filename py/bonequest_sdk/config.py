@@ -215,7 +215,7 @@ def make_config():
                   "params": [
                     {
                       "name": "id",
-                      "orig": "episode_number",
+                      "orig": "episodeNumber",
                       "type": "`$INTEGER`",
                       "kind": "param",
                       "reqd": True,
@@ -258,7 +258,7 @@ def make_config():
                   "params": [
                     {
                       "name": "id",
-                      "orig": "episode_number",
+                      "orig": "episodeNumbers",
                       "type": "`$STRING`",
                       "kind": "param",
                       "reqd": True,

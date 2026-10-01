@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 BonequestUtility.registrar = ->(u) {
   u.clean = BonequestUtilities::Clean
+  u.clean_add = BonequestUtilities::CleanAdd
+  u.clean_explain = BonequestUtilities::CleanExplain
   u.done = BonequestUtilities::Done
   u.make_error = BonequestUtilities::MakeError
   u.feature_add = BonequestUtilities::FeatureAdd

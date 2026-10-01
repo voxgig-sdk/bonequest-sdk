@@ -198,7 +198,7 @@ module BonequestConfig
                     "params" => [
                       {
                         "name" => "id",
-                        "orig" => "episode_number",
+                        "orig" => "episodeNumber",
                         "type" => "`$INTEGER`",
                         "kind" => "param",
                         "reqd" => true,
@@ -241,7 +241,7 @@ module BonequestConfig
                     "params" => [
                       {
                         "name" => "id",
-                        "orig" => "episode_number",
+                        "orig" => "episodeNumbers",
                         "type" => "`$STRING`",
                         "kind" => "param",
                         "reqd" => true,
