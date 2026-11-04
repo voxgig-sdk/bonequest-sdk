@@ -57,6 +57,7 @@ declare class Config {
             };
             optspec: {
                 clearTimer: string;
+                now: string;
                 setTimer: string;
             };
             strict: boolean;
@@ -76,24 +77,15 @@ declare class Config {
     };
     entity: {
         episode: {
-            fields: ({
-                name: string;
-                title: string;
-                type: string;
-                short?: undefined;
-            } | {
+            fields: {
                 name: string;
                 title: string;
                 type: string;
                 short: string;
-            })[];
-            id: {
-                field: string;
-                name: string;
-            };
+            }[];
             name: string;
             op: {
-                load: {
+                list: {
                     input: string;
                     name: string;
                     points: ({
@@ -127,6 +119,10 @@ declare class Config {
                         };
                         select: {
                             exist: string[];
+                        };
+                        response: {
+                            kind: string;
+                            media: string;
                         };
                     } | {
                         kind: string;
@@ -163,6 +159,10 @@ declare class Config {
                         select: {
                             exist: string[];
                         };
+                        response: {
+                            kind: string;
+                            media: string;
+                        };
                     } | {
                         kind: string;
                         method: string;
@@ -198,6 +198,10 @@ declare class Config {
                         select: {
                             exist: string[];
                         };
+                        response: {
+                            kind: string;
+                            media: string;
+                        };
                     })[];
                 };
             };
@@ -228,6 +232,10 @@ declare class Config {
                         args: {};
                         select: {
                             $action: string;
+                        };
+                        response: {
+                            kind: string;
+                            media: string;
                         };
                     }[];
                 };
@@ -273,6 +281,10 @@ declare class Config {
                         };
                         select: {
                             exist: string[];
+                        };
+                        response: {
+                            kind: string;
+                            media: string;
                         };
                     }[];
                 };

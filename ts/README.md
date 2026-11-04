@@ -5,7 +5,7 @@
 The TypeScript SDK for the Bonequest API — a type-safe, entity-oriented client with full async/await support.
 
 The API is exposed as capitalised, semantic **Entities** — e.g.
-`client.Episode()` — each with a small set of operations (`list`, `load`)
+`client.Episode()` — each with a small set of operations (`list`)
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
@@ -15,7 +15,7 @@ predictable and low-friction for both humans and AI agents.
 
 ## Install
 This package is not yet published to npm. Install it from the GitHub
-release tag (`ts/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/bonequest-sdk/releases)), or from a
+release tag (`ts/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/bonequest-sdk/tags)), or from a
 clone, which carries the compiled `dist/`:
 
 ```bash
@@ -37,16 +37,17 @@ import { BonequestSDK } from '@voxgig-sdk/bonequest-sdk'
 const client = new BonequestSDK()
 ```
 
-### 3. Load an episode
+### 2. List episode records
 
-`load()` returns the entity directly and throws on failure:
+`list()` resolves to an array of Episode ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
-try {
-  const episode = await client.Episode().load({ id: 1 })
-  console.log(episode)
-} catch (err) {
-  console.error('load failed:', err)
+const episodes = await client.Episode().list({ episode_number: 1 })
+
+for (const episode of episodes) {
+  console.log(episode.data())
 }
 ```
 
@@ -57,15 +58,16 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const episode = await client.Episode().load({ id: 1 })
-  console.log(episode)
+  const searchs = await client.Search().list({ q: "example" })
+  console.log(searchs.map((item) => item.data()))
 } catch (err) {
-  console.error('load failed:', err)
+  console.error('list failed:', err)
 }
 ```
 
 The low-level `direct()` method does **not** throw — it returns the
-value or an `Error`, so check the result before using it:
+result envelope. Branch on `ok`; on failure `status` holds the HTTP status
+(for error responses) and `err` holds the error:
 
 ```ts
 const result = await client.direct({
@@ -74,8 +76,8 @@ const result = await client.direct({
   params: { id: 'example_id' },
 })
 
-if (result instanceof Error) {
-  throw result
+if (!result.ok) {
+  console.error('request failed:', result.status, result.err)
 }
 ```
 
@@ -93,9 +95,6 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
-if (result instanceof Error) {
-  throw result
-}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -124,10 +123,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = BonequestSDK.test()
 
-const episode = await client.Episode().load({ id: 1 })
-// episode is the entity, populated with mock response data
-// — call episode.data() for the record itself
-console.log(episode)
+const searchs = await client.Search().list({ q: 'example_q' })
+// searchs is an array of Search entities, one per mock record
+console.log(searchs.map((search) => search.data()))
 ```
 
 You can also use the instance method:
@@ -142,14 +140,14 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Episode()
+const entity = client.Search()
 
 // First call runs the operation and stores its result
-await entity.load({ id: 1 })
+await entity.list({ q: 'example_q' })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id)
+console.log(data)
 ```
 
 ### Add custom middleware
@@ -244,8 +242,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria, one per record. |
 | `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
 | `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
@@ -254,10 +251,9 @@ All entities share the same interface.
 
 #### Return values
 
-Entity operations resolve to the entity data directly — there is no
-result envelope:
+Entity operations resolve to the entity itself — there is no result
+envelope, and an entity's `data()` reads its record:
 
-- `load` resolves to a single entity object.
 - `list` resolves to an **array** of entity objects (iterate it directly;
   there is no `.data` and no `.ok`).
 
@@ -299,11 +295,23 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `episodes` |  |
-| `id` |  |
-| `meta` | API metadata wrapper |
+| `day` | Day of month published |
+| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | Episode number |
+| `hd` | Optional array containing details about associated BoneQuest HD images |
+| `height` | Image height |
+| `hifi` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | Partial URL to episode image |
+| `month` | Month published, number between 1-12 |
+| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | Array of player names |
+| `tags` | Array of tags applied |
+| `thumb` | Partial URL to thumbnail of episode image |
+| `title` | Episode title |
+| `width` | Image width |
+| `year` | Year published |
 
-Operations: load.
+Operations: list.
 
 API path: `/episodes/random/{count}`
 
@@ -353,20 +361,32 @@ Create an instance: `const episode = client.Episode()`
 
 | Method | Description |
 | --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
+| `list(match)` | List entities matching the criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `episodes` | `any[]` |  |
-| `id` | `string` |  |
-| `meta` | `Record<string, any>` | API metadata wrapper |
+| `day` | `number` | Day of month published |
+| `dialog` | `any[]` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `number` | Episode number |
+| `hd` | `any[]` | Optional array containing details about associated BoneQuest HD images |
+| `height` | `number` | Image height |
+| `hifi` | `Record<string, any>` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | Partial URL to episode image |
+| `month` | `number` | Month published, number between 1-12 |
+| `navigation` | `Record<string, any>` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `any[]` | Array of player names |
+| `tags` | `any[]` | Array of tags applied |
+| `thumb` | `string` | Partial URL to thumbnail of episode image |
+| `title` | `string` | Episode title |
+| `width` | `number` | Image width |
+| `year` | `number` | Year published |
 
-#### Example: Load
+#### Example: List
 
 ```ts
-const episode = await client.Episode().load({ id: 1 })
+const episodes = await client.Episode().list({ episode_number: 1 })
 ```
 
 
@@ -572,16 +592,16 @@ import { BonequestSDK } from '@voxgig-sdk/bonequest-sdk'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const episode = client.Episode()
-await episode.load({ id: 1 })
+const search = client.Search()
+await search.list({ q: "example" })
 
-// episode.data() now returns the episode data from the last `load`
-// episode.match() returns { id: 1 }
+// search.data() now returns the search data from the last `list`
+// search.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

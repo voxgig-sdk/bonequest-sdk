@@ -17,13 +17,25 @@ from typing import TypedDict, Any
 
 
 class Episode(TypedDict, total=False):
-    episodes: list
-    id: str
-    meta: dict
+    day: int
+    dialog: list
+    episode: int
+    hd: list
+    height: int
+    hifi: dict
+    image: str
+    month: int
+    navigation: dict
+    players: list
+    tags: list
+    thumb: str
+    title: str
+    width: int
+    year: int
 
 
-class EpisodeLoadMatch(TypedDict):
-    id: int
+class EpisodeListMatch(TypedDict):
+    episode_number: int
 
 
 class Quote(TypedDict):

@@ -2,30 +2,82 @@
   "existing": {
     "episode": {
       "EPISODE00": {
-        "episodes": [],
-        "id": "EPISODE00",
-        "meta": {},
-        "count": "COUNT01"
+        "day": 150,
+        "dialog": [],
+        "episode": 152,
+        "hd": [],
+        "height": 154,
+        "hifi": {},
+        "image": "s9c",
+        "month": 157,
+        "navigation": {},
+        "players": [],
+        "tags": [],
+        "thumb": "sa1",
+        "title": "sa2",
+        "width": 163,
+        "year": 164,
+        "count": "COUNT01",
+        "episode_number": "EPISODE_NUMBER01"
       },
       "EPISODE01": {
-        "episodes": [],
-        "id": "EPISODE01",
-        "meta": {},
-        "count": "COUNT01"
+        "day": 300,
+        "dialog": [],
+        "episode": 302,
+        "hd": [],
+        "height": 304,
+        "hifi": {},
+        "image": "s132",
+        "month": 307,
+        "navigation": {},
+        "players": [],
+        "tags": [],
+        "thumb": "s137",
+        "title": "s138",
+        "width": 313,
+        "year": 314,
+        "count": "COUNT01",
+        "episode_number": "EPISODE_NUMBER01"
       },
       "EPISODE02": {
-        "episodes": [],
-        "id": "EPISODE02",
-        "meta": {},
-        "count": "COUNT01"
+        "day": 450,
+        "dialog": [],
+        "episode": 452,
+        "hd": [],
+        "height": 454,
+        "hifi": {},
+        "image": "s1c8",
+        "month": 457,
+        "navigation": {},
+        "players": [],
+        "tags": [],
+        "thumb": "s1cd",
+        "title": "s1ce",
+        "width": 463,
+        "year": 464,
+        "count": "COUNT01",
+        "episode_number": "EPISODE_NUMBER01"
       }
     }
   },
   "new": {
     "episode": {
       "episode_ref01": {
-        "episodes": [],
-        "meta": {}
+        "day": 600,
+        "dialog": [],
+        "episode": 602,
+        "hd": [],
+        "height": 604,
+        "hifi": {},
+        "image": "s25e",
+        "month": 607,
+        "navigation": {},
+        "players": [],
+        "tags": [],
+        "thumb": "s263",
+        "title": "s264",
+        "width": 613,
+        "year": 614
       }
     }
   },

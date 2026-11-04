@@ -3,5 +3,17 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "Array of arrays containing episode dialog, element 0 is typically player&#39;s name and element 1 is the dialog",
+      "Day of month published",
+      "Episode number",
+      "Image height",
+      "Optional array containing details about associated BoneQuest HD images",
+      "Production server",
+      "Successful response",
+      "The BoneQuest API provides access to episode data, allowing users to fetch details about episodes, including dialogue and metadata. It returns structured JSON responses for easy integration and use by developers."
+    ]
+  }
 }

@@ -101,18 +101,31 @@ episode = client.Episode
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episodes` | `Array` | No |  |
-| `id` | `String` | No |  |
-| `meta` | `Hash` | No | API metadata wrapper |
+| `day` | `Integer` | No | Day of month published |
+| `dialog` | `Array` | No | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `Integer` | No | Episode number |
+| `hd` | `Array` | No | Optional array containing details about associated BoneQuest HD images |
+| `height` | `Integer` | No | Image height |
+| `hifi` | `Hash` | No | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `String` | No | Partial URL to episode image |
+| `month` | `Integer` | No | Month published, number between 1-12 |
+| `navigation` | `Hash` | No | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `Array` | No | Array of player names |
+| `tags` | `Array` | No | Array of tags applied |
+| `thumb` | `String` | No | Partial URL to thumbnail of episode image |
+| `title` | `String` | No | Episode title |
+| `width` | `Integer` | No | Image width |
+| `year` | `Integer` | No | Year published |
 
 ### Operations
 
-#### `load(reqmatch, ctrl = nil) -> result`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-Load a single entity matching the given criteria. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ```ruby
-result = client.Episode.load({ "id" => 1 })
+results = client.Episode.list({ "episode_number" => 1 })
+results.each { |item| puts item.data_get }
 ```
 
 ### Common Methods
@@ -155,10 +168,11 @@ quote = client.Quote
 
 #### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ```ruby
 results = client.Quote.list
+results.each { |item| puts item.data_get }
 ```
 
 ### Common Methods
@@ -221,10 +235,11 @@ search = client.Search
 
 #### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ```ruby
-results = client.Search.list
+results = client.Search.list({ "q" => "example" })
+results.each { |item| puts item.data_get }
 ```
 
 ### Common Methods
@@ -414,6 +429,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

@@ -10,15 +10,18 @@ guide: {
 
   entity: episode: {
     path: "/episode/{episodeNumber}": {
-      rename: param: "episodeNumber": *"id"
-      op: load: method: *GET
+      rename: param: "episodeNumber": *"episode_number"
+      op: list: method: *GET
+      op: list: transform: res: *("`body.episodes`")|top
     }
     path: "/episodes/random/{count}": {
-      op: load: method: *GET
+      op: list: method: *GET
+      op: list: transform: res: *("`body.episodes`")|top
     }
     path: "/episodes/{episodeNumbers}": {
-      rename: param: "episodeNumbers": *"id"
-      op: load: method: *GET
+      rename: param: "episodeNumbers": *"episode_number"
+      op: list: method: *GET
+      op: list: transform: res: *("`body.episodes`")|top
     }
   }
 
@@ -26,14 +29,14 @@ guide: {
     path: "/quote/random": {
       action: "random": {}
       op: list: method: *GET
-      op: list: transform: res: *("`body.quote`")|top
+      op: list: transform: res: *("`body.episodes`")|top
     }
   }
 
   entity: search: {
     path: "/search/": {
       op: list: method: *GET
-      op: list: transform: res: *("`body.search`")|top
+      op: list: transform: res: *("`body.episodes`")|top
     }
   }
 

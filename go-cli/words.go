@@ -75,7 +75,7 @@ func runOp(client *sdk.BonequestSDK, op string, query *eng.Value, entityAtom eng
 
 // entityFor dispatches on the lowercase entity name. The generator
 // emits one `case "<name>":` per entity defined in the SDK model.
-func entityFor(client *sdk.BonequestSDK, name string) (sdk.BonequestEntity, error) {
+func entityFor(client *sdk.BonequestSDK, name string) (sdk.BonequestEntityBase, error) {
 	switch strings.ToLower(name) {
 	case "episode":
 		return client.Episode(nil), nil

@@ -4,7 +4,7 @@
 
 The Lua SDK for the Bonequest API — an entity-oriented client using Lua conventions.
 
-It exposes the API as capitalised, semantic **Entities** — e.g. `client:Episode()` — each with the same small set of operations (`list`, `load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:Episode()` — each with the same small set of operations (`list`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -12,7 +12,7 @@ It exposes the API as capitalised, semantic **Entities** — e.g. `client:Episod
 
 ## Install
 This package is not yet published to LuaRocks. Install it from the
-GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/bonequest-sdk/releases)),
+GitHub release tag (`lua/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/bonequest-sdk/tags)),
 or add the source directory to your `LUA_PATH`:
 
 ```bash
@@ -33,12 +33,19 @@ local sdk = require("bonequest_sdk")
 local client = sdk.new()
 ```
 
-### 3. Load an episode
+### 2. List episode records
+
+Entity operations return `(value, err)`. For `list`, `value` is an
+array of entities, one per record — iterate it directly (there is no
+wrapper), and read each record with `data_get()`.
 
 ```lua
-local episode, err = client:Episode():load({ id = 1 })
+local episodes, err = client:Episode():list({ episode_number = 1 })
 if err then error(err) end
-print(episode)
+
+for _, item in ipairs(episodes) do
+  for k, val in pairs(item:data_get()) do print(k, val) end
+end
 ```
 
 
@@ -48,7 +55,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local episode, err = client:Episode():load({ id = 1 })
+local searchs, err = client:Search():list({ q = "example" })
 if err then error(err) end
 ```
 
@@ -106,9 +113,21 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Episode():load({ id = "test01" })
--- result is the returned data; err is set on failure
+local result, err = client:Search():list({ q = "example" })
+-- result is an array of entities, one per mock record; err is set on failure
 ```
+
+### Verify the server over HTTPS
+
+An `https://` request goes through LuaSocket and LuaSec, and the SDK checks
+the server itself before any of the request is sent: its certificate against
+the system's trust store, and its name against the host (an address against
+the certificate's addresses). Nothing turns that off. `SSL_CERT_FILE` or
+`SSL_CERT_DIR` names the trust store, as for OpenSSL; with neither set and no
+system store found, an `https://` request fails rather than going unverified.
+`BONEQUEST_CA_BUNDLE` names a PEM file of roots added to the store,
+for a local service with its own certificate authority or a self-signed
+certificate. A different policy is a custom fetch function, described next.
 
 ### Use a custom fetch function
 
@@ -195,8 +214,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
+| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria, one per record. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -206,19 +224,18 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(value, err)`. The `value` is the operation's
-data **directly** — there is no wrapper:
+Entity operations return `(value, err)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` | the entity record (a `table`) |
-| `list` | an array (`table`) of entity records |
+| `list` | an array (`table`) of entities, one per record |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local episode, err = client:Episode():load({ id = "example_id" })
+    local episode, err = client:Episode():list({ episode_number = 1 })
     if err then error(err) end
-    -- episode is the loaded record
+    -- episode is an array of entities, one per record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -229,11 +246,23 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `episodes` |  |
-| `id` |  |
-| `meta` | API metadata wrapper |
+| `day` | Day of month published |
+| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | Episode number |
+| `hd` | Optional array containing details about associated BoneQuest HD images |
+| `height` | Image height |
+| `hifi` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | Partial URL to episode image |
+| `month` | Month published, number between 1-12 |
+| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | Array of player names |
+| `tags` | Array of tags applied |
+| `thumb` | Partial URL to thumbnail of episode image |
+| `title` | Episode title |
+| `width` | Image width |
+| `year` | Year published |
 
-Operations: Load.
+Operations: List.
 
 API path: `/episodes/random/{count}`
 
@@ -283,20 +312,32 @@ Create an instance: `local episode = client:Episode(nil)`
 
 | Method | Description |
 | --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
+| `list(match)` | List entities matching the criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `episodes` | `table` |  |
-| `id` | `string` |  |
-| `meta` | `table` | API metadata wrapper |
+| `day` | `number` | Day of month published |
+| `dialog` | `table` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `number` | Episode number |
+| `hd` | `table` | Optional array containing details about associated BoneQuest HD images |
+| `height` | `number` | Image height |
+| `hifi` | `table` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | Partial URL to episode image |
+| `month` | `number` | Month published, number between 1-12 |
+| `navigation` | `table` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `table` | Array of player names |
+| `tags` | `table` | Array of tags applied |
+| `thumb` | `string` | Partial URL to thumbnail of episode image |
+| `title` | `string` | Episode title |
+| `width` | `number` | Image width |
+| `year` | `number` | Year published |
 
-#### Example: Load
+#### Example: List
 
 ```lua
-local episode, err = client:Episode():load({ id = 1 })
+local episodes, err = client:Episode():list({ episode_number = 1 })
 ```
 
 
@@ -350,7 +391,7 @@ Create an instance: `local search = client:Search(nil)`
 #### Example: List
 
 ```lua
-local searchs, err = client:Search():list()
+local searchs, err = client:Search():list({ q = "example" })
 ```
 
 ## Features
@@ -511,15 +552,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local episode = client:Episode()
-episode:load({ id = 1 })
+local search = client:Search()
+search:list({ q = "example" })
 
--- episode:data_get() now returns the episode data from the last load
--- episode:match_get() returns the last match criteria
+-- search:data_get() now returns the search data from the last list
+-- search:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

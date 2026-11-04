@@ -7,22 +7,16 @@ main: kit: flow: BasicEpisodeFlow:
   name: "BasicEpisodeFlow",
   step: [
     {
-      i: {
-        ref: "episode_ref01",
-        srcdatavar: "episode_ref01_data",
-        suffix: "_dt0"
-      }
-
       m: {
-        id: "episode01"
+        episode_number: "episode_number01"
       }
 
-      o: "load",
+      o: "list",
       v: [
         {
-          apply: "TextFieldMark",
+          apply: "ItemExists",
           def: {
-            mark: "Mark01-episode_ref01"
+            ref: "episode_ref01"
           }
         }
       ]

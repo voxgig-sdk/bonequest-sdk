@@ -4,7 +4,7 @@
 
 The PHP SDK for the Bonequest API — an entity-oriented client using PHP conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Episode()` — with named operations (`list`/`load`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Episode()` — with named operations (`list`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/bonequest-sdk/releases)), or
+GitHub release tag (`php/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/bonequest-sdk/tags)), or
 from a clone as a Composer path repository:
 
 ```bash
@@ -36,13 +36,16 @@ require_once 'bonequest_sdk.php';
 $client = new BonequestSDK();
 ```
 
-### 3. Load an episode
+### 2. List episode records
 
 ```php
 try {
-    // load() returns the ENTITY — call data_get() for the Episode record (throws on error).
-    $episode = $client->Episode()->load(["id" => 1]);
-    print_r($episode->data_get());
+    // list() returns entity instances; data_get() reads each record.
+    $episodes = $client->Episode()->list(["episode_number" => 1]);
+    foreach ($episodes as $record) {
+        $item = $record->data_get();
+        echo $item["day"] . "\n";
+    }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -56,7 +59,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $episode = $client->Episode()->load(["id" => 1]);
+    $searchs = $client->Search()->list(["q" => "example"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -123,18 +126,15 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```php
-$client = BonequestSDK::test([
-    "entity" => ["episode" => ["test01" => ["id" => "test01"]]],
-]);
+$client = BonequestSDK::test();
 
-// Entity ops return the ENTITY (throws on error);
+// list() returns entity instances (throws on error);
 // call data_get() for the mock record.
-$episode = $client->Episode()->load(["id" => "test01"]);
-print_r($episode->data_get());
+$search = $client->Search()->list(["q" => "example"]);
+print_r(array_map(fn($item) => $item->data_get(), $search));
 ```
 
 ### Use a custom fetch function
@@ -223,8 +223,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
+| `list` | `(?array $reqmatch = null, $ctrl): mixed` | List entities matching the criteria (call with no argument to list all), one per record. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -234,9 +233,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
-ops, a `list` for `list`) and throw on error. Wrap calls in
-`try`/`catch` to handle failures.
+Entity operations return the entity, and `list` an `array` of entities, one
+per record; an entity's `data_get()` reads its record (an `array`). They
+throw on error, so wrap calls in `try`/`catch` to handle failures.
 
 The `direct()` escape hatch never throws — it returns a result `array`
 you branch on via `$result["ok"]`:
@@ -256,11 +255,23 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `episodes` |  |
-| `id` |  |
-| `meta` | API metadata wrapper |
+| `day` | Day of month published |
+| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | Episode number |
+| `hd` | Optional array containing details about associated BoneQuest HD images |
+| `height` | Image height |
+| `hifi` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | Partial URL to episode image |
+| `month` | Month published, number between 1-12 |
+| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | Array of player names |
+| `tags` | Array of tags applied |
+| `thumb` | Partial URL to thumbnail of episode image |
+| `title` | Episode title |
+| `width` | Image width |
+| `year` | Year published |
 
-Operations: Load.
+Operations: List.
 
 API path: `/episodes/random/{count}`
 
@@ -310,21 +321,33 @@ Create an instance: `$episode = $client->Episode();`
 
 | Method | Description |
 | --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
+| `list(match)` | List entities matching the criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `episodes` | `array` |  |
-| `id` | `string` |  |
-| `meta` | `array` | API metadata wrapper |
+| `day` | `int` | Day of month published |
+| `dialog` | `array` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `int` | Episode number |
+| `hd` | `array` | Optional array containing details about associated BoneQuest HD images |
+| `height` | `int` | Image height |
+| `hifi` | `array` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | Partial URL to episode image |
+| `month` | `int` | Month published, number between 1-12 |
+| `navigation` | `array` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `array` | Array of player names |
+| `tags` | `array` | Array of tags applied |
+| `thumb` | `string` | Partial URL to thumbnail of episode image |
+| `title` | `string` | Episode title |
+| `width` | `int` | Image width |
+| `year` | `int` | Year published |
 
-#### Example: Load
+#### Example: List
 
 ```php
-// load() returns the ENTITY — call data_get() for the Episode record (throws on error).
-$episode = $client->Episode()->load(["id" => 1]);
+// list() returns an array of Episode entities, one per record (throws on error).
+$episodes = $client->Episode()->list(["episode_number" => 1]);
 ```
 
 
@@ -341,7 +364,7 @@ Create an instance: `$quote = $client->Quote();`
 #### Example: List
 
 ```php
-// list() returns an array of Quote records (throws on error).
+// list() returns an array of Quote entities, one per record (throws on error).
 $quotes = $client->Quote()->list();
 ```
 
@@ -379,8 +402,8 @@ Create an instance: `$search = $client->Search();`
 #### Example: List
 
 ```php
-// list() returns an array of Search records (throws on error).
-$searchs = $client->Search()->list();
+// list() returns an array of Search entities, one per record (throws on error).
+$searchs = $client->Search()->list(["q" => "example"]);
 ```
 
 ## Features
@@ -541,15 +564,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$episode = $client->Episode();
-$episode->load(["id" => 1]);
+$search = $client->Search();
+$search->list(["q" => "example"]);
 
-// $episode->data_get() now returns the episode data from the last load
-// $episode->match_get() returns the last match criteria
+// $search->data_get() now returns the search data from the last list
+// $search->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

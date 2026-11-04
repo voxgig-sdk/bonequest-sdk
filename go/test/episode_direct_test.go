@@ -10,26 +10,46 @@ import (
 	"github.com/voxgig-sdk/bonequest-sdk/go/core"
 )
 
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const episodeDirectLiveStrict = true
+
 func TestEpisodeDirect(t *testing.T) {
-	t.Run("direct-load-episode", func(t *testing.T) {
-		setup := episodeDirectSetup(map[string]any{"id": "direct01"})
+	t.Run("direct-list-episode", func(t *testing.T) {
+		setup := episodeDirectSetup([]any{
+			map[string]any{"id": "direct01"},
+			map[string]any{"id": "direct02"},
+		})
 		_mode := "unit"
 		if setup.live {
 			_mode = "live"
 		}
-		if _shouldSkip, _reason := isControlSkipped("direct", "direct-load-episode", _mode); _shouldSkip {
+		if _shouldSkip, _reason := isControlSkipped("direct", "direct-list-episode", _mode); _shouldSkip {
 			if _reason == "" {
 				_reason = "skipped via sdk-test-control.json"
 			}
 			t.Skip(_reason)
 			return
 		}
+		if setup.live {
+			for _, _liveKey := range []string{"count01"} {
+				if v := setup.idmap[_liveKey]; v == nil {
+					liveMiss(t, episodeDirectLiveStrict, "Live test blocked: needs %s via BONEQUEST_TEST_EPISODE_ENTID", _liveKey)
+					return
+				}
+			}
+		}
+		if setup.live {
+			livePace()
+		}
 		client := setup.client
 
 		params := map[string]any{}
 		query := map[string]any{}
 		if setup.live {
-			params["count"] = 1
+			params["count"] = setup.idmap["count01"]
 		} else {
 			params["count"] = "direct01"
 		}
@@ -41,19 +61,14 @@ func TestEpisodeDirect(t *testing.T) {
 			"query":  query,
 		})
 		if setup.live {
-			// Live mode is lenient: synthetic IDs frequently 4xx. Skip
-			// rather than fail when the load endpoint isn't reachable with
-			// the IDs we can construct from setup.idmap — unless the model
-			// sets main.kit.test.live.strict.
 			if err != nil {
-				t.Fatalf("load call failed (likely synthetic IDs against live API): %v", err)
+				liveMiss(t, episodeDirectLiveStrict, "Live list failed: %v", err)
 			}
-			if result["ok"] != true {
-				t.Fatalf("load call not ok (likely synthetic IDs against live API): %v", result)
+			if status := core.ToInt(result["status"]); result["ok"] != true || status < 200 || status >= 300 {
+				liveMiss(t, episodeDirectLiveStrict, "Live list failed: %s", liveDescribe(result))
 			}
-			status := core.ToInt(result["status"])
-			if status < 200 || status >= 300 {
-				t.Fatalf("expected 2xx status, got %v", result["status"])
+			if _, ok := liveList(result["data"]); !ok {
+				liveMiss(t, episodeDirectLiveStrict, "Live list returned no list: %s", liveDescribe(result))
 			}
 		} else {
 			if err != nil {
@@ -65,16 +80,15 @@ func TestEpisodeDirect(t *testing.T) {
 			if core.ToInt(result["status"]) != 200 {
 				t.Fatalf("expected status 200, got %v", result["status"])
 			}
-			if result["data"] == nil {
-				t.Fatal("expected data to be non-nil")
-			}
 		}
 
 		if !setup.live {
-			if dataMap, ok := result["data"].(map[string]any); ok {
-				if dataMap["id"] != "direct01" {
-					t.Fatalf("expected data.id to be direct01, got %v", dataMap["id"])
+			if dataList, ok := result["data"].([]any); ok {
+				if len(dataList) != 2 {
+					t.Fatalf("expected 2 items, got %d", len(dataList))
 				}
+			} else {
+				t.Fatalf("expected data to be an array, got %T", result["data"])
 			}
 
 			if len(*setup.calls) != 1 {
@@ -134,6 +148,12 @@ func episodeDirectSetup(mockres any) *episodeDirectSetupResult {
 				json.Unmarshal([]byte(entidStr), &idmap)
 			} else if entidMap, ok := entidRaw.(map[string]any); ok {
 				idmap = entidMap
+			}
+		}
+		// A path parameter's example stands in for an id *_ENTID does not give.
+		for k, v := range map[string]any{"count01": 1} {
+			if idmap[k] == nil {
+				idmap[k] = v
 			}
 		}
 

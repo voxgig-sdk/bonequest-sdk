@@ -20,6 +20,10 @@ main: kit: entity: quote: {
           q: {
             "$action": "random"
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "quote"
@@ -30,7 +34,7 @@ main: kit: entity: quote: {
           ]
           t: {
             req: "`reqdata`"
-            res: "`body.quote`"
+            res: "`body.episodes`"
           }
         }
       ]

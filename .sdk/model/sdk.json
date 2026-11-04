@@ -24,6 +24,7 @@
         "repr": "auto"
       },
       "contributor": {},
+      "copies": "merge",
       "doc": {
         "active": true,
         "assets": {
@@ -97,38 +98,132 @@
             "field": {}
           },
           "fields": {
-            "episodes": {
+            "day": {
               "a": true,
-              "h": "Episodes",
-              "n": "episodes",
+              "h": "Day",
+              "n": "day",
               "r": false,
+              "sh": "Day of month published",
+              "t": "`$INTEGER`"
+            },
+            "dialog": {
+              "a": true,
+              "h": "Dialog",
+              "n": "dialog",
+              "r": false,
+              "sh": "Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog",
               "t": "`$ARRAY`"
             },
-            "id": {
+            "episode": {
               "a": true,
-              "h": "Id",
-              "n": "id",
+              "h": "Episode",
+              "n": "episode",
               "r": false,
+              "sh": "Episode number",
+              "t": "`$INTEGER`"
+            },
+            "hd": {
+              "a": true,
+              "h": "Hd",
+              "n": "hd",
+              "r": false,
+              "sh": "Optional array containing details about associated BoneQuest HD images",
+              "t": "`$ARRAY`"
+            },
+            "height": {
+              "a": true,
+              "h": "Height",
+              "n": "height",
+              "r": false,
+              "sh": "Image height",
+              "t": "`$INTEGER`"
+            },
+            "hifi": {
+              "a": true,
+              "h": "Hifi",
+              "n": "hifi",
+              "r": false,
+              "sh": "Optional details about an associated BoneQuest HiFi episode",
+              "t": "`$OBJECT`"
+            },
+            "image": {
+              "a": true,
+              "h": "Image",
+              "n": "image",
+              "r": false,
+              "sh": "Partial URL to episode image",
               "t": "`$STRING`"
             },
-            "meta": {
+            "month": {
               "a": true,
-              "h": "Meta",
-              "n": "meta",
+              "h": "Month",
+              "n": "month",
               "r": false,
-              "sh": "API metadata wrapper",
+              "sh": "Month published, number between 1-12",
+              "t": "`$INTEGER`"
+            },
+            "navigation": {
+              "a": true,
+              "h": "Navigation",
+              "n": "navigation",
+              "r": false,
+              "sh": "Back and next keys contain fully-formed episode for surrounding episodes",
               "t": "`$OBJECT`"
+            },
+            "players": {
+              "a": true,
+              "h": "Players",
+              "n": "players",
+              "r": false,
+              "sh": "Array of player names",
+              "t": "`$ARRAY`"
+            },
+            "tags": {
+              "a": true,
+              "h": "Tags",
+              "n": "tags",
+              "r": false,
+              "sh": "Array of tags applied",
+              "t": "`$ARRAY`"
+            },
+            "thumb": {
+              "a": true,
+              "h": "Thumb",
+              "n": "thumb",
+              "r": false,
+              "sh": "Partial URL to thumbnail of episode image",
+              "t": "`$STRING`"
+            },
+            "title": {
+              "a": true,
+              "h": "Title",
+              "n": "title",
+              "r": false,
+              "sh": "Episode title",
+              "t": "`$STRING`"
+            },
+            "width": {
+              "a": true,
+              "h": "Width",
+              "n": "width",
+              "r": false,
+              "sh": "Image width",
+              "t": "`$INTEGER`"
+            },
+            "year": {
+              "a": true,
+              "h": "Year",
+              "n": "year",
+              "r": false,
+              "sh": "Year published",
+              "t": "`$INTEGER`"
             }
-          },
-          "id": {
-            "field": "id",
-            "name": "id"
           },
           "name": "episode",
           "op": {
-            "load": {
+            "list": {
               "input": "data",
-              "name": "load",
+              "name": "list",
               "points": [
                 {
                   "a": true,
@@ -159,6 +254,10 @@
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "episodes"
@@ -172,7 +271,7 @@
                   ],
                   "t": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.episodes`"
                   }
                 },
                 {
@@ -188,7 +287,7 @@
                         "a": true,
                         "ex": 420,
                         "k": "param",
-                        "n": "id",
+                        "n": "episode_number",
                         "or": "episodeNumber",
                         "r": true,
                         "t": "`$INTEGER`"
@@ -200,25 +299,29 @@
                   "o": "/episode/{episodeNumber}",
                   "q": {
                     "exist": [
-                      "id"
+                      "episode_number"
                     ]
                   },
                   "r": {
                     "param": {
-                      "episodeNumber": "id"
+                      "episodeNumber": "episode_number"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
                       "lit": "episode"
                     },
                     {
-                      "var": "id"
+                      "var": "episode_number"
                     }
                   ],
                   "t": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.episodes`"
                   }
                 },
                 {
@@ -234,7 +337,7 @@
                         "a": true,
                         "ex": "666,667",
                         "k": "param",
-                        "n": "id",
+                        "n": "episode_number",
                         "or": "episodeNumbers",
                         "r": true,
                         "t": "`$STRING`"
@@ -246,25 +349,29 @@
                   "o": "/episodes/{episodeNumbers}",
                   "q": {
                     "exist": [
-                      "id"
+                      "episode_number"
                     ]
                   },
                   "r": {
                     "param": {
-                      "episodeNumbers": "id"
+                      "episodeNumbers": "episode_number"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
                       "lit": "episodes"
                     },
                     {
-                      "var": "id"
+                      "var": "episode_number"
                     }
                   ],
                   "t": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.episodes`"
                   }
                 }
               ]
@@ -301,6 +408,10 @@
                     "$action": "random"
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "quote"
@@ -311,7 +422,7 @@
                   ],
                   "t": {
                     "req": "`reqdata`",
-                    "res": "`body.quote`"
+                    "res": "`body.episodes`"
                   }
                 }
               ]
@@ -483,6 +594,10 @@
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "search"
@@ -490,7 +605,7 @@
                   ],
                   "t": {
                     "req": "`reqdata`",
-                    "res": "`body.search`"
+                    "res": "`body.episodes`"
                   }
                 }
               ]
@@ -823,6 +938,7 @@
             },
             "optspec": {
               "clearTimer": "`$FUNCTION`",
+              "now": "`$FUNCTION`",
               "setTimer": "`$FUNCTION`"
             },
             "strict": false
@@ -923,21 +1039,17 @@
             {
               "a": true,
               "d": {},
-              "i": {
-                "ref": "episode_ref01",
-                "srcdatavar": "episode_ref01_data",
-                "suffix": "_dt0"
-              },
+              "i": {},
               "m": {
-                "id": "episode01"
+                "episode_number": "episode_number01"
               },
-              "o": "load",
+              "o": "list",
               "s": [],
               "v": [
                 {
-                  "apply": "TextFieldMark",
+                  "apply": "ItemExists",
                   "def": {
-                    "mark": "Mark01-episode_ref01"
+                    "ref": "episode_ref01"
                   }
                 }
               ]
@@ -997,6 +1109,9 @@
           ]
         }
       },
+      "http": {
+        "useragent": ""
+      },
       "info": {
         "auth": false,
         "contact": {
@@ -1023,7 +1138,7 @@
       "optspec": {
         "allow": {
           "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
-          "op": "create,update,load,list,remove,command,direct,graphql"
+          "op": "create,update,patch,load,list,remove,command,direct,graphql"
         },
         "apikey": "",
         "auth": {
@@ -1076,6 +1191,11 @@
         "top": {
           "active": true
         }
+      },
+      "publisher": {
+        "name": "",
+        "security": "",
+        "url": ""
       },
       "repo": {
         "host": "github.com",
@@ -1306,7 +1426,10 @@
             "version": "0.0.1"
           },
           "superseded": [],
-          "title": "Go MCP server"
+          "title": "Go MCP server",
+          "tool": {
+            "write": false
+          }
         },
         "lua": {
           "active": true,
@@ -1683,6 +1806,17 @@
           "base": "",
           "strict": true
         }
+      },
+      "text": {
+        "about_md": "",
+        "docs_url": "",
+        "entity_desc": {},
+        "homepage": "",
+        "meta_source": "",
+        "summary": "",
+        "tagline": "",
+        "title": "",
+        "website": ""
       }
     }
   },

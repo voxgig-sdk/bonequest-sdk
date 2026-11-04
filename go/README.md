@@ -4,7 +4,7 @@
 
 The Golang SDK for the Bonequest API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
-It exposes the API as capitalised, semantic **Entities** — e.g. `client.Episode(nil)` — each with the same small set of operations (`List`, `Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.Episode(nil)` — each with the same small set of operations (`List`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
 > Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
@@ -16,7 +16,7 @@ go get github.com/voxgig-sdk/bonequest-sdk/go@latest
 ```
 
 The Go module proxy resolves the version from the `go/vX.Y.Z` GitHub
-release tag — see [Releases](https://github.com/voxgig-sdk/bonequest-sdk/releases) for the available versions.
+release tag — see [Tags](https://github.com/voxgig-sdk/bonequest-sdk/tags) for the available versions.
 
 To vendor from a local checkout instead, clone this repo alongside your
 project and add a `replace` directive pointing at the checked-out
@@ -35,9 +35,10 @@ loading a specific record.
 ### Quickstart
 
 A complete program: create a client, then call the entity operations.
-Each operation returns `(value, error)` — the value is the data itself
-(there is no `{ok, data}` wrapper), so check `err` and use the value
-directly.
+Each operation returns `(value, error)` — the value is the entity, and for
+`List` a `[]any` of entities, one per record (there is no `{ok, data}`
+wrapper), so check `err` and read a record through the entity's
+`Data()`.
 
 ```go
 package main
@@ -50,12 +51,14 @@ import (
 func main() {
     client := sdk.New()
 
-    // Load a single episode — the value is the loaded record.
-    episode, err := client.Episode(nil).Load(map[string]any{"id": 1}, nil)
+    // List episode records — the value is a []any of entities, one per record.
+    episodes, err := client.Episode(nil).List(map[string]any{"episode_number": 1}, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(episode)
+    for _, item := range episodes.([]any) {
+        fmt.Println(item.(sdk.Entity).Data())
+    }
 }
 ```
 
@@ -66,12 +69,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-episode, err := client.Episode(nil).Load(map[string]any{"id": 1}, nil)
+searchs, err := client.Search(nil).List(map[string]any{"q": "example"}, nil)
 if err != nil {
     // handle err
     return
 }
-_ = episode
+_ = searchs
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -135,13 +138,16 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-episode, err := client.Episode(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+searchs, err := client.Search(nil).List(
+    map[string]any{"q": "example"}, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(episode) // the returned mock data
+// A []any of entities, one per mock record.
+for _, item := range searchs.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ### Use a custom fetch function
@@ -218,18 +224,17 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `GetUtility` | `() *Utility` | Copy of the SDK utility object. |
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
-| `Episode` | `(data map[string]any) BonequestEntity` | Create an Episode entity instance. |
-| `Quote` | `(data map[string]any) BonequestEntity` | Create a Quote entity instance. |
-| `Search` | `(data map[string]any) BonequestEntity` | Create a Search entity instance. |
+| `Episode` | `(data map[string]any) BonequestEntityBase` | Create an Episode entity instance. |
+| `Quote` | `(data map[string]any) BonequestEntityBase` | Create a Quote entity instance. |
+| `Search` | `(data map[string]any) BonequestEntityBase` | Create a Search entity instance. |
 
-### Entity interface (BonequestEntity)
+### Entity interface (BonequestEntityBase)
 
-All entities implement the `BonequestEntity` interface.
+All entities implement the `BonequestEntityBase` interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria. |
-| `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria. |
+| `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria, one per record. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
 | `Make` | `() Entity` | Create a new instance with the same options. |
@@ -237,21 +242,20 @@ All entities implement the `BonequestEntity` interface.
 
 ### Result shape
 
-Entity operations return `(value, error)`. The `value` is the
-operation's data **directly** — there is no wrapper:
+Entity operations return `(value, error)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `Load` | the entity record (`map[string]any`) |
-| `List` | a `[]any` of entity records |
+| `List` | a `[]any` of entities, one per record |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    episode, err := client.Episode(nil).Load(map[string]any{"id": "example_id"}, nil)
+    episode, err := client.Episode(nil).List(map[string]any{"episode_number": 1}, nil)
     if err != nil { /* handle */ }
-    // episode is the returned record
+    // episode is a []any of entities, one per record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -262,11 +266,23 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"episodes"` |  |
-| `"id"` |  |
-| `"meta"` | API metadata wrapper |
+| `"day"` | Day of month published |
+| `"dialog"` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `"episode"` | Episode number |
+| `"hd"` | Optional array containing details about associated BoneQuest HD images |
+| `"height"` | Image height |
+| `"hifi"` | Optional details about an associated BoneQuest HiFi episode |
+| `"image"` | Partial URL to episode image |
+| `"month"` | Month published, number between 1-12 |
+| `"navigation"` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `"players"` | Array of player names |
+| `"tags"` | Array of tags applied |
+| `"thumb"` | Partial URL to thumbnail of episode image |
+| `"title"` | Episode title |
+| `"width"` | Image width |
+| `"year"` | Year published |
 
-Operations: Load.
+Operations: List.
 
 API path: `/episodes/random/{count}`
 
@@ -316,24 +332,39 @@ Create an instance: `episode := client.Episode(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Load(match, ctrl)` | Load a single entity by match criteria. |
+| `List(match, ctrl)` | List entities matching the criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `episodes` | `[]any` |  |
-| `id` | `string` |  |
-| `meta` | `map[string]any` | API metadata wrapper |
+| `day` | `int` | Day of month published |
+| `dialog` | `[]any` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `int` | Episode number |
+| `hd` | `[]any` | Optional array containing details about associated BoneQuest HD images |
+| `height` | `int` | Image height |
+| `hifi` | `map[string]any` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | Partial URL to episode image |
+| `month` | `int` | Month published, number between 1-12 |
+| `navigation` | `map[string]any` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `[]any` | Array of player names |
+| `tags` | `[]any` | Array of tags applied |
+| `thumb` | `string` | Partial URL to thumbnail of episode image |
+| `title` | `string` | Episode title |
+| `width` | `int` | Image width |
+| `year` | `int` | Year published |
 
-#### Example: Load
+#### Example: List
 
 ```go
-episode, err := client.Episode(nil).Load(map[string]any{"id": 1}, nil)
+episodes, err := client.Episode(nil).List(map[string]any{"episode_number": 1}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(episode) // the loaded record
+// A []any of entities, one per record.
+for _, item := range episodes.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -354,7 +385,10 @@ quotes, err := client.Quote(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(quotes) // the array of records
+// A []any of entities, one per record.
+for _, item := range quotes.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -391,11 +425,14 @@ Create an instance: `search := client.Search(nil)`
 #### Example: List
 
 ```go
-searchs, err := client.Search(nil).List(nil, nil)
+searchs, err := client.Search(nil).List(map[string]any{"q": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(searchs) // the array of records
+// A []any of entities, one per record.
+for _, item := range searchs.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ## Features
@@ -532,7 +569,9 @@ The Go SDK uses `map[string]any` throughout rather than typed structs.
 This mirrors the dynamic nature of the API and keeps the SDK
 flexible — no code generation is needed when the API schema changes.
 
-Use `core.ToMapAny()` to safely cast results and nested data.
+An operation returns the entity, and its `Data()` returns the record. Use
+`core.ToMapAny()` to safely cast that record, or data nested in it, to
+`map[string]any`: it returns `nil` for anything else, an entity included.
 
 ### Package structure
 
@@ -552,15 +591,15 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-episode := client.Episode(nil)
-episode.Load(map[string]any{"id": 1}, nil)
+search := client.Search(nil)
+search.List(map[string]any{"q": "example"}, nil)
 
-// episode.Data() now returns the episode data from the last load
-// episode.Match() returns the last match criteria
+// search.Data() now returns the search data from the last list
+// search.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

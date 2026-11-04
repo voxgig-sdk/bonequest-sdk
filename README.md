@@ -23,11 +23,11 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 This SDK exposes the API as a small set of **semantic entities** — Episode, Quote and Search — that you
 call directly, instead of assembling URL paths and query strings. Entities are
 **Capitalised** to mark them as the primary surface, each with the operations they
-support (`list`, `load`):
+support (`list`):
 
 ```ts
 const client = new BonequestSDK()
-const episode = await client.Episode().load({ id: 1 })
+const items = await client.Episode().list({ episode_number: 1 })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -46,23 +46,22 @@ network, and no credentials:
 // Shape: { entity: { <entity-name>: { <id>: <record> } } }
 const client = BonequestSDK.test({
   entity: {
-    episode: {
-      test01: { id: 'test01' },
+    search: {
+      test01: { id: 'test01', q: 'example_q' },
     },
   },
 })
-const episode = await client.Episode().load({ id: 1 })
-// episode is the Episode entity, populated with mock data
-// — call episode.data() for the record itself
-console.log(episode)
+const searchs = await client.Search().list({ q: 'example_q' })
+// searchs is an array of Search entities, one per mock record
+console.log(searchs.map((search) => search.data()))
 ```
 
 ### Python
 
 ```python
 client = BonequestSDK.test()
-episode = client.Episode().load({"id": "test01"})
-print(episode)
+searchs = client.Search().list({"q": "example"})
+print([item.data_get() for item in searchs])
 ```
 
 ### PHP
@@ -70,17 +69,17 @@ print(episode)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = BonequestSDK::test([
-    "entity" => ["episode" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["search" => ["test01" => ["q" => "example"]]],
 ]);
-$episode = $client->Episode()->load(["id" => "test01"]);
+$searchs = $client->Search()->list(["q" => "example"]);
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Episode(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+result, err := client.Search(nil).List(
+    map[string]any{"q": "example"}, nil,
 )
 ```
 
@@ -89,16 +88,16 @@ result, err := client.Episode(nil).Load(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = BonequestSDK.test({
-  "entity" => { "episode" => { "test01" => { "id" => "test01" } } },
+  "entity" => { "search" => { "test01" => { "q" => "example" } } },
 })
-episode = client.Episode.load({ "id" => "test01" })
+searchs = client.Search.list({ "q" => "example" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:Episode():load({ id = "test01" })
+local results, err = client:Search():list({ q = "example" })
 ```
 
 ## Packages
@@ -111,8 +110,8 @@ local result, err = client:Episode():load({ id = "test01" })
 | Golang | `github.com/voxgig-sdk/bonequest-sdk/go` | `go get github.com/voxgig-sdk/bonequest-sdk/go@latest` |
 | Ruby | `voxgig-sdk-bonequest-sdk` | publish pending — [install from source](rb/README.md#install) |
 | Lua | `voxgig-sdk-bonequest-sdk` | publish pending — [install from source](lua/README.md#install) |
-| Go CLI | `github.com/voxgig-sdk/bonequest-sdk/go-cli` | `go install github.com/voxgig-sdk/bonequest-sdk/go-cli/cmd/bonequest@latest` |
-| Go MCP server | `github.com/voxgig-sdk/bonequest-sdk/go-mcp` | `go get github.com/voxgig-sdk/bonequest-sdk/go-mcp@latest` |
+| Go CLI | `github.com/voxgig-sdk/bonequest-sdk/go-cli` | build from source — [go-cli/README.md](go-cli/README.md) |
+| Go MCP server | `github.com/voxgig-sdk/bonequest-sdk/go-mcp` | build from source — [go-mcp/README.md](go-mcp/README.md) |
 
 ## Quickstart
 
@@ -123,9 +122,11 @@ import { BonequestSDK } from '@voxgig-sdk/bonequest-sdk'
 
 const client = new BonequestSDK()
 
-// Load episode data (returns a Episode)
-const episode = await client.Episode().load()
-console.log(episode)
+// List all episodes (returns EpisodeEntity[], one entity per record)
+const episodes = await client.Episode().list({ episode_number: 1 })
+for (const episode of episodes) {
+  console.log(episode.data())
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -140,9 +141,10 @@ See the [TypeScript README](ts/README.md) for the full guide.
 
 ## Use it from an AI agent (MCP)
 
-The generated MCP server exposes every operation in this SDK as an
-[MCP](https://modelcontextprotocol.io) tool that Claude, Cursor or Cline
-can call directly. Build and register it:
+The generated MCP server exposes this SDK's list operations as
+[MCP](https://modelcontextprotocol.io) tools that Claude, Cursor or Cline
+can call directly. It only reads: create, update, patch and remove become tools when the SDK's model sets
+`main: kit: target: 'go-mcp': tool: write: true`. Build and register it:
 
 ```bash
 cd go-mcp && go build -o bonequest-mcp .
@@ -166,11 +168,11 @@ The API exposes 3 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Episode** | The Episode entity (load). | `/episodes/random/{count}` |
+| **Episode** | The Episode entity (list). | `/episodes/random/{count}` |
 | **Quote** | The Quote entity (list). | `/quote/random` |
 | **Search** | The Search entity (list). | `/search/` |
 
-The operations available across these entities are **load**, **list** — see each entity's
+The operations available across these entities are **list** — see each entity's
 own list above for exactly which it supports.
 
 ## Quickstart in other languages
@@ -182,10 +184,10 @@ from bonequest_sdk import BonequestSDK
 
 client = BonequestSDK()
 
-
-# Load a specific episode (returns the record, raises on error)
-episode = client.Episode().load({"id": 1})
-print(episode)
+# List all episodes (a list of entities, one per record; raises on error)
+episodes = client.Episode().list({"episode_number": 1})
+for episode in episodes:
+    print(episode.data_get())
 ```
 
 ### PHP
@@ -196,10 +198,9 @@ require_once 'bonequest_sdk.php';
 
 $client = new BonequestSDK();
 
-
-// Load a specific episode (returns the ENTITY; call data_get() for the record; throws on error)
-$episode = $client->Episode()->load(["id" => 1]);
-print_r($episode->data_get());
+// List all episodes (an array of entities, one per record; throws on error)
+$episodes = $client->Episode()->list(["episode_number" => 1]);
+print_r(array_map(fn($item) => $item->data_get(), $episodes));
 ```
 
 ### Golang
@@ -209,12 +210,14 @@ import sdk "github.com/voxgig-sdk/bonequest-sdk/go"
 
 client := sdk.New()
 
-// Load episode data
-episode, err := client.Episode(nil).Load(map[string]any{"id": 1}, nil)
+// List all episodes (one entity per record; err is non-nil on failure)
+episodes, err := client.Episode(nil).List(map[string]any{"episode_number": 1}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(episode)
+for _, episode := range episodes.([]any) {
+    fmt.Println(episode.(sdk.Entity).Data())
+}
 ```
 
 ### Ruby
@@ -224,23 +227,25 @@ require_relative "Bonequest_sdk"
 
 client = BonequestSDK.new
 
-
-# Load a specific episode (returns the ENTITY; call data_get for the record)
-episode = client.Episode.load({ "id" => 1 })
-puts episode
+# List all episodes (an Array of entities, one per record; raises on error)
+episodes = client.Episode.list({ "episode_number" => 1 })
+episodes.each { |item| puts item.data_get }
 ```
 
 ### Lua
 
 ```lua
 local sdk = require("bonequest_sdk")
+local json = require("dkjson")
 
 local client = sdk.new()
 
-
--- Load a specific episode
-local episode, err = client:Episode():load({ id = 1 })
-print(episode)
+-- List all episodes (an array of entities, one per record; err on failure)
+local episodes, err = client:Episode():list({ episode_number = 1 })
+if err then error(err) end
+for _, episode in ipairs(episodes) do
+  print(json.encode(episode:data_get()))
+end
 ```
 
 ## Direct and prepare
@@ -266,10 +271,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
-if (result instanceof Error) {
-  throw result
+if (result.ok) {
+  console.log(result.data)
 }
-console.log(result.data)
 ```
 
 **Python:**
@@ -354,23 +358,52 @@ Pass custom features via the `extend` option at construction time.
 This repository contains its own generator (`.sdk/`), so the SDK is
 customizable without forking any upstream tool:
 
-- **The model** (`.sdk/model/`) declares everything this project owns:
-  package names, versions, active features, per-target settings. It is
-  written in [aontu](https://aontu.dev), a JSON-based
+- **The model** (`.sdk/model/`) is what generation reads: the API's
+  entities and operations, the targets, the features, and this project's
+  own settings. It is written in [aontu](https://aontu.dev), a JSON-based
   specification language designed for building ontologies: easy to edit
   by hand, and files unify rather than override, so small declarations
   compose into one model. Regeneration re-reads it every time.
 - **Templates** (`.sdk/tm/`) and **components** (`.sdk/src/cmp/`) are
   the two layers of generation, copied into this repo: templates are the
   literal per-language source, components generate the API-shaped parts.
-- **Regeneration merges.** By default, newly generated content is
-  three-way merged into existing files, so generator updates and local
-  edits usually converge without manual conflict handling. A project can
-  opt for plain overwrite instead.
+- **Regeneration overwrites.** Each run rewrites every generated file from
+  the model, the templates and the components, so an edit made to
+  generated output is lost. Say what this project needs in its own model
+  (`.sdk/model/project.aontu`), or extend a target with a component of its
+  own in `.sdk/src/cmp/<target>/`, registered with `registerComponent`,
+  which `voxgig-sdkgen doctor` reports as an addition rather than drift.
 - **Custom features and entire custom targets** arrive through sdkgen
   packages (`voxgig-sdkgen package add`), on the same rails as the
   bundled languages, and `voxgig-sdkgen doctor` reports any drift from
   what a resync would write.
+
+### Project map
+
+| Path | What it holds | Edit it? |
+| --- | --- | --- |
+| `.sdk/model/project.aontu` | This project's own decisions: package names, versions, features and per-target settings | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/text.aontu` | The README wording, in `main.kit.text`: the tagline, the summary and the entity descriptions | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/guide/guide.aontu` | How the spec's paths map onto entities and operations | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/`, the rest | The API model built from the spec, and the target and feature definitions | Not by hand. Generation, `target add` and a new scaffold run rewrite it. |
+| `.sdk/def/` | The OpenAPI spec | Replace it when the API changes. Generation rebuilds the model from it. |
+| `.sdk/src/cmp/<target>/`, `.sdk/tm/<target>/` | The components and templates that generate each target | Only to add a component of your own. `target add` overwrites the copies. |
+| `.sdk/test/` | The shared test cases the generated tests run | No. |
+| `<target>/`, such as `ts/` | One generated SDK per target, with its own tests | No. Generation overwrites it. |
+| `README.md`, `LICENSE`, `Makefile` and the other root files | The repository's generated files | No. Generation overwrites them. |
+
+### Common commands
+
+Run these from `.sdk/`:
+
+```bash
+npm run generate               # regenerate every target from the model
+npm run add-target <target>    # add a target, or resync one after an sdkgen update
+npm run add-feature <feature>  # add a feature to every target
+npx voxgig-sdkgen doctor       # report where .sdk/ differs from what a resync writes
+```
+
+In an SDK directory, `make test` runs that SDK's tests.
 
 How-to: [customize and propagate templates](https://github.com/voxgig/sdkgen/blob/main/docs/how-to/customize-and-propagate-templates.md).
 The full story: [voxgig.com/sdk/custom](https://voxgig.com/sdk/custom).

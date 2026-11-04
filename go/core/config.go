@@ -71,6 +71,7 @@ func MakeConfig() map[string]any {
 				},
 				"optspec": map[string]any{
 					"clearTimer": "`$FUNCTION`",
+					"now": "`$FUNCTION`",
 					"setTimer": "`$FUNCTION`",
 				},
 				"strict": false,
@@ -92,31 +93,101 @@ func MakeConfig() map[string]any {
 			"episode": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"name": "episodes",
-						"title": "Episodes",
+						"name": "day",
+						"title": "Day",
+						"type": "`$INTEGER`",
+						"short": "Day of month published",
+					},
+					map[string]any{
+						"name": "dialog",
+						"title": "Dialog",
 						"type": "`$ARRAY`",
+						"short": "Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog",
 					},
 					map[string]any{
-						"name": "id",
-						"title": "Id",
-						"type": "`$STRING`",
+						"name": "episode",
+						"title": "Episode",
+						"type": "`$INTEGER`",
+						"short": "Episode number",
 					},
 					map[string]any{
-						"name": "meta",
-						"title": "Meta",
+						"name": "hd",
+						"title": "Hd",
+						"type": "`$ARRAY`",
+						"short": "Optional array containing details about associated BoneQuest HD images",
+					},
+					map[string]any{
+						"name": "height",
+						"title": "Height",
+						"type": "`$INTEGER`",
+						"short": "Image height",
+					},
+					map[string]any{
+						"name": "hifi",
+						"title": "Hifi",
 						"type": "`$OBJECT`",
-						"short": "API metadata wrapper",
+						"short": "Optional details about an associated BoneQuest HiFi episode",
 					},
-				},
-				"id": map[string]any{
-					"field": "id",
-					"name": "id",
+					map[string]any{
+						"name": "image",
+						"title": "Image",
+						"type": "`$STRING`",
+						"short": "Partial URL to episode image",
+					},
+					map[string]any{
+						"name": "month",
+						"title": "Month",
+						"type": "`$INTEGER`",
+						"short": "Month published, number between 1-12",
+					},
+					map[string]any{
+						"name": "navigation",
+						"title": "Navigation",
+						"type": "`$OBJECT`",
+						"short": "Back and next keys contain fully-formed episode for surrounding episodes",
+					},
+					map[string]any{
+						"name": "players",
+						"title": "Players",
+						"type": "`$ARRAY`",
+						"short": "Array of player names",
+					},
+					map[string]any{
+						"name": "tags",
+						"title": "Tags",
+						"type": "`$ARRAY`",
+						"short": "Array of tags applied",
+					},
+					map[string]any{
+						"name": "thumb",
+						"title": "Thumb",
+						"type": "`$STRING`",
+						"short": "Partial URL to thumbnail of episode image",
+					},
+					map[string]any{
+						"name": "title",
+						"title": "Title",
+						"type": "`$STRING`",
+						"short": "Episode title",
+					},
+					map[string]any{
+						"name": "width",
+						"title": "Width",
+						"type": "`$INTEGER`",
+						"short": "Image width",
+					},
+					map[string]any{
+						"name": "year",
+						"title": "Year",
+						"type": "`$INTEGER`",
+						"short": "Year published",
+					},
 				},
 				"name": "episode",
 				"op": map[string]any{
-					"load": map[string]any{
+					"list": map[string]any{
 						"input": "data",
-						"name": "load",
+						"name": "list",
 						"points": []any{
 							map[string]any{
 								"kind": "http",
@@ -141,7 +212,7 @@ func MakeConfig() map[string]any {
 								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body`",
+									"res": "`body.episodes`",
 								},
 								"args": map[string]any{
 									"params": []any{
@@ -160,6 +231,10 @@ func MakeConfig() map[string]any {
 										"count",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 							map[string]any{
 								"kind": "http",
@@ -170,26 +245,26 @@ func MakeConfig() map[string]any {
 										"lit": "episode",
 									},
 									map[string]any{
-										"var": "id",
+										"var": "episode_number",
 									},
 								},
 								"parts": []any{
 									"episode",
-									"{id}",
+									"{episode_number}",
 								},
 								"rename": map[string]any{
 									"param": map[string]any{
-										"episodeNumber": "id",
+										"episodeNumber": "episode_number",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body`",
+									"res": "`body.episodes`",
 								},
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"name": "id",
+											"name": "episode_number",
 											"orig": "episodeNumber",
 											"type": "`$INTEGER`",
 											"kind": "param",
@@ -200,8 +275,12 @@ func MakeConfig() map[string]any {
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"id",
+										"episode_number",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 							map[string]any{
@@ -213,26 +292,26 @@ func MakeConfig() map[string]any {
 										"lit": "episodes",
 									},
 									map[string]any{
-										"var": "id",
+										"var": "episode_number",
 									},
 								},
 								"parts": []any{
 									"episodes",
-									"{id}",
+									"{episode_number}",
 								},
 								"rename": map[string]any{
 									"param": map[string]any{
-										"episodeNumbers": "id",
+										"episodeNumbers": "episode_number",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body`",
+									"res": "`body.episodes`",
 								},
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"name": "id",
+											"name": "episode_number",
 											"orig": "episodeNumbers",
 											"type": "`$STRING`",
 											"kind": "param",
@@ -243,8 +322,12 @@ func MakeConfig() map[string]any {
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"id",
+										"episode_number",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -281,11 +364,15 @@ func MakeConfig() map[string]any {
 								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body.quote`",
+									"res": "`body.episodes`",
 								},
 								"args": map[string]any{},
 								"select": map[string]any{
 									"$action": "random",
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -409,7 +496,7 @@ func MakeConfig() map[string]any {
 								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body.search`",
+									"res": "`body.episodes`",
 								},
 								"args": map[string]any{
 									"query": []any{
@@ -427,6 +514,10 @@ func MakeConfig() map[string]any {
 									"exist": []any{
 										"q",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},

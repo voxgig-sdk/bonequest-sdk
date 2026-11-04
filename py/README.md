@@ -5,7 +5,7 @@
 The Python SDK for the Bonequest API — an entity-oriented client following Pythonic conventions.
 
 The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Episode()` — each
-carrying a small, uniform set of operations (`list`, `load`) instead of raw URL
+carrying a small, uniform set of operations (`list`) instead of raw URL
 paths and query strings. You work with named resources and verbs, which
 keeps the cognitive load low.
 
@@ -15,7 +15,7 @@ keeps the cognitive load low.
 
 ## Install
 This package is not yet published to PyPI. Install it from the GitHub
-release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/bonequest-sdk/releases)) or
+release tag (`py/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/bonequest-sdk/tags)) or
 from a source checkout:
 
 ```bash
@@ -36,16 +36,18 @@ from bonequest_sdk import BonequestSDK
 client = BonequestSDK()
 ```
 
-### 3. Load an episode
+### 2. List episode records
 
-`load()` returns the ENTITY — call data_get() for the record — and raises on error.
+`list()` returns a `list` of entities, one per record, and raises on
+error; an entity's `data_get()` reads its record (a `dict`).
 
 ```python
 try:
-    episode = client.Episode().load({"id": 1})
-    print(episode)
+    episodes = client.Episode().list({"episode_number": 1})
+    for episode in episodes:
+        print(episode.data_get())
 except Exception as err:
-    print(f"load failed: {err}")
+    print(f"list failed: {err}")
 ```
 
 
@@ -55,10 +57,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    episode = client.Episode().load({"id": 1})
-    print(episode)
+    searchs = client.Search().list({"q": "example"})
+    print([item.data_get() for item in searchs])
 except Exception as err:
-    print(f"load failed: {err}")
+    print(f"list failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -122,10 +124,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = BonequestSDK.test()
 
-# Entity ops return the ENTITY and raises on error;
-# call data_get() for the record.
-episode = client.Episode().load({"id": "test01"})
-# episode contains the mock response record
+# Entity ops return the entity, and list one per record; they raise on error.
+search = client.Search().list({"q": "example"})
+# data_get() on an entity reads its mock response record
 ```
 
 ### Use a custom fetch function
@@ -211,8 +212,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria, one per record. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -222,9 +222,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
-ops, a `list` for `list`) and raise on error. Wrap calls in
-`try`/`except` to handle failures.
+Entity operations return the entity, and `list` a `list` of entities, one
+per record; an entity's `data_get()` reads its record (a `dict`). They raise
+on error, so wrap calls in `try`/`except` to handle failures.
 
 The `direct()` escape hatch never raises — it returns a result `dict`
 you branch on via `result["ok"]`:
@@ -244,11 +244,23 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `episodes` |  |
-| `id` |  |
-| `meta` | API metadata wrapper |
+| `day` | Day of month published |
+| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | Episode number |
+| `hd` | Optional array containing details about associated BoneQuest HD images |
+| `height` | Image height |
+| `hifi` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | Partial URL to episode image |
+| `month` | Month published, number between 1-12 |
+| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | Array of player names |
+| `tags` | Array of tags applied |
+| `thumb` | Partial URL to thumbnail of episode image |
+| `title` | Episode title |
+| `width` | Image width |
+| `year` | Year published |
 
-Operations: Load.
+Operations: List.
 
 API path: `/episodes/random/{count}`
 
@@ -298,20 +310,32 @@ Create an instance: `episode = client.Episode()`
 
 | Method | Description |
 | --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `episodes` | `list` |  |
-| `id` | `str` |  |
-| `meta` | `dict` | API metadata wrapper |
+| `day` | `int` | Day of month published |
+| `dialog` | `list` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `int` | Episode number |
+| `hd` | `list` | Optional array containing details about associated BoneQuest HD images |
+| `height` | `int` | Image height |
+| `hifi` | `dict` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `str` | Partial URL to episode image |
+| `month` | `int` | Month published, number between 1-12 |
+| `navigation` | `dict` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `list` | Array of player names |
+| `tags` | `list` | Array of tags applied |
+| `thumb` | `str` | Partial URL to thumbnail of episode image |
+| `title` | `str` | Episode title |
+| `width` | `int` | Image width |
+| `year` | `int` | Year published |
 
-#### Example: Load
+#### Example: List
 
 ```python
-episode = client.Episode().load({"id": 1})
+episodes = client.Episode().list({"episode_number": 1})
 ```
 
 
@@ -525,15 +549,15 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-episode = client.Episode()
-episode.load({"id": 1})
+search = client.Search()
+search.list({"q": "example"})
 
-# episode.data_get() now returns the episode data from the last load
-# episode.match_get() returns the last match criteria
+# search.data_get() now returns the search data from the last list
+# search.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

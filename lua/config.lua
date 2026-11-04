@@ -67,6 +67,7 @@ local function make_config()
         },
         ["optspec"] = {
           ["clearTimer"] = "`$FUNCTION`",
+          ["now"] = "`$FUNCTION`",
           ["setTimer"] = "`$FUNCTION`",
         },
         ["strict"] = false,
@@ -88,31 +89,101 @@ local function make_config()
       ["episode"] = {
         ["fields"] = {
           {
-            ["name"] = "episodes",
-            ["title"] = "Episodes",
+            ["name"] = "day",
+            ["title"] = "Day",
+            ["type"] = "`$INTEGER`",
+            ["short"] = "Day of month published",
+          },
+          {
+            ["name"] = "dialog",
+            ["title"] = "Dialog",
             ["type"] = "`$ARRAY`",
+            ["short"] = "Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog",
           },
           {
-            ["name"] = "id",
-            ["title"] = "Id",
-            ["type"] = "`$STRING`",
+            ["name"] = "episode",
+            ["title"] = "Episode",
+            ["type"] = "`$INTEGER`",
+            ["short"] = "Episode number",
           },
           {
-            ["name"] = "meta",
-            ["title"] = "Meta",
+            ["name"] = "hd",
+            ["title"] = "Hd",
+            ["type"] = "`$ARRAY`",
+            ["short"] = "Optional array containing details about associated BoneQuest HD images",
+          },
+          {
+            ["name"] = "height",
+            ["title"] = "Height",
+            ["type"] = "`$INTEGER`",
+            ["short"] = "Image height",
+          },
+          {
+            ["name"] = "hifi",
+            ["title"] = "Hifi",
             ["type"] = "`$OBJECT`",
-            ["short"] = "API metadata wrapper",
+            ["short"] = "Optional details about an associated BoneQuest HiFi episode",
           },
-        },
-        ["id"] = {
-          ["field"] = "id",
-          ["name"] = "id",
+          {
+            ["name"] = "image",
+            ["title"] = "Image",
+            ["type"] = "`$STRING`",
+            ["short"] = "Partial URL to episode image",
+          },
+          {
+            ["name"] = "month",
+            ["title"] = "Month",
+            ["type"] = "`$INTEGER`",
+            ["short"] = "Month published, number between 1-12",
+          },
+          {
+            ["name"] = "navigation",
+            ["title"] = "Navigation",
+            ["type"] = "`$OBJECT`",
+            ["short"] = "Back and next keys contain fully-formed episode for surrounding episodes",
+          },
+          {
+            ["name"] = "players",
+            ["title"] = "Players",
+            ["type"] = "`$ARRAY`",
+            ["short"] = "Array of player names",
+          },
+          {
+            ["name"] = "tags",
+            ["title"] = "Tags",
+            ["type"] = "`$ARRAY`",
+            ["short"] = "Array of tags applied",
+          },
+          {
+            ["name"] = "thumb",
+            ["title"] = "Thumb",
+            ["type"] = "`$STRING`",
+            ["short"] = "Partial URL to thumbnail of episode image",
+          },
+          {
+            ["name"] = "title",
+            ["title"] = "Title",
+            ["type"] = "`$STRING`",
+            ["short"] = "Episode title",
+          },
+          {
+            ["name"] = "width",
+            ["title"] = "Width",
+            ["type"] = "`$INTEGER`",
+            ["short"] = "Image width",
+          },
+          {
+            ["name"] = "year",
+            ["title"] = "Year",
+            ["type"] = "`$INTEGER`",
+            ["short"] = "Year published",
+          },
         },
         ["name"] = "episode",
         ["op"] = {
-          ["load"] = {
+          ["list"] = {
             ["input"] = "data",
-            ["name"] = "load",
+            ["name"] = "list",
             ["points"] = {
               {
                 ["kind"] = "http",
@@ -137,7 +208,7 @@ local function make_config()
                 ["rename"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
+                  ["res"] = "`body.episodes`",
                 },
                 ["args"] = {
                   ["params"] = {
@@ -156,6 +227,10 @@ local function make_config()
                     "count",
                   },
                 },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
+                },
               },
               {
                 ["kind"] = "http",
@@ -166,26 +241,26 @@ local function make_config()
                     ["lit"] = "episode",
                   },
                   {
-                    ["var"] = "id",
+                    ["var"] = "episode_number",
                   },
                 },
                 ["parts"] = {
                   "episode",
-                  "{id}",
+                  "{episode_number}",
                 },
                 ["rename"] = {
                   ["param"] = {
-                    ["episodeNumber"] = "id",
+                    ["episodeNumber"] = "episode_number",
                   },
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
+                  ["res"] = "`body.episodes`",
                 },
                 ["args"] = {
                   ["params"] = {
                     {
-                      ["name"] = "id",
+                      ["name"] = "episode_number",
                       ["orig"] = "episodeNumber",
                       ["type"] = "`$INTEGER`",
                       ["kind"] = "param",
@@ -196,8 +271,12 @@ local function make_config()
                 },
                 ["select"] = {
                   ["exist"] = {
-                    "id",
+                    "episode_number",
                   },
+                },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
                 },
               },
               {
@@ -209,26 +288,26 @@ local function make_config()
                     ["lit"] = "episodes",
                   },
                   {
-                    ["var"] = "id",
+                    ["var"] = "episode_number",
                   },
                 },
                 ["parts"] = {
                   "episodes",
-                  "{id}",
+                  "{episode_number}",
                 },
                 ["rename"] = {
                   ["param"] = {
-                    ["episodeNumbers"] = "id",
+                    ["episodeNumbers"] = "episode_number",
                   },
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
+                  ["res"] = "`body.episodes`",
                 },
                 ["args"] = {
                   ["params"] = {
                     {
-                      ["name"] = "id",
+                      ["name"] = "episode_number",
                       ["orig"] = "episodeNumbers",
                       ["type"] = "`$STRING`",
                       ["kind"] = "param",
@@ -239,8 +318,12 @@ local function make_config()
                 },
                 ["select"] = {
                   ["exist"] = {
-                    "id",
+                    "episode_number",
                   },
+                },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
                 },
               },
             },
@@ -277,11 +360,15 @@ local function make_config()
                 ["rename"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body.quote`",
+                  ["res"] = "`body.episodes`",
                 },
                 ["args"] = {},
                 ["select"] = {
                   ["$action"] = "random",
+                },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
                 },
               },
             },
@@ -405,7 +492,7 @@ local function make_config()
                 ["rename"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body.search`",
+                  ["res"] = "`body.episodes`",
                 },
                 ["args"] = {
                   ["query"] = {
@@ -423,6 +510,10 @@ local function make_config()
                   ["exist"] = {
                     "q",
                   },
+                },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
                 },
               },
             },

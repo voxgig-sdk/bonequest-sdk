@@ -15,6 +15,13 @@ import (
 	vs "github.com/voxgig-sdk/bonequest-sdk/go/utility/struct"
 )
 
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const episodeEntityLiveStrict = true
+
+
 func TestEpisodeEntity(t *testing.T) {
 	t.Run("instance", func(t *testing.T) {
 		testsdk := sdk.TestSDK(nil, nil)
@@ -24,7 +31,21 @@ func TestEpisodeEntity(t *testing.T) {
 		}
 	})
 
-	t.Run("basic", func(t *testing.T) {
+	t.Run("validate", func(t *testing.T) {
+		if !fhHasFeature("validate") {
+			t.Skip("feature not present in this SDK: validate")
+		}
+		client := sdk.TestSDK(nil, map[string]any{
+			"feature": map[string]any{"validate": map[string]any{"active": true}},
+		})
+		_, err := client.Episode(nil).List(map[string]any{"episode_number": "x"}, nil)
+		if sdkerr, ok := err.(*core.BonequestError); !ok || "validate_failed" != sdkerr.Code {
+			t.Fatalf("expected validate_failed, got %v", err)
+		}
+	})
+
+	t.Run("basic", func(tt *testing.T) {
+		var t testing.TB = tt
 		setup := episodeBasicSetup(nil)
 		// Per-op sdk-test-control.json skip — basic test exercises a flow
 		// with multiple ops; skipping any op skips the whole flow.
@@ -32,7 +53,7 @@ func TestEpisodeEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"load"} {
+		for _, _op := range []string{"list"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "episode." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -41,13 +62,8 @@ func TestEpisodeEntity(t *testing.T) {
 				return
 			}
 		}
-		// The basic flow consumes synthetic IDs from the fixture. In live mode
-		// without an *_ENTID env override, those IDs hit the live API and 4xx.
-		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set BONEQUEST_TEST_EPISODE_ENTID JSON to run live")
-			return
-		}
 		client := setup.client
+		_ = client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		episodeRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.episode")))
@@ -59,21 +75,28 @@ func TestEpisodeEntity(t *testing.T) {
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = episodeRef01Data
 
-		// LOAD
+		if setup.live {
+			livePace()
+		}
+		// LIST
 		episodeRef01Ent := client.Episode(nil)
-		episodeRef01MatchDt0 := map[string]any{
-			"id": episodeRef01Data["id"],
+		episodeRef01Match := map[string]any{
+			"episode_number": setup.idmap["episode_number01"],
 		}
-		episodeRef01DataDt0Loaded, err := episodeRef01Ent.Load(episodeRef01MatchDt0, nil)
+		if setup.live {
+			episodeRef01Match["count"] = 1
+			if setup.syntheticOnly || setup.idmap["episode_number01"] == nil {
+				delete(episodeRef01Match, "episode_number")
+			}
+		}
+
+		episodeRef01ListResult, err := episodeRef01Ent.List(episodeRef01Match, nil)
 		if err != nil {
-			t.Fatalf("load failed: %v", err)
+			t.Fatalf("list failed: %v", err)
 		}
-		episodeRef01DataDt0LoadResult := core.ToMapAny(entityData(episodeRef01DataDt0Loaded))
-		if episodeRef01DataDt0LoadResult == nil {
-			t.Fatal("expected load result to be a map")
-		}
-		if episodeRef01DataDt0LoadResult["id"] != episodeRef01Data["id"] {
-			t.Fatal("expected load result id to match")
+		_, episodeRef01ListOk := episodeRef01ListResult.([]any)
+		if !episodeRef01ListOk {
+			t.Fatalf("expected list result to be an array, got %T", episodeRef01ListResult)
 		}
 
 	})
@@ -104,7 +127,7 @@ func episodeBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"episode01", "episode02", "episode03"},
+		[]any{"episode01", "episode02", "episode03", "episode_number01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",
@@ -113,9 +136,8 @@ func episodeBasicSetup(extra map[string]any) *entityTestSetup {
 		},
 	)
 
-	// Detect ENTID env override before envOverride consumes it. When live
-	// mode is on without a real override, the basic test runs against synthetic
-	// IDs from the fixture and 4xx's. Surface this so the test can skip.
+	// Whether *_ENTID supplied the idmap, read before envOverride consumes it:
+	// without it, the ids a live flow binds are the fixture's synthetic ones.
 	entidEnvRaw := os.Getenv("BONEQUEST_TEST_EPISODE_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 

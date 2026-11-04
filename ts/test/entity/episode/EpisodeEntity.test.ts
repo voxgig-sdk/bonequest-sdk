@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { BonequestSDK, BaseFeature, stdutil } from '../../..'
+import { BonequestSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,17 +41,29 @@ describe('EpisodeEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = BonequestSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Episode().list({"episode_number":"x"} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.BONEQUEST_TEST_LIVE
-    for (const op of ['load']) {
+    for (const op of ['list']) {
       if (!live && maybeSkipControl(t, 'entityOp', 'episode.' + op, live)) return
     }
 
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"episodes":{"a":true,"h":"Episodes","n":"episodes","r":false,"t":"`$ARRAY`","key$":"episodes","index$":0},"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":1},"meta":{"a":true,"h":"Meta","n":"meta","r":false,"sh":"API metadata wrapper","t":"`$OBJECT`","key$":"meta","index$":2}},"id":{"field":"id","name":"id"},"name":"episode","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /episodes/random/{count}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":1,"k":"param","n":"count","or":"count","r":true,"t":"`$INTEGER`","index$":0}]},"k":"http","m":"GET","o":"/episodes/random/{count}","q":{"exist":["count"]},"r":{},"s":[{"lit":"episodes"},{"lit":"random"},{"var":"count"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0},{"a":true,"co":{"id":"GET /episode/{episodeNumber}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":420,"k":"param","n":"id","or":"episodeNumber","r":true,"t":"`$INTEGER`","index$":0}]},"k":"http","m":"GET","o":"/episode/{episodeNumber}","q":{"exist":["id"]},"r":{"param":{"episodeNumber":"id"}},"s":[{"lit":"episode"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0},{"a":true,"co":{"id":"GET /episodes/{episodeNumbers}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":"666,667","k":"param","n":"id","or":"episodeNumbers","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/episodes/{episodeNumbers}","q":{"exist":["id"]},"r":{"param":{"episodeNumbers":"id"}},"s":[{"lit":"episodes"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":2}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"episode","name__orig":"episode","Name":"Episode","name_":"episode","name-":"episode","NAME":"EPISODE","index$":0}, {"active":true,"entity":"episode","key$":"BasicEpisodeFlow","kind":"basic","name":"BasicEpisodeFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"episode_ref01","srcdatavar":"episode_ref01_data","suffix":"_dt0"},"m":{"id":"episode01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-episode_ref01"}}],"index$":0}]}, 'Episode', {"GET /episodes/random/{count}":{"protocol":"http","parameters":[{"name":"count","in":"path","required":true,"description":"The number of random episodes to retrieve","schema":{"type":"integer","minimum":1,"example":1},"index$":0}]},"GET /episode/{episodeNumber}":{"protocol":"http","parameters":[{"name":"episodeNumber","in":"path","required":true,"description":"The episode number to retrieve","schema":{"type":"integer","example":420},"index$":0}]},"GET /episodes/{episodeNumbers}":{"protocol":"http","parameters":[{"name":"episodeNumbers","in":"path","required":true,"description":"Comma-separated list of episode numbers to retrieve","schema":{"type":"string","example":"666,667"},"index$":0}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"day":{"a":true,"h":"Day","n":"day","r":false,"sh":"Day of month published","t":"`$INTEGER`","key$":"day","index$":0},"dialog":{"a":true,"h":"Dialog","n":"dialog","r":false,"sh":"Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog","t":"`$ARRAY`","key$":"dialog","index$":1},"episode":{"a":true,"h":"Episode","n":"episode","r":false,"sh":"Episode number","t":"`$INTEGER`","key$":"episode","index$":2},"hd":{"a":true,"h":"Hd","n":"hd","r":false,"sh":"Optional array containing details about associated BoneQuest HD images","t":"`$ARRAY`","key$":"hd","index$":3},"height":{"a":true,"h":"Height","n":"height","r":false,"sh":"Image height","t":"`$INTEGER`","key$":"height","index$":4},"hifi":{"a":true,"h":"Hifi","n":"hifi","r":false,"sh":"Optional details about an associated BoneQuest HiFi episode","t":"`$OBJECT`","key$":"hifi","index$":5},"image":{"a":true,"h":"Image","n":"image","r":false,"sh":"Partial URL to episode image","t":"`$STRING`","key$":"image","index$":6},"month":{"a":true,"h":"Month","n":"month","r":false,"sh":"Month published, number between 1-12","t":"`$INTEGER`","key$":"month","index$":7},"navigation":{"a":true,"h":"Navigation","n":"navigation","r":false,"sh":"Back and next keys contain fully-formed episode for surrounding episodes","t":"`$OBJECT`","key$":"navigation","index$":8},"players":{"a":true,"h":"Players","n":"players","r":false,"sh":"Array of player names","t":"`$ARRAY`","key$":"players","index$":9},"tags":{"a":true,"h":"Tags","n":"tags","r":false,"sh":"Array of tags applied","t":"`$ARRAY`","key$":"tags","index$":10},"thumb":{"a":true,"h":"Thumb","n":"thumb","r":false,"sh":"Partial URL to thumbnail of episode image","t":"`$STRING`","key$":"thumb","index$":11},"title":{"a":true,"h":"Title","n":"title","r":false,"sh":"Episode title","t":"`$STRING`","key$":"title","index$":12},"width":{"a":true,"h":"Width","n":"width","r":false,"sh":"Image width","t":"`$INTEGER`","key$":"width","index$":13},"year":{"a":true,"h":"Year","n":"year","r":false,"sh":"Year published","t":"`$INTEGER`","key$":"year","index$":14}},"name":"episode","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /episodes/random/{count}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":1,"k":"param","n":"count","or":"count","r":true,"t":"`$INTEGER`","index$":0}]},"k":"http","m":"GET","o":"/episodes/random/{count}","q":{"exist":["count"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"episodes"},{"lit":"random"},{"var":"count"}],"t":{"req":"`reqdata`","res":"`body.episodes`"},"index$":0},{"a":true,"co":{"id":"GET /episode/{episodeNumber}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":420,"k":"param","n":"episode_number","or":"episodeNumber","r":true,"t":"`$INTEGER`","index$":0}]},"k":"http","m":"GET","o":"/episode/{episodeNumber}","q":{"exist":["episode_number"]},"r":{"param":{"episodeNumber":"episode_number"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"episode"},{"var":"episode_number"}],"t":{"req":"`reqdata`","res":"`body.episodes`"},"index$":1},{"a":true,"co":{"id":"GET /episodes/{episodeNumbers}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":"666,667","k":"param","n":"episode_number","or":"episodeNumbers","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/episodes/{episodeNumbers}","q":{"exist":["episode_number"]},"r":{"param":{"episodeNumbers":"episode_number"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"episodes"},{"var":"episode_number"}],"t":{"req":"`reqdata`","res":"`body.episodes`"},"index$":2}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"episode","name__orig":"episode","Name":"Episode","name_":"episode","name-":"episode","NAME":"EPISODE","index$":0}, {"active":true,"entity":"episode","key$":"BasicEpisodeFlow","kind":"basic","name":"BasicEpisodeFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{"episode_number":"episode_number01"},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"episode_ref01"}}],"index$":0}]}, 'Episode', {"GET /episodes/random/{count}":{"protocol":"http","parameters":[{"name":"count","in":"path","required":true,"description":"The number of random episodes to retrieve","schema":{"type":"integer","minimum":1,"example":1},"index$":0}]},"GET /episode/{episodeNumber}":{"protocol":"http","parameters":[{"name":"episodeNumber","in":"path","required":true,"description":"The episode number to retrieve","schema":{"type":"integer","example":420},"index$":0}]},"GET /episodes/{episodeNumbers}":{"protocol":"http","parameters":[{"name":"episodeNumbers","in":"path","required":true,"description":"Comma-separated list of episode numbers to retrieve","schema":{"type":"string","example":"666,667"},"index$":0}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -61,18 +73,24 @@ describe('EpisodeEntity', async () => {
 
     let episode_ref01_data = Object.values(setup.data.existing.episode)[0] as any
 
-    // LOAD
+    // LIST
     const episode_ref01_ent = client.Episode()
-    const episode_ref01_match_dt0: any = {}
-    episode_ref01_match_dt0.id = episode_ref01_data.id
-    const episode_ref01_data_dt0 = (await episode_ref01_ent.load(episode_ref01_match_dt0)).data()
-    assert(episode_ref01_data_dt0.id === episode_ref01_data.id)
+    const episode_ref01_match: any = {}
+    episode_ref01_match['episode_number'] = setup.idmap['episode_number01']
+
+    const episode_ref01_list = (await episode_ref01_ent.list(episode_ref01_match)).map((e: any) => e.data())
 
 
   })
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options
@@ -97,7 +115,7 @@ function basicSetup(extra?: any) {
   const transform = struct.transform
 
   let idmap = transform(
-    ['episode01','episode02','episode03'],
+    ['episode01','episode02','episode03','episode_number01'],
     {
       '`$PACK`': ['', {
         '`$KEY`': '`$COPY`',

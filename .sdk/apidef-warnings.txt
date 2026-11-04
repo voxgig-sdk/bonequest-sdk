@@ -1,0 +1,11 @@
+{
+  point: "warning"
+  note: "Points GET /episode/{episodeNumber} and GET /episodes/{episodeNumbers} on entity=episode op=list have the same selector (exist: episode_number), so only GET /episode/{episodeNumber} is ever chosen. An action or another entity in guide.aontu tells them apart."
+  entity: "episode"
+  op: "list"
+  points: [
+    "GET /episode/{episodeNumber}"
+    "GET /episodes/{episodeNumbers}"
+  ]
+
+}

@@ -8,6 +8,13 @@ local runner = require("test.runner")
 
 local _test_dir = debug.getinfo(1, "S").source:match("^@(.+/)")  or "./"
 
+-- main.kit.test.live.strict is true (the default is true): a live
+-- request that fails, or a live test missing an input it needs,
+-- fails the test.
+-- An account with no record for a test to read skips it either way.
+local LIVE_STRICT = true
+
+
 describe("EpisodeEntity", function()
   it("should create instance", function()
     local testsdk = sdk.test(nil, nil)
@@ -15,22 +22,27 @@ describe("EpisodeEntity", function()
     assert.is_not_nil(ent)
   end)
 
+  it("should refuse an invalid request", function()
+    local config = require("config_shared")()
+    if type(config.feature) ~= "table" or config.feature.validate == nil then
+      pending("feature not present in this SDK: validate")
+      return
+    end
+    local client = sdk.test(nil, { feature = { validate = { active = true } } })
+    local _, err = client:Episode(nil):list({ ["episode_number"] = "x" }, nil)
+    assert.are.equal("validate_failed", type(err) == "table" and err.code or nil)
+  end)
+
   it("should run basic flow", function()
     local setup = episode_basic_setup(nil)
     -- Per-op sdk-test-control.json skip.
     local _live = setup.live or false
-    for _, _op in ipairs({"load"}) do
+    for _, _op in ipairs({"list"}) do
       local _should_skip, _reason = runner.is_control_skipped("entityOp", "episode." .. _op, _live and "live" or "unit")
       if _should_skip then
         pending(_reason or "skipped via sdk-test-control.json")
         return
       end
-    end
-    -- The basic flow consumes synthetic IDs from the fixture. In live mode
-    -- without an *_ENTID env override, those IDs hit the live API and 4xx.
-    if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set BONEQUEST_TEST_EPISODE_ENTID JSON to run live")
-      return
     end
     local client = setup.client
 
@@ -42,16 +54,24 @@ describe("EpisodeEntity", function()
       episode_ref01_data = helpers.to_map(episode_ref01_data_raw[1][2])
     end
 
-    -- LOAD
+    if setup.live then
+      runner.live_pace()
+    end
+    -- LIST
     local episode_ref01_ent = client:Episode(nil)
-    local episode_ref01_match_dt0 = {
-      id = episode_ref01_data["id"],
+    local episode_ref01_match = {
+      ["episode_number"] = setup.idmap["episode_number01"],
     }
-    local episode_ref01_data_dt0_loaded, err = episode_ref01_ent:load(episode_ref01_match_dt0, nil)
+    if setup.live then
+      episode_ref01_match["count"] = 1
+      if setup.synthetic_only or setup.idmap["episode_number01"] == nil then
+        episode_ref01_match["episode_number"] = nil
+      end
+    end
+
+    local episode_ref01_list_result, err = episode_ref01_ent:list(episode_ref01_match, nil)
     assert.is_nil(err)
-    local episode_ref01_data_dt0_load_result = helpers.to_map(type(episode_ref01_data_dt0_loaded) == 'table' and episode_ref01_data_dt0_loaded.data_get and episode_ref01_data_dt0_loaded:data_get() or episode_ref01_data_dt0_loaded)
-    assert.is_not_nil(episode_ref01_data_dt0_load_result)
-    assert.are.equal(episode_ref01_data_dt0_load_result["id"], episode_ref01_data["id"])
+    assert.is_table(episode_ref01_list_result)
 
   end)
 end)
@@ -76,7 +96,7 @@ function episode_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "episode01", "episode02", "episode03" },
+    { "episode01", "episode02", "episode03", "episode_number01" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",
@@ -85,9 +105,8 @@ function episode_basic_setup(extra)
     }
   )
 
-  -- Detect ENTID env override before envOverride consumes it. When live
-  -- mode is on without a real override, the basic test runs against synthetic
-  -- IDs from the fixture and 4xx's. Surface this so the test can skip.
+  -- Whether *_ENTID supplied the idmap, read before env_override consumes
+  -- it: without it, the ids a live flow binds are the fixture's synthetic ones.
   local entid_env_raw = os.getenv("BONEQUEST_TEST_EPISODE_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 

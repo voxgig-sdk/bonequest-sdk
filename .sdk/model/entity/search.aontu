@@ -142,6 +142,10 @@ main: kit: entity: search: {
               "q"
             ]
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "search"
@@ -149,7 +153,7 @@ main: kit: entity: search: {
           ]
           t: {
             req: "`reqdata`"
-            res: "`body.search`"
+            res: "`body.episodes`"
           }
         }
       ]

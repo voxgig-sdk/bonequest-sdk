@@ -11,6 +11,12 @@ use Voxgig\Struct\Struct as Vs;
 
 class EpisodeEntityTest extends TestCase
 {
+    // main.kit.test.live.strict is true (the default is true): a live
+    // request that fails, or a live test missing an input it needs,
+    // fails the test.
+    // An account with no record for a test to read skips it either way.
+    private const LIVE_STRICT = true;
+
     public function test_create_instance(): void
     {
         $testsdk = BonequestSDK::test(null, null);
@@ -18,23 +24,33 @@ class EpisodeEntityTest extends TestCase
         $this->assertNotNull($ent);
     }
 
+    public function test_validate(): void
+    {
+        $cfg = BonequestConfig::shared_config();
+        if (!isset($cfg["feature"]["validate"])) {
+            $this->markTestSkipped('feature not present in this SDK: validate');
+        }
+        $client = BonequestSDK::test(null, ["feature" => ["validate" => ["active" => true]]]);
+        $err = null;
+        try {
+            $client->Episode(null)->list(["episode_number" => 'x'], null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertSame('validate_failed', $err->sdk_code ?? null);
+    }
+
     public function test_basic_flow(): void
     {
         $setup = episode_basic_setup(null);
         // Per-op sdk-test-control.json skip.
         $_live = !empty($setup["live"]);
-        foreach (["load"] as $_op) {
+        foreach (["list"] as $_op) {
             [$_shouldSkip, $_reason] = Runner::is_control_skipped("entityOp", "episode." . $_op, $_live ? "live" : "unit");
             if ($_shouldSkip) {
                 $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
                 return;
             }
-        }
-        // The basic flow consumes synthetic IDs from the fixture. In live mode
-        // without an *_ENTID env override, those IDs hit the live API and 4xx.
-        if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set BONEQUEST_TEST_EPISODE_ENTID JSON to run live");
-            return;
         }
         $client = $setup["client"];
 
@@ -46,15 +62,23 @@ class EpisodeEntityTest extends TestCase
             $episode_ref01_data = Helpers::to_map($episode_ref01_data_raw[0][1]);
         }
 
-        // LOAD
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
+        }
+        // LIST
         $episode_ref01_ent = $client->Episode(null);
-        $episode_ref01_match_dt0 = [
-            "id" => $episode_ref01_data["id"],
+        $episode_ref01_match = [
+            "episode_number" => $setup["idmap"]["episode_number01"] ?? null,
         ];
-        $episode_ref01_data_dt0_loaded = $episode_ref01_ent->load($episode_ref01_match_dt0, null);
-        $episode_ref01_data_dt0_load_result = Helpers::to_map(is_object($episode_ref01_data_dt0_loaded) && method_exists($episode_ref01_data_dt0_loaded, 'data_get') ? $episode_ref01_data_dt0_loaded->data_get() : $episode_ref01_data_dt0_loaded);
-        $this->assertNotNull($episode_ref01_data_dt0_load_result);
-        $this->assertEquals($episode_ref01_data_dt0_load_result["id"], $episode_ref01_data["id"]);
+        if (!empty($setup["live"])) {
+            $episode_ref01_match["count"] = 1;
+            if (!empty($setup["synthetic_only"]) || null === ($setup["idmap"]["episode_number01"] ?? null)) {
+                unset($episode_ref01_match["episode_number"]);
+            }
+        }
+
+        $episode_ref01_list_result = $episode_ref01_ent->list($episode_ref01_match, null);
+        $this->assertIsArray($episode_ref01_list_result);
 
     }
 }
@@ -74,13 +98,12 @@ function episode_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["episode01", "episode02", "episode03"] as $k) {
+    foreach (["episode01", "episode02", "episode03", "episode_number01"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 
-    // Detect ENTID env override before envOverride consumes it. When live
-    // mode is on without a real override, the basic test runs against synthetic
-    // IDs from the fixture and 4xx's. Surface this so the test can skip.
+    // Whether *_ENTID supplied the idmap, read before env_override consumes
+    // it: without it, the ids a live flow binds are the fixture's synthetic ones.
     $entid_env_raw = getenv("BONEQUEST_TEST_EPISODE_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 

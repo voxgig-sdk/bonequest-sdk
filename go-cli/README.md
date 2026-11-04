@@ -19,15 +19,15 @@ make build
 export BONEQUEST_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
-./bonequest-cli load 1 episode            # {id:1} shorthand
-./bonequest-cli load '{id:1}' episode       # explicit match map
+./bonequest-cli list episode
+./bonequest-cli list quote
 
 # 5. Override the API base URL for a single call
-BONEQUEST_BASE=https://api.example.com ./bonequest-cli load 1 episode
+BONEQUEST_BASE=https://api.example.com ./bonequest-cli list episode
 
 # 6. No arguments -> interactive REPL
 ./bonequest-cli
-bonequest> load 1 episode
+bonequest> list episode
 bonequest> /quit
 ```
 
@@ -53,7 +53,7 @@ bonequest> /quit
    arguments to open the REPL):
 
    ```sh
-   ./dist/*/bonequest-cli load 1 episode
+   ./dist/*/bonequest-cli list episode
    ```
 
 4. **Go interactive.** Run the binary with no arguments to open the REPL, then
@@ -63,15 +63,14 @@ That is the whole loop: *build → set key → evaluate boru expressions*.
 
 ## How-to guides
 
-### Load a single record
+### List the records of an entity
 
 ```sh
-./bonequest-cli load 1 episode          # scalar shorthand for {id:1}
-./bonequest-cli load '{id:1}' episode     # explicit match map
+./bonequest-cli list episode
 ```
 
-The query is either a **scalar** (`1`, treated as `{id:1}`) or a **match map**
-(`{id:1}`, `{slug:"acme"}`). Quote the map so your shell passes it through intact.
+`list <entity>` returns the first page of records. `<entity>` is a bareword —
+it is auto-quoted as an boru atom, so no quotes are needed.
 
 ### Authenticate and choose an environment
 
@@ -80,7 +79,7 @@ Configuration is read from the environment — nothing is written to disk:
 ```sh
 export BONEQUEST_APIKEY=sk_live_xxx            # API key
 export BONEQUEST_BASE=https://api.example.com  # optional: override the API base URL
-./bonequest-cli load 1 episode
+./bonequest-cli list episode
 ```
 
 Both are injectable by a secrets vault, so the key never has to be typed inline.
@@ -92,7 +91,7 @@ evaluated as its own boru expression:
 
 ```text
 $ ./bonequest-cli
-bonequest> load 1 episode
+bonequest> list episode
 bonequest> /help
 bonequest> /quit
 ```
@@ -118,7 +117,6 @@ The CLI registers these boru words, each bound to the SDK:
 | Word     | Signatures                                    | Returns                        |
 |----------|-----------------------------------------------|--------------------------------|
 | `list`   | `list <entity>` · `list <query> <entity>`     | First page of records          |
-| `load`   | `load <entity>` · `load <query> <entity>`     | A single record                |
 
 - `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `episode`).
 - `<query>` is either a **Map** (`{id:1}`) or a **Scalar** (`1`, treated as

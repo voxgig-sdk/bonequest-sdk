@@ -47,15 +47,15 @@ client := sdk.TestSDK(testopts, sdkopts)
 
 ### Instance Methods
 
-#### `Episode(data map[string]any) BonequestEntity`
+#### `Episode(data map[string]any) BonequestEntityBase`
 
 Create a new `Episode` entity instance. Pass `nil` for no initial data.
 
-#### `Quote(data map[string]any) BonequestEntity`
+#### `Quote(data map[string]any) BonequestEntityBase`
 
 Create a new `Quote` entity instance. Pass `nil` for no initial data.
 
-#### `Search(data map[string]any) BonequestEntity`
+#### `Search(data map[string]any) BonequestEntityBase`
 
 Create a new `Search` entity instance. Pass `nil` for no initial data.
 
@@ -106,22 +106,36 @@ fmt.Println(episode.GetName()) // "episode"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episodes` | `[]any` | No |  |
-| `id` | `string` | No |  |
-| `meta` | `map[string]any` | No | API metadata wrapper |
+| `day` | `int` | No | Day of month published |
+| `dialog` | `[]any` | No | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `int` | No | Episode number |
+| `hd` | `[]any` | No | Optional array containing details about associated BoneQuest HD images |
+| `height` | `int` | No | Image height |
+| `hifi` | `map[string]any` | No | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | No | Partial URL to episode image |
+| `month` | `int` | No | Month published, number between 1-12 |
+| `navigation` | `map[string]any` | No | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `[]any` | No | Array of player names |
+| `tags` | `[]any` | No | Array of tags applied |
+| `thumb` | `string` | No | Partial URL to thumbnail of episode image |
+| `title` | `string` | No | Episode title |
+| `width` | `int` | No | Image width |
+| `year` | `int` | No | Year published |
 
 ### Operations
 
-#### `Load(reqmatch, ctrl map[string]any) (any, error)`
+#### `List(reqmatch, ctrl map[string]any) (any, error)`
 
-Load a single entity matching the given criteria.
+List entities matching the given criteria. Returns a `[]any` of entities, one per record; `err` is non-nil on failure.
 
 ```go
-result, err := client.Episode(nil).Load(map[string]any{"id": 1}, nil)
+results, err := client.Episode(nil).List(map[string]any{"episode_number": 1}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+for _, item := range results.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ### Common Methods
@@ -141,6 +155,14 @@ Get or set the entity match criteria. Works the same as `Data()`.
 Create a new `EpisodeEntity` instance with the same client and
 options.
 
+#### `Stream(action string, args map[string]any, callopts map[string]any) <-chan StreamItem`
+
+Run an operation through the pipeline and send its result items on the
+returned channel, which closes when the stream ends. A `StreamItem` holds
+one item in `Item`, or in `Err` the error that ended the stream: the
+error the operation itself would return, sent as the last value. Under
+`throw: false` in `callopts["ctrl"]`, no error is sent.
+
 #### `GetName() string`
 
 Return the entity name.
@@ -159,14 +181,16 @@ fmt.Println(quote.GetName()) // "quote"
 
 #### `List(reqmatch, ctrl map[string]any) (any, error)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a `[]any` of entities, one per record; `err` is non-nil on failure.
 
 ```go
 results, err := client.Quote(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(results)
+for _, item := range results.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ### Common Methods
@@ -185,6 +209,14 @@ Get or set the entity match criteria. Works the same as `Data()`.
 
 Create a new `QuoteEntity` instance with the same client and
 options.
+
+#### `Stream(action string, args map[string]any, callopts map[string]any) <-chan StreamItem`
+
+Run an operation through the pipeline and send its result items on the
+returned channel, which closes when the stream ends. A `StreamItem` holds
+one item in `Item`, or in `Err` the error that ended the stream: the
+error the operation itself would return, sent as the last value. Under
+`throw: false` in `callopts["ctrl"]`, no error is sent.
 
 #### `GetName() string`
 
@@ -224,14 +256,16 @@ fmt.Println(search.GetName()) // "search"
 
 #### `List(reqmatch, ctrl map[string]any) (any, error)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a `[]any` of entities, one per record; `err` is non-nil on failure.
 
 ```go
-results, err := client.Search(nil).List(nil, nil)
+results, err := client.Search(nil).List(map[string]any{"q": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(results)
+for _, item := range results.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ### Common Methods
@@ -250,6 +284,14 @@ Get or set the entity match criteria. Works the same as `Data()`.
 
 Create a new `SearchEntity` instance with the same client and
 options.
+
+#### `Stream(action string, args map[string]any, callopts map[string]any) <-chan StreamItem`
+
+Run an operation through the pipeline and send its result items on the
+returned channel, which closes when the stream ends. A `StreamItem` holds
+one item in `Item`, or in `Err` the error that ended the stream: the
+error the operation itself would return, sent as the last value. Under
+`throw: false` in `callopts["ctrl"]`, no error is sent.
 
 #### `GetName() string`
 
@@ -415,6 +457,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

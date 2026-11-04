@@ -95,18 +95,32 @@ episode = client.Episode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episodes` | `list` | No |  |
-| `id` | `str` | No |  |
-| `meta` | `dict` | No | API metadata wrapper |
+| `day` | `int` | No | Day of month published |
+| `dialog` | `list` | No | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `int` | No | Episode number |
+| `hd` | `list` | No | Optional array containing details about associated BoneQuest HD images |
+| `height` | `int` | No | Image height |
+| `hifi` | `dict` | No | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `str` | No | Partial URL to episode image |
+| `month` | `int` | No | Month published, number between 1-12 |
+| `navigation` | `dict` | No | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `list` | No | Array of player names |
+| `tags` | `list` | No | Array of tags applied |
+| `thumb` | `str` | No | Partial URL to thumbnail of episode image |
+| `title` | `str` | No | Episode title |
+| `width` | `int` | No | Image width |
+| `year` | `int` | No | Year published |
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> dict`
+#### `list(reqmatch=None, ctrl=None) -> list[EpisodeEntity]`
 
-Load a single entity matching the given criteria. Returns the entity data and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
-result = client.Episode().load({"id": 1})
+results = client.Episode().list({"episode_number": 1})
+for episode in results:
+    print(episode.data_get())
 ```
 
 ### Common Methods
@@ -146,14 +160,14 @@ quote = client.Quote()
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list[QuoteEntity]`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
 results = client.Quote().list()
 for quote in results:
-    print(quote)
+    print(quote.data_get())
 ```
 
 ### Common Methods
@@ -213,14 +227,14 @@ search = client.Search()
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list[SearchEntity]`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
 results = client.Search().list({"q": "example"})
 for search in results:
-    print(search)
+    print(search.data_get())
 ```
 
 ### Common Methods
@@ -409,6 +423,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

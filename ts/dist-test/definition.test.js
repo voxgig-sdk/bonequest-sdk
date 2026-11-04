@@ -11,7 +11,7 @@ const PLAN = [
     {
         "entity": "episode",
         "accessor": "Episode",
-        "op": "load",
+        "op": "list",
         "method": "GET",
         "path": "/episodes/random/{count}",
         "args": [
@@ -23,7 +23,12 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
@@ -63,25 +68,25 @@ const PLAN = [
                     "height": 574,
                     "hd": [
                         {
-                            "author": "eyetooth",
-                            "height": 200,
                             "id": 2787,
+                            "author": "eyetooth",
                             "image": "http://31.media.tumblr.com/389cf0c4c9d36943f0a9aa7007e70bbf/tumblr_mlkg3kfWHP1snfhwio1_1280.png",
-                            "link_status": "",
+                            "url": "http://jerkcityhd.tumblr.com/post/48734349486/up-late",
                             "mirror_url": "/hd/1.2787.jpg",
                             "thumb_url": "/hd/t/1.2787.jpg",
-                            "url": "http://jerkcityhd.tumblr.com/post/48734349486/up-late",
-                            "width": 144
+                            "width": 144,
+                            "height": 200,
+                            "link_status": ""
                         }
                     ],
                     "hifi": {
+                        "hifi_id": 501,
                         "audio_url": "http://bonequesthifi.com/6969.mp3",
+                        "page_url": "https://bonequesthifi.com/6969",
                         "author": "BoneQuest Hi-Fi",
-                        "create_date": 1550592000,
                         "description": "an audio production of BoneQuest #6969, featuring: @hydra2134, bonus suspended @IHaveShitMyself.\nit's time.\n~BoneQuest Hi-Fi",
                         "duration": "0:30",
-                        "hifi_id": 501,
-                        "page_url": "https://bonequesthifi.com/6969"
+                        "create_date": 1550592000
                     },
                     "navigation": {
                         "back": [
@@ -125,13 +130,22 @@ const PLAN = [
         "args": [],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
             "episodes": [
                 {
+                    "episode": 6969,
                     "day": 20,
+                    "month": 4,
+                    "year": 2018,
+                    "title": "sex change",
                     "dialog": [
                         [
                             "deuce",
@@ -146,40 +160,6 @@ const PLAN = [
                             "SURPRISE ME"
                         ]
                     ],
-                    "episode": 6969,
-                    "hd": [
-                        {
-                            "author": "eyetooth",
-                            "height": 200,
-                            "id": 2787,
-                            "image": "http://31.media.tumblr.com/389cf0c4c9d36943f0a9aa7007e70bbf/tumblr_mlkg3kfWHP1snfhwio1_1280.png",
-                            "link_status": "",
-                            "mirror_url": "/hd/1.2787.jpg",
-                            "thumb_url": "/hd/t/1.2787.jpg",
-                            "url": "http://jerkcityhd.tumblr.com/post/48734349486/up-late",
-                            "width": 144
-                        }
-                    ],
-                    "height": 574,
-                    "hifi": {
-                        "audio_url": "http://bonequesthifi.com/6969.mp3",
-                        "author": "BoneQuest Hi-Fi",
-                        "create_date": 1550592000,
-                        "description": "an audio production of BoneQuest #6969, featuring: @hydra2134, bonus suspended @IHaveShitMyself.\nit's time.\n~BoneQuest Hi-Fi",
-                        "duration": "0:30",
-                        "hifi_id": 501,
-                        "page_url": "https://bonequesthifi.com/6969"
-                    },
-                    "image": "/6969.gif",
-                    "month": 4,
-                    "navigation": {
-                        "back": [
-                            {}
-                        ],
-                        "next": [
-                            {}
-                        ]
-                    },
                     "players": [
                         "deuce",
                         "pants"
@@ -189,16 +169,48 @@ const PLAN = [
                         "deuce-pants",
                         "sex-change"
                     ],
+                    "image": "/6969.gif",
                     "thumb": "/thumb/6969.gif",
-                    "title": "sex change",
                     "width": 575,
-                    "year": 2018
+                    "height": 574,
+                    "hd": [
+                        {
+                            "id": 2787,
+                            "author": "eyetooth",
+                            "image": "http://31.media.tumblr.com/389cf0c4c9d36943f0a9aa7007e70bbf/tumblr_mlkg3kfWHP1snfhwio1_1280.png",
+                            "url": "http://jerkcityhd.tumblr.com/post/48734349486/up-late",
+                            "mirror_url": "/hd/1.2787.jpg",
+                            "thumb_url": "/hd/t/1.2787.jpg",
+                            "width": 144,
+                            "height": 200,
+                            "link_status": ""
+                        }
+                    ],
+                    "hifi": {
+                        "hifi_id": 501,
+                        "audio_url": "http://bonequesthifi.com/6969.mp3",
+                        "page_url": "https://bonequesthifi.com/6969",
+                        "author": "BoneQuest Hi-Fi",
+                        "description": "an audio production of BoneQuest #6969, featuring: @hydra2134, bonus suspended @IHaveShitMyself.\nit's time.\n~BoneQuest Hi-Fi",
+                        "duration": "0:30",
+                        "create_date": 1550592000
+                    },
+                    "navigation": {
+                        "back": [
+                            {}
+                        ],
+                        "next": [
+                            {}
+                        ]
+                    }
                 }
             ],
             "quote": {},
             "meta": {
+                "version": "bq/4.0.0",
                 "contact": "root@bonequest.com",
-                "gay": true,
+                "url": "https://www.bonequest.com",
+                "repo": "https://github.com/bonequest",
                 "high": 8340,
                 "queue": {
                     "empty": {
@@ -211,9 +223,7 @@ const PLAN = [
                     ],
                     "size": 1
                 },
-                "repo": "https://github.com/bonequest",
-                "url": "https://www.bonequest.com",
-                "version": "bq/4.0.0"
+                "gay": true
             }
         },
         "idField": "id"
@@ -229,15 +239,29 @@ const PLAN = [
             "q": "\"what about nuts\""
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "q"
+        ],
+        "queryArgs": [
+            {
+                "name": "q",
+                "wire": "q"
+            }
         ],
         "auth": null,
         "status": 200,
         "sample": {
             "episodes": [
                 {
+                    "episode": 6969,
                     "day": 20,
+                    "month": 4,
+                    "year": 2018,
+                    "title": "sex change",
                     "dialog": [
                         [
                             "deuce",
@@ -252,40 +276,6 @@ const PLAN = [
                             "SURPRISE ME"
                         ]
                     ],
-                    "episode": 6969,
-                    "hd": [
-                        {
-                            "author": "eyetooth",
-                            "height": 200,
-                            "id": 2787,
-                            "image": "http://31.media.tumblr.com/389cf0c4c9d36943f0a9aa7007e70bbf/tumblr_mlkg3kfWHP1snfhwio1_1280.png",
-                            "link_status": "",
-                            "mirror_url": "/hd/1.2787.jpg",
-                            "thumb_url": "/hd/t/1.2787.jpg",
-                            "url": "http://jerkcityhd.tumblr.com/post/48734349486/up-late",
-                            "width": 144
-                        }
-                    ],
-                    "height": 574,
-                    "hifi": {
-                        "audio_url": "http://bonequesthifi.com/6969.mp3",
-                        "author": "BoneQuest Hi-Fi",
-                        "create_date": 1550592000,
-                        "description": "an audio production of BoneQuest #6969, featuring: @hydra2134, bonus suspended @IHaveShitMyself.\nit's time.\n~BoneQuest Hi-Fi",
-                        "duration": "0:30",
-                        "hifi_id": 501,
-                        "page_url": "https://bonequesthifi.com/6969"
-                    },
-                    "image": "/6969.gif",
-                    "month": 4,
-                    "navigation": {
-                        "back": [
-                            {}
-                        ],
-                        "next": [
-                            {}
-                        ]
-                    },
                     "players": [
                         "deuce",
                         "pants"
@@ -295,27 +285,59 @@ const PLAN = [
                         "deuce-pants",
                         "sex-change"
                     ],
+                    "image": "/6969.gif",
                     "thumb": "/thumb/6969.gif",
-                    "title": "sex change",
                     "width": 575,
-                    "year": 2018
+                    "height": 574,
+                    "hd": [
+                        {
+                            "id": 2787,
+                            "author": "eyetooth",
+                            "image": "http://31.media.tumblr.com/389cf0c4c9d36943f0a9aa7007e70bbf/tumblr_mlkg3kfWHP1snfhwio1_1280.png",
+                            "url": "http://jerkcityhd.tumblr.com/post/48734349486/up-late",
+                            "mirror_url": "/hd/1.2787.jpg",
+                            "thumb_url": "/hd/t/1.2787.jpg",
+                            "width": 144,
+                            "height": 200,
+                            "link_status": ""
+                        }
+                    ],
+                    "hifi": {
+                        "hifi_id": 501,
+                        "audio_url": "http://bonequesthifi.com/6969.mp3",
+                        "page_url": "https://bonequesthifi.com/6969",
+                        "author": "BoneQuest Hi-Fi",
+                        "description": "an audio production of BoneQuest #6969, featuring: @hydra2134, bonus suspended @IHaveShitMyself.\nit's time.\n~BoneQuest Hi-Fi",
+                        "duration": "0:30",
+                        "create_date": 1550592000
+                    },
+                    "navigation": {
+                        "back": [
+                            {}
+                        ],
+                        "next": [
+                            {}
+                        ]
+                    }
                 }
             ],
             "search": {
                 "query": "\"what about nuts\"",
                 "runtime": 0.0002644062042236328,
+                "version": "4",
                 "sums": {
                     "dates": 0,
                     "episodes": 0,
                     "tags": 0,
                     "titles": 0,
                     "words": 1
-                },
-                "version": "4"
+                }
             },
             "meta": {
+                "version": "bq/4.0.0",
                 "contact": "root@bonequest.com",
-                "gay": true,
+                "url": "https://www.bonequest.com",
+                "repo": "https://github.com/bonequest",
                 "high": 8340,
                 "queue": {
                     "empty": {
@@ -328,9 +350,7 @@ const PLAN = [
                     ],
                     "size": 1
                 },
-                "repo": "https://github.com/bonequest",
-                "url": "https://www.bonequest.com",
-                "version": "bq/4.0.0"
+                "gay": true
             }
         },
         "idField": "id"

@@ -16,9 +16,9 @@ import (
 type Episode struct {
 }
 
-// EpisodeLoadMatch is the typed request payload for Episode.LoadTyped.
-type EpisodeLoadMatch struct {
-	Id int `json:"id"`
+// EpisodeListMatch is the typed request payload for Episode.ListTyped.
+type EpisodeListMatch struct {
+	EpisodeNumber int `json:"episode_number"`
 }
 
 // Quote is the typed data model for the quote entity.

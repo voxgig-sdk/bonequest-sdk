@@ -111,8 +111,10 @@ Make a direct HTTP request to any API endpoint.
 | `fetchargs.headers` | `object` | Request headers (merged with defaults). |
 | `fetchargs.body` | `any` | Request body (objects are JSON-serialized). |
 | `fetchargs.ctrl` | `object` | Control options (e.g. `{ explain: true }`). |
+| `fetchargs.ctrl.signal` | `AbortSignal` | Aborts the request in flight: `ok` is then `false` and `err.code` is `request_aborted`. |
 
-**Returns:** `Promise<{ ok, status, headers, data } | Error>`
+**Returns:** `Promise<{ ok, status, headers, data }>`. On a failure
+`ok` is `false` and `err` holds the error.
 
 #### `prepare(fetchargs?: object)`
 
@@ -127,6 +129,15 @@ Alias for `BonequestSDK.test()`.
 
 **Returns:** `BonequestSDK` instance in test mode.
 
+#### Cancelling a call
+
+Every entity operation takes an optional `ctrl` object after its match or
+data, and an `AbortSignal` in `ctrl.signal` cancels the request in flight.
+The operation then rejects with an error whose `code` is
+`request_aborted` and whose `cause` is the signal's reason. A request
+whose signal has already aborted is not sent. `stream()` takes the signal
+as `callopts.signal`, and ends when it aborts.
+
 
 ---
 
@@ -140,18 +151,30 @@ const episode = client.Episode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episodes` | `any[]` | No |  |
-| `id` | `string` | No |  |
-| `meta` | `Record<string, any>` | No | API metadata wrapper |
+| `day` | `number` | No | Day of month published |
+| `dialog` | `any[]` | No | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `number` | No | Episode number |
+| `hd` | `any[]` | No | Optional array containing details about associated BoneQuest HD images |
+| `height` | `number` | No | Image height |
+| `hifi` | `Record<string, any>` | No | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | No | Partial URL to episode image |
+| `month` | `number` | No | Month published, number between 1-12 |
+| `navigation` | `Record<string, any>` | No | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `any[]` | No | Array of player names |
+| `tags` | `any[]` | No | Array of tags applied |
+| `thumb` | `string` | No | Partial URL to thumbnail of episode image |
+| `title` | `string` | No | Episode title |
+| `width` | `number` | No | Image width |
+| `year` | `number` | No | Year published |
 
 ### Operations
 
-#### `load(match: object, ctrl?: object)`
+#### `list(match: object, ctrl?: object)`
 
-Load a single entity matching the given criteria.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
-const result = await client.Episode().load({ id: 1 })
+const results = await client.Episode().list({ episode_number: 1 })
 ```
 
 ### Common Methods
@@ -212,7 +235,7 @@ const result = await client.Quote().list({
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.Quote().list()
@@ -276,7 +299,7 @@ const search = client.Search()
 
 #### `list(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Resolves to an array of entities, one per record.
 
 ```ts
 const results = await client.Search().list({ q: "example" })
@@ -467,6 +490,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

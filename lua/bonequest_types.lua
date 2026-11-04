@@ -7,12 +7,24 @@
 -- edit by hand.
 
 ---@class Episode
----@field episodes? table
----@field id? string
----@field meta? table
+---@field day? number
+---@field dialog? table
+---@field episode? number
+---@field hd? table
+---@field height? number
+---@field hifi? table
+---@field image? string
+---@field month? number
+---@field navigation? table
+---@field players? table
+---@field tags? table
+---@field thumb? string
+---@field title? string
+---@field width? number
+---@field year? number
 
----@class EpisodeLoadMatch
----@field id number
+---@class EpisodeListMatch
+---@field episode_number number
 
 ---@class Quote
 

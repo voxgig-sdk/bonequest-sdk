@@ -15,15 +15,27 @@ declare(strict_types=1);
 /** Episode entity data model. */
 class Episode
 {
-    public ?array $episodes = null;
-    public ?string $id = null;
-    public ?array $meta = null;
+    public ?int $day = null;
+    public ?array $dialog = null;
+    public ?int $episode = null;
+    public ?array $hd = null;
+    public ?int $height = null;
+    public ?array $hifi = null;
+    public ?string $image = null;
+    public ?int $month = null;
+    public ?array $navigation = null;
+    public ?array $players = null;
+    public ?array $tags = null;
+    public ?string $thumb = null;
+    public ?string $title = null;
+    public ?int $width = null;
+    public ?int $year = null;
 }
 
-/** Request payload for Episode#load. */
-class EpisodeLoadMatch
+/** Request payload for Episode#list. */
+class EpisodeListMatch
 {
-    public int $id;
+    public int $episode_number;
 }
 
 /** Quote entity data model. */

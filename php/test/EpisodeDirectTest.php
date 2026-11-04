@@ -10,23 +10,44 @@ use PHPUnit\Framework\TestCase;
 
 class EpisodeDirectTest extends TestCase
 {
-    public function test_direct_load_episode(): void
+    // main.kit.test.live.strict is true (the default is true): a live
+    // request that fails, or a live test missing an input it needs,
+    // fails the test.
+    // An account with no record for a test to read skips it either way.
+    private const LIVE_STRICT = true;
+
+    private static function liveOk(array $result): bool
     {
-        $setup = episode_direct_setup(["id" => "direct01"]);
-        [$_shouldSkip, $_reason] = Runner::is_control_skipped("direct", "direct-load-episode", $setup["live"] ? "live" : "unit");
+        $status = Helpers::to_int($result["status"] ?? 0);
+        return empty($result["err"]) && !empty($result["ok"]) && $status >= 200 && $status < 300;
+    }
+
+    public function test_direct_list_episode(): void
+    {
+        $setup = episode_direct_setup([
+            ["id" => "direct01"],
+            ["id" => "direct02"],
+        ]);
+        [$_shouldSkip, $_reason] = Runner::is_control_skipped("direct", "direct-list-episode", $setup["live"] ? "live" : "unit");
         if ($_shouldSkip) {
             $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
             return;
+        }
+        if ($setup["live"]) {
+            foreach (["count01"] as $_liveKey) {
+                if (null === ($setup["idmap"][$_liveKey] ?? null)) {
+                    Runner::live_miss(self::LIVE_STRICT, "Live test blocked: needs " . $_liveKey . " via BONEQUEST_TEST_EPISODE_ENTID");
+                }
+            }
+        }
+        if (!empty($setup["live"])) {
+            Runner::live_pace();
         }
         $client = $setup["client"];
 
         $params = [];
         $query = [];
-        if ($setup["live"]) {
-            $params["count"] = 1;
-        } else {
-            $params["count"] = "direct01";
-        }
+        $params["count"] = $setup["live"] ? ($setup["idmap"]["count01"] ?? null) : "direct01";
 
         $result = $client->direct([
             "path" => "episodes/random/{count}",
@@ -35,30 +56,19 @@ class EpisodeDirectTest extends TestCase
             "query" => $query,
         ]);
         if ($setup["live"]) {
-            // Live mode is lenient: synthetic IDs frequently 4xx. Skip
-            // rather than fail when the load endpoint isn't reachable
-            // with the IDs we can construct from setup.idmap.
-            if (!empty($result["err"])) {
-                $this->markTestSkipped("load call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
-                return;
+            if (!self::liveOk($result)) {
+                Runner::live_miss(self::LIVE_STRICT, "Live list failed: " . Runner::live_describe($result));
             }
-            if (empty($result["ok"])) {
-                $this->markTestSkipped("load call not ok (likely synthetic IDs against live API)");
-                return;
+            if (null === Runner::live_list($result["data"] ?? null)) {
+                Runner::live_miss(self::LIVE_STRICT, "Live list returned no list: " . Runner::live_describe($result));
             }
-            $status = Helpers::to_int($result["status"]);
-            if ($status < 200 || $status >= 300) {
-                $this->markTestSkipped("expected 2xx status, got " . $status);
-                return;
-            }
+            $this->assertIsArray(Runner::live_list($result["data"]));
         } else {
             $this->assertArrayNotHasKey("err", $result);
             $this->assertTrue($result["ok"]);
             $this->assertEquals(200, Helpers::to_int($result["status"]));
-            $this->assertNotNull($result["data"]);
-            if (is_array($result["data"]) && isset($result["data"]["id"])) {
-                $this->assertEquals("direct01", $result["data"]["id"]);
-            }
+            $this->assertIsArray($result["data"]);
+            $this->assertCount(2, $result["data"]);
             $this->assertCount(1, $setup["calls"]);
         }
     }
@@ -85,11 +95,15 @@ function episode_direct_setup($mockres)
         $merged_opts = array_merge(Runner::live_client_options(), [
         ]);
         $client = new BonequestSDK($merged_opts);
+        $idmap = $env["BONEQUEST_TEST_EPISODE_ENTID"] ?? [];
+        // A path parameter's example stands in for an id *_ENTID does not give.
+        $idmap = array_merge(["count01" => 1],
+            is_array($idmap) ? $idmap : []);
         return [
             "client" => $client,
             "calls" => $calls,
             "live" => true,
-            "idmap" => [],
+            "idmap" => is_array($idmap) ? $idmap : [],
         ];
     }
 

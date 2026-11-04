@@ -16,7 +16,7 @@ import type {
 
 import type {
   Episode,
-  EpisodeLoadMatch,
+  EpisodeListMatch,
 } from '../BonequestTypes'
 
 class EpisodeEntity extends BonequestEntityBase<Episode> {
@@ -35,7 +35,8 @@ class EpisodeEntity extends BonequestEntityBase<Episode> {
 
 
 
-  async load(this: any, reqmatch?: EpisodeLoadMatch, ctrl?: Control): Promise<EpisodeEntity> {
+
+  async list(this: any, reqmatch?: EpisodeListMatch, ctrl?: Control): Promise<EpisodeEntity[]> {
 
     const utility = this._utility
 
@@ -55,7 +56,7 @@ class EpisodeEntity extends BonequestEntityBase<Episode> {
     let fres: Promise<any> | undefined = undefined
 
     let ctx: Context = makeContext({
-      opname: 'load',
+      opname: 'list',
       ctrl,
       match: this._match,
       data: this._data,
@@ -121,22 +122,19 @@ class EpisodeEntity extends BonequestEntityBase<Episode> {
         if (null != ctx.result.resmatch) {
           this._match = ctx.result.resmatch
         }
-
-        if (null != ctx.result.resdata) {
-          this._data = ctx.result.resdata
-        }
       }
 
-      const out = done(ctx)
-
-      return (ctx.result && ctx.result.ok) ? this : out
+      return done(ctx)
     }
     catch (err: any) {
       // What a hook throws here must not escape the cleaning below.
       try {
+        // Once per operation: makeError fires it for its own error.
+        if (!ctx.unexpectedFired) {
 
-        fres = featureHook(ctx, 'PreUnexpected')
-        if (fres instanceof Promise) { await fres }
+          fres = featureHook(ctx, 'PreUnexpected')
+          if (fres instanceof Promise) { await fres }
+        }
       }
       catch (hookerr: any) {
         err = hookerr
@@ -149,7 +147,7 @@ class EpisodeEntity extends BonequestEntityBase<Episode> {
       }
       else {
         // Off-happy-path (throw disabled): typed as any so the method's
-        // Promise<Episode> return stays clean under strict null checks.
+        // Promise<EpisodeEntity[]> return stays clean under strict null checks.
         return undefined as any
       }
     }

@@ -16,12 +16,15 @@ An entity groups related API operations. An operation can have several routes wi
 
 Results: Successful response.
 
-SDK operations: `load`.
+SDK operations: `list`.
 
 Key fields to recognise:
 
-- `id`: Episode number
-- `meta`: API metadata wrapper
+- `day`: Day of month published
+- `dialog`: Array of arrays containing episode dialog, element 0 is typically player&#39;s name and element 1 is the dialog
+- `episode`: Episode number
+- `hd`: Optional array containing details about associated BoneQuest HD images
+- `height`: Image height
 
 ### Quote
 
@@ -49,9 +52,9 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 
 | Entity | SDK operation | HTTP route | Authentication |
 | --- | --- | --- | --- |
-| Episode | `load` | `GET /episodes/random/{count}` | See reference |
-| Episode | `load` | `GET /episode/{episodeNumber}` | See reference |
-| Episode | `load` | `GET /episodes/{episodeNumbers}` | See reference |
+| Episode | `list` | `GET /episodes/random/{count}` | See reference |
+| Episode | `list` | `GET /episode/{episodeNumber}` | See reference |
+| Episode | `list` | `GET /episodes/{episodeNumbers}` | See reference |
 | Quote | `list` | `GET /quote/random` | See reference |
 | Search | `list` | `GET /search/` | See reference |
 
@@ -101,8 +104,8 @@ Use the MCP server to expose supported API operations to an MCP client.
 
 Repository directory: `go-mcp/`. Not published. Build from the go-mcp directory.
 
-- `bonequest_list`: List records for an entity. Supported entities: `quote`, `search`.
-- `bonequest_load`: Load one record for an entity. Supported entities: `episode`.
+- `bonequest_list`: List records for an entity. Supported entities: `episode`, `quote`, `search`.
+- `bonequest_load`: Load one record for an entity. No active entity supports this operation.
 
 ## Operational features
 

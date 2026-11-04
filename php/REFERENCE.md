@@ -100,18 +100,30 @@ $episode = $client->Episode();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episodes` | `array` | No |  |
-| `id` | `string` | No |  |
-| `meta` | `array` | No | API metadata wrapper |
+| `day` | `int` | No | Day of month published |
+| `dialog` | `array` | No | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `int` | No | Episode number |
+| `hd` | `array` | No | Optional array containing details about associated BoneQuest HD images |
+| `height` | `int` | No | Image height |
+| `hifi` | `array` | No | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | No | Partial URL to episode image |
+| `month` | `int` | No | Month published, number between 1-12 |
+| `navigation` | `array` | No | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `array` | No | Array of player names |
+| `tags` | `array` | No | Array of tags applied |
+| `thumb` | `string` | No | Partial URL to thumbnail of episode image |
+| `title` | `string` | No | Episode title |
+| `width` | `int` | No | Image width |
+| `year` | `int` | No | Year published |
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$result = $client->Episode()->load(["id" => 1]);
+$results = $client->Episode()->list(["episode_number" => 1]);
 ```
 
 ### Common Methods
@@ -154,7 +166,7 @@ $quote = $client->Quote();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->Quote()->list();
@@ -220,10 +232,10 @@ $search = $client->Search();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->Search()->list();
+$results = $client->Search()->list(["q" => "example"]);
 ```
 
 ### Common Methods
@@ -413,6 +425,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

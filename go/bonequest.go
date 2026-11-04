@@ -13,7 +13,12 @@ type Context = core.Context
 type Utility = core.Utility
 type Feature = core.Feature
 type Entity = core.Entity
-type BonequestEntity = core.BonequestEntity
+type BonequestEntityBase = core.BonequestEntityBase
+
+// Deprecated: use BonequestEntityBase.
+type BonequestEntity = core.BonequestEntityBase
+
+type StreamItem = core.StreamItem
 type FetcherFunc = core.FetcherFunc
 type Spec = core.Spec
 type Result = core.Result
@@ -41,13 +46,13 @@ func init() {
 	core.NewTimeoutFeatureFunc = func() core.Feature {
 		return feature.NewTimeoutFeature()
 	}
-	core.NewEpisodeEntityFunc = func(client *core.BonequestSDK, entopts map[string]any) core.BonequestEntity {
+	core.NewEpisodeEntityFunc = func(client *core.BonequestSDK, entopts map[string]any) core.BonequestEntityBase {
 		return entity.NewEpisodeEntity(client, entopts)
 	}
-	core.NewQuoteEntityFunc = func(client *core.BonequestSDK, entopts map[string]any) core.BonequestEntity {
+	core.NewQuoteEntityFunc = func(client *core.BonequestSDK, entopts map[string]any) core.BonequestEntityBase {
 		return entity.NewQuoteEntity(client, entopts)
 	}
-	core.NewSearchEntityFunc = func(client *core.BonequestSDK, entopts map[string]any) core.BonequestEntity {
+	core.NewSearchEntityFunc = func(client *core.BonequestSDK, entopts map[string]any) core.BonequestEntityBase {
 		return entity.NewSearchEntity(client, entopts)
 	}
 }

@@ -98,18 +98,30 @@ local episode = client:Episode(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `episodes` | `table` | No |  |
-| `id` | `string` | No |  |
-| `meta` | `table` | No | API metadata wrapper |
+| `day` | `number` | No | Day of month published |
+| `dialog` | `table` | No | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `number` | No | Episode number |
+| `hd` | `table` | No | Optional array containing details about associated BoneQuest HD images |
+| `height` | `number` | No | Image height |
+| `hifi` | `table` | No | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `string` | No | Partial URL to episode image |
+| `month` | `number` | No | Month published, number between 1-12 |
+| `navigation` | `table` | No | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `table` | No | Array of player names |
+| `tags` | `table` | No | Array of tags applied |
+| `thumb` | `string` | No | Partial URL to thumbnail of episode image |
+| `title` | `string` | No | Episode title |
+| `width` | `number` | No | Image width |
+| `year` | `number` | No | Year published |
 
 ### Operations
 
-#### `load(reqmatch, ctrl) -> any, err`
+#### `list(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local result, err = client:Episode():load({ id = 1 })
+local results, err = client:Episode():list({ episode_number = 1 })
 ```
 
 ### Common Methods
@@ -152,7 +164,7 @@ local quote = client:Quote(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:Quote():list()
@@ -218,10 +230,10 @@ local search = client:Search(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:Search():list()
+local results, err = client:Search():list({ q = "example" })
 ```
 
 ### Common Methods
@@ -411,6 +423,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

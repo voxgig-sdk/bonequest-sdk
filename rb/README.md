@@ -4,7 +4,7 @@
 
 The Ruby SDK for the Bonequest API — an entity-oriented client using idiomatic Ruby conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Episode` — with named operations (`list`/`load`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Episode` — with named operations (`list`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/bonequest-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/bonequest-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -39,15 +39,18 @@ require_relative "Bonequest_sdk"
 client = BonequestSDK.new
 ```
 
-### 3. Load an episode
+### 2. List episode records
 
 ```ruby
 begin
-  # load returns the ENTITY — call data_get for the Episode record (raises on error).
-  episode = client.Episode.load({ "id" => 1 })
-  puts episode
+  # list returns an Array of Episode entities, one per record; data_get reads the record.
+  episodes = client.Episode.list({ "episode_number" => 1 })
+  episodes.each do |item|
+    record = item.data_get
+    puts "#{record["day"]}"
+  end
 rescue => err
-  warn "load failed: #{err}"
+  warn "list failed: #{err}"
 end
 ```
 
@@ -58,9 +61,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  episode = client.Episode.load({ "id" => 1 })
+  searchs = client.Search.list({ "q" => "example" })
 rescue => err
-  warn "load failed: #{err}"
+  warn "list failed: #{err}"
 end
 ```
 
@@ -121,18 +124,15 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = BonequestSDK.test({
-  "entity" => { "episode" => { "test01" => { "id" => "test01" } } },
-})
+client = BonequestSDK.test
 
-# Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
-episode = client.Episode.load({ "id" => "test01" })
-puts episode
+# list returns an Array of Search entities, one per mock record (raises on
+# error); data_get reads each record.
+searchs = client.Search.list({ "q" => "example" })
+searchs.each { |item| puts item.data_get }
 ```
 
 ### Use a custom fetch function
@@ -218,8 +218,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all), one per record. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -229,9 +228,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `BonequestError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`BonequestError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -250,11 +250,23 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `episodes` |  |
-| `id` |  |
-| `meta` | API metadata wrapper |
+| `day` | Day of month published |
+| `dialog` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | Episode number |
+| `hd` | Optional array containing details about associated BoneQuest HD images |
+| `height` | Image height |
+| `hifi` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | Partial URL to episode image |
+| `month` | Month published, number between 1-12 |
+| `navigation` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | Array of player names |
+| `tags` | Array of tags applied |
+| `thumb` | Partial URL to thumbnail of episode image |
+| `title` | Episode title |
+| `width` | Image width |
+| `year` | Year published |
 
-Operations: Load.
+Operations: List.
 
 API path: `/episodes/random/{count}`
 
@@ -304,21 +316,34 @@ Create an instance: `episode = client.Episode`
 
 | Method | Description |
 | --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
+| `list(match)` | List entities matching the criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `episodes` | `Array` |  |
-| `id` | `String` |  |
-| `meta` | `Hash` | API metadata wrapper |
+| `day` | `Integer` | Day of month published |
+| `dialog` | `Array` | Array of arrays containing episode dialog, element 0 is typically player's name and element 1 is the dialog |
+| `episode` | `Integer` | Episode number |
+| `hd` | `Array` | Optional array containing details about associated BoneQuest HD images |
+| `height` | `Integer` | Image height |
+| `hifi` | `Hash` | Optional details about an associated BoneQuest HiFi episode |
+| `image` | `String` | Partial URL to episode image |
+| `month` | `Integer` | Month published, number between 1-12 |
+| `navigation` | `Hash` | Back and next keys contain fully-formed episode for surrounding episodes |
+| `players` | `Array` | Array of player names |
+| `tags` | `Array` | Array of tags applied |
+| `thumb` | `String` | Partial URL to thumbnail of episode image |
+| `title` | `String` | Episode title |
+| `width` | `Integer` | Image width |
+| `year` | `Integer` | Year published |
 
-#### Example: Load
+#### Example: List
 
 ```ruby
-# load returns the ENTITY — call data_get for the Episode record (raises on error).
-episode = client.Episode.load({ "id" => 1 })
+# list returns an Array of Episode entities, one per record (raises on error).
+episodes = client.Episode.list({ "episode_number" => 1 })
+episodes.each { |item| puts item.data_get }
 ```
 
 
@@ -335,8 +360,9 @@ Create an instance: `quote = client.Quote`
 #### Example: List
 
 ```ruby
-# list returns an Array of Quote records (raises on error).
+# list returns an Array of Quote entities, one per record (raises on error).
 quotes = client.Quote.list
+quotes.each { |item| puts item.data_get }
 ```
 
 
@@ -373,8 +399,9 @@ Create an instance: `search = client.Search`
 #### Example: List
 
 ```ruby
-# list returns an Array of Search records (raises on error).
-searchs = client.Search.list
+# list returns an Array of Search entities, one per record (raises on error).
+searchs = client.Search.list({ "q" => "example" })
+searchs.each { |item| puts item.data_get }
 ```
 
 ## Features
@@ -535,15 +562,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-episode = client.Episode
-episode.load({ "id" => 1 })
+search = client.Search
+search.list({ "q" => "example" })
 
-# episode.data_get now returns the episode data from the last load
-# episode.match_get returns the last match criteria
+# search.data_get now returns the search data from the last list
+# search.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration
